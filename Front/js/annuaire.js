@@ -5,7 +5,7 @@ function addSimploniens(element){
     const carte = document.createElement("a")
     carte.classList.add('col')
     carte.classList.add('s4')
-    carte.setAttribute('href', `./profil.php/#${element._id}`)
+    carte.setAttribute('href', `./profil.html/#${element._id}`)
     carte.innerHTML = ` 
     <div class="card">
         <div class="card-image">

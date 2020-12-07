@@ -27,7 +27,7 @@ btn.addEventListener('click', (e) =>{
             return reponse.json()
         }
     }).then(data => {
-       window.location.href = `./annuaire.php#${data.Name}#${data.FirstName}` 
+       window.location.href = `./annuaire.html#${data.Name}#${data.FirstName}` 
     })
 })
 
