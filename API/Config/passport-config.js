@@ -28,8 +28,6 @@ function initialize(passport, getUserByEmail){
     })
 }
 
-module.exports = initialize(passport,
-    Email => User.find(user => user.Email === Email)
-    );
+module.exports = initialize
 
     

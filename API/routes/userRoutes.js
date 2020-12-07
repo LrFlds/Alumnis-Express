@@ -5,16 +5,13 @@ const passport = require('passport');
 
 
 router.route('/login').get()
-                    .post(userController.checkAuthenticated, passport.authenticate('local', {
-                        successRedirect:'/',
-                        failureRedirect:'/login',
-                    }))
+                    .post(userController.checkAuthenticated, userController.test)
 
 router.route('/annuaire').get(userController.checkAuthenticated,userController.getAllUsers)
 
 router.route('/profil/:id').get(userController.checkAuthenticated,userController.getUser)
 
-
+router.route('/create').post(userController.createUser)
 
 
 

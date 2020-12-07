@@ -1,10 +1,9 @@
-const express = require('express');
+
 const User = require('../Domain/Domain_services/Models/userModel');
 const Post = require('../Domain/Domain_services/Models/postModel');
 const bcrypt = require('bcrypt');
-const passport = require('passport');
-const localStrategy = require('passport-local').Strategy;
-const flash = require('express-flash');
+const BDD = require('../Domain/Data/dbConnection')
+
 
 
 
@@ -27,6 +26,7 @@ module.exports = {
                     Name: req.body.Name,
                     FirstName: req.body.FirstName,
                     Email: req.body.Email,
+                    Password: req.body.Password,
                     Picture: req.body.Picture,
                     Fabric: req.body.Fabric,
                     Year: req.body.Year,
@@ -38,7 +38,13 @@ module.exports = {
                     Status: req.body.Status,
                     IsAdmin: req.body.IsAdmin,
                 })
-
+                newUser.save((err, user)=>{
+                    if(err){
+                        res.send(err)
+                    }else{
+                        res.sendStatus(201)
+                    }
+                })
             } else {
                 res.send('Utilisateur déjà connu')
             }
@@ -59,52 +65,51 @@ module.exports = {
             }
         })
     },
-    updateUser(req,res) {
-        User.findOne({ Email: req.body.Email }).then(async (user) => {
-
-            if (user.Description != req.body.Description && req.body.Description != null) {
-                user.updateOne({ Description: req.body.Description }).then().catch(error => {
-                    res.send(error)
-                });
-            } if (user.Company != req.body.Company && req.body.Company != null) {
-                user.updateOne({ Company: req.body.Company }).then().catch(error => {
-                    res.send(error)
-                });
-            } if (user.Techno != req.body.Techno && req.body.Techno != null) {
-                user.updateOne({ Techno: req.body.Techno }).then().catch(error => {
-                    res.send(error)
-                })
-            } if (req.body.Password != null && req.body.newPassword != null && req.body.Password != req.body.newPassword) {
-                await bcrypt.compare(req.body.Password, user.Password, (err, match) => {
-                    if (err) {
-                        res.send(err)
-                    } else {
-                       await bcrypt.hashPassword(req.body.Password, 10, (err, hash) => {
-                            if (err) {
-                                res.send(err)
-                            } else {
-                                user.updateOne({ Password: hash }).then().catch(error => {
-                                    res.send(error)
-                                })
-                            }
-                        })
-                    }
-                })
-            } if (req.body.Email != null && req.body.newEmail != null && req.body.Email != req.body.newEmail) {
-                await bcrypt.compare(req.body.Password, user.Password, (err, match) => {
-                    if (err) {
-                        res.send(err)
-                    } else {
-                        user.updateOne({ Email: req.body.newMail }).then(result=>{
-                            res.sendStatus(200)
-                        }).catch(error => {
-                            res.send(error)
-                        })
-                    }
-                })
-        }
-        })
-    },
+    // updateUser(req,res) {
+    //     User.findOne({ Email: req.body.Email }).then(async (user) => {
+    //         if (user.Description != req.body.Description && req.body.Description != null) {
+    //             user.updateOne({ Description: req.body.Description }).then().catch(error => {
+    //                 res.send(error)
+    //             });
+    //         } if (user.Company != req.body.Company && req.body.Company != null) {
+    //             user.updateOne({ Company: req.body.Company }).then().catch(error => {
+    //                 res.send(error)
+    //             });
+    //         } if (user.Techno != req.body.Techno && req.body.Techno != null) {
+    //             user.updateOne({ Techno: req.body.Techno }).then().catch(error => {
+    //                 res.send(error)
+    //             })
+    //         } if (req.body.Password != null && req.body.newPassword != null && req.body.Password != req.body.newPassword) {
+    //             await bcrypt.compare(req.body.Password, user.Password, (err, match) => {
+    //                 if (err) {
+    //                     res.send(err)
+    //                 } else {
+    //                    await bcrypt.hashPassword(req.body.Password, 10, (err, hash) => {
+    //                         if (err) {
+    //                             res.send(err)
+    //                         } else {
+    //                             user.updateOne({ Password: hash }).then().catch(error => {
+    //                                 res.send(error)
+    //                             })
+    //                         }
+    //                     })
+    //                 }
+    //             })
+    //         } if (req.body.Email != null && req.body.newEmail != null && req.body.Email != req.body.newEmail) {
+    //             await bcrypt.compare(req.body.Password, user.Password, (err, match) => {
+    //                 if (err) {
+    //                     res.send(err)
+    //                 } else {
+    //                     user.updateOne({ Email: req.body.newMail }).then(result=>{
+    //                         res.sendStatus(200)
+    //                     }).catch(error => {
+    //                         res.send(error)
+    //                     })
+    //                 }
+    //             })
+    //     }
+    //     })
+    // },
     updateUserAdmin(req,res){
         User.findOne({ Email: req.body.Email }).then(user => {
             if(req.body.Name != null && req.body.Name != user.Name)
@@ -124,9 +129,20 @@ module.exports = {
 
     checkAuthenticated(req, res, next){
         if(req.isAuthenticated()){
+            
             return next()
         }
         res.sendStatus(401);
+    }, 
+
+    test(req, res){
+        console.log(req.user)
+    },
+    
+    turlututu(req, res){
+        User.findOne({ Email: req.body.Email}).then(result =>{
+            return result 
+        })
     }
 }
 
