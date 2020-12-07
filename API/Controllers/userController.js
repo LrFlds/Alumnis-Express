@@ -1,6 +1,6 @@
 const express = require('express');
-const User = require('../Models/userModel');
-const Post = require('../Models/postModel');
+const User = require('../Domain/Domain_services/Models/userModel');
+const Post = require('../Domain/Domain_services/Models/postModel');
 const bcrypt = require('bcrypt');
 
 
