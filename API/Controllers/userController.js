@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const BDD = require('../Domain/Data/dbConnection');
 const passport = require('passport');
 require('../Config/passport-config')(passport);
+const localStrategy = require('passport-local').Strategy;
 
 
 
@@ -131,7 +132,7 @@ module.exports = {
 
     checkAuthenticated(req, res, next){
         console.log('tu rentre ou pas ?')
-        passport.authenticate('local', (err, user, info)=>{
+        passport.authenticate('passport-local', (err, user, info)=>{
             console.log("t'es dans le if ")
             if(err){
                 console.log(err)
@@ -150,7 +151,8 @@ module.exports = {
                 })
             }
         }) 
-        next()
+        (req, res, next);
+            
     }
 
 
