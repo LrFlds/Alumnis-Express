@@ -2,15 +2,17 @@
 const User = require('../Domain/Domain_services/Models/userModel');
 const Post = require('../Domain/Domain_services/Models/postModel');
 const bcrypt = require('bcrypt');
-const BDD = require('../Domain/Data/dbConnection')
+const BDD = require('../Domain/Data/dbConnection');
+const passport = require('passport');
+require('../Config/passport-config')(passport);
 
 
 
 
 module.exports = {
-    getAllUsers(res) {
+    getAllUsers(req, res) {
         User.find().then(result => {
-            res.json(result)
+            res.send(result)
         })
     },
     getUser(req,res) {
@@ -119,7 +121,7 @@ module.exports = {
             }
             if(req.body.FirstName != null && req.body.FirstName != user.FirstName)
             {
-                user.updateOne({FirstName:req.body.FirstName})
+                user.updateOne({FirstName: req.body.FirstName})
                 res.sendStatus(200)
             }
         }).catch(err=>{
@@ -128,22 +130,30 @@ module.exports = {
     },
 
     checkAuthenticated(req, res, next){
-        if(req.isAuthenticated()){
-            
-            return next()
-        }
-        res.sendStatus(401);
-    }, 
-
-    test(req, res){
-        console.log(req.user)
-    },
-    
-    turlututu(req, res){
-        User.findOne({ Email: req.body.Email}).then(result =>{
-            return result 
-        })
+        console.log('tu rentre ou pas ?')
+        passport.authenticate('local', (err, user, info)=>{
+            console.log("t'es dans le if ")
+            if(err){
+                console.log(err)
+                throw err;
+            } 
+            if(!user){
+                console.log("c'est bon ou pas ?")
+                res.send('No user exist ')
+            } else {
+                console.log(user)
+                console.log('boooooooon ?!!!!')
+                req.logIn(user, err =>{
+                    if(err) throw err;
+                    res.send('Authentification correct ')
+                    console.log(req.user)
+                })
+            }
+        }) 
+        next()
     }
+
+
 }
 
 

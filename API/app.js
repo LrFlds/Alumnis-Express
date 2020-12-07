@@ -3,7 +3,6 @@ const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser'); 
 const userRoute = require('./routes/userRoutes');
-const passConfig = require('./Config/passport-config');
 const passport = require('passport');
 const session = require('express-session');
 const UserController = require('./Controllers/userController')
@@ -23,10 +22,8 @@ app.use(session({
     saveUninitialized: false
     
 }));
+require('./Config/passport-config')(passport);
 
-passConfig(passport, 
-    UserController.turlututu()
-    )
 
 
 

@@ -5,7 +5,7 @@ const passport = require('passport');
 
 
 router.route('/login').get()
-                    .post(userController.checkAuthenticated, userController.test)
+                    .post(userController.checkAuthenticated)
 
 router.route('/annuaire').get(userController.checkAuthenticated,userController.getAllUsers)
 
