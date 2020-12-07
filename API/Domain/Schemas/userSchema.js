@@ -13,7 +13,7 @@ const UserSchema = new User ({
     Techno: [{ type: String, required: true }],
     Description: { type: String }, // DESCRIPTION VIDEO A VOIR
     Company: { type: String },
-    PostList: [{ type: mongoose.Schema.Types.ObjectId, ref: 'PostModel' }], // VERIF LIEN
+    PostList: [{ type: Schema.Types.ObjectId, ref: 'PostModel' }], // VERIF LIEN
     Status: { type: Boolean, required: true },
     IsAdmin: { type: Boolean, default: "false"  },
 })

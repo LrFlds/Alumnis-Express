@@ -2,24 +2,28 @@ const express = require('express');
 const User = require('../Domain/Domain_services/Models/userModel');
 const Post = require('../Domain/Domain_services/Models/postModel');
 const bcrypt = require('bcrypt');
+const passport = require('passport');
+const localStrategy = require('passport-local').Strategy;
+const flash = require('express-flash');
+
 
 
 module.exports = {
     getAllUsers(res) {
-        userModel.find().then(result => {
+        User.find().then(result => {
             res.json(result)
         })
     },
     getUser(req,res) {
         const id = req.params.id
-        userModel.findOne({ _id: id }).then(result => {
+        User.findOne({ _id: id }).then(result => {
             res.json(result)
         })
     },
     createUser(req,res) {
-        userModel.findOne({ Email: req.body.Email }).then(result => {
+        User.findOne({ Email: req.body.Email }).then(result => {
             if (result == null) {
-                const newUser = new userModel({
+                const newUser = new User({
                     Name: req.body.Name,
                     FirstName: req.body.FirstName,
                     Email: req.body.Email,
@@ -41,7 +45,7 @@ module.exports = {
         })
     },
     deleteUser(req,res) {
-        userModel.findOne({ Email: req.body.Email }).then(result => {
+        User.findOne({ Email: req.body.Email }).then(result => {
             if (result == null) {
                 res.sendStatus(204)
             } else {
@@ -56,7 +60,7 @@ module.exports = {
         })
     },
     updateUser(req,res) {
-        userModel.findOne({ Email: req.body.Email }).then(async (user) => {
+        User.findOne({ Email: req.body.Email }).then(async (user) => {
 
             if (user.Description != req.body.Description && req.body.Description != null) {
                 user.updateOne({ Description: req.body.Description }).then().catch(error => {
@@ -102,7 +106,7 @@ module.exports = {
         })
     },
     updateUserAdmin(req,res){
-        userModel.findOne({ Email: req.body.Email }).then(user => {
+        User.findOne({ Email: req.body.Email }).then(user => {
             if(req.body.Name != null && req.body.Name != user.Name)
             {
                 user.updateOne({Name:req.body.Name})
@@ -117,22 +121,14 @@ module.exports = {
             res.send(err);
         })
     },
-    login(req,res){
-        userModel.findOne({ Email: req.body.Email }).then(async(user)=>{
-            if(!user){
-                res.send('Email non')
-            }else {
-               await bcrypt.compare(req.body.Password, user.Password,(err, match) => {
-                    if(err){
-                        res.send('Mdp incorrect' + err)
-                    }else {
-                        res.send('Login ok')
-                    }
-                    
-                } )
-            }
-        })
-        
+
+    checkAuthenticated(req, res, next){
+        if(req.isAuthenticated()){
+            return next()
+        }
+        res.sendStatus(401);
     }
 }
+
+
 
