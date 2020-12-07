@@ -8,7 +8,7 @@ const PostSchema = new Post ({
     PostTitle: { type: String, required: true },
     Date: { type: Number, required: true },
     Author: { type: Schema.Types.ObjectId, ref: 'UserModel',  required: true },// A VERIFIER USERMODEL
-    Content: { type: String, required: true }
+    Content: { type: String, required: true },
 }); 
 
 module.exports = PostSchema;
