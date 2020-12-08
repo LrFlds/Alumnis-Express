@@ -3,9 +3,7 @@ const User = require('../Domain/Domain_services/Models/userModel');
 const Post = require('../Domain/Domain_services/Models/postModel');
 const bcrypt = require('bcrypt');
 const BDD = require('../Domain/Data/dbConnection');
-const passport = require('passport');
-require('../Config/passport-config')(passport);
-const localStrategy = require('passport-local').Strategy;
+const passport = require('passport')
 
 
 
@@ -16,13 +14,13 @@ module.exports = {
             res.send(result)
         })
     },
-    getUser(req,res) {
+    getUser(req, res) {
         const id = req.params.id
         User.findOne({ _id: id }).then(result => {
             res.json(result)
         })
     },
-    createUser(req,res) {
+    createUser(req, res) {
         User.findOne({ Email: req.body.Email }).then(result => {
             if (result == null) {
                 const newUser = new User({
@@ -41,10 +39,10 @@ module.exports = {
                     Status: req.body.Status,
                     IsAdmin: req.body.IsAdmin,
                 })
-                newUser.save((err, user)=>{
-                    if(err){
+                newUser.save((err, user) => {
+                    if (err) {
                         res.send(err)
-                    }else{
+                    } else {
                         res.sendStatus(201)
                     }
                 })
@@ -53,7 +51,7 @@ module.exports = {
             }
         })
     },
-    deleteUser(req,res) {
+    deleteUser(req, res) {
         User.findOne({ Email: req.body.Email }).then(result => {
             if (result == null) {
                 res.sendStatus(204)
@@ -113,46 +111,40 @@ module.exports = {
     //     }
     //     })
     // },
-    updateUserAdmin(req,res){
+    updateUserAdmin(req, res) {
         User.findOne({ Email: req.body.Email }).then(user => {
-            if(req.body.Name != null && req.body.Name != user.Name)
-            {
-                user.updateOne({Name:req.body.Name})
+            if (req.body.Name != null && req.body.Name != user.Name) {
+                user.updateOne({ Name: req.body.Name })
                 res.sendStatus(200)
             }
-            if(req.body.FirstName != null && req.body.FirstName != user.FirstName)
-            {
-                user.updateOne({FirstName: req.body.FirstName})
+            if (req.body.FirstName != null && req.body.FirstName != user.FirstName) {
+                user.updateOne({ FirstName: req.body.FirstName })
                 res.sendStatus(200)
             }
-        }).catch(err=>{
+        }).catch(err => {
             res.send(err);
         })
     },
 
-    checkAuthenticated(req, res, next){
-        console.log('tu rentre ou pas ?')
-        passport.authenticate('passport-local', (err, user, info)=>{
-            console.log("t'es dans le if ")
-            if(err){
+    checkAuthenticated(req, res, next) {
+        passport.authenticate('local', (err, user, info) => {
+            if (err) {
                 console.log(err)
                 throw err;
-            } 
-            if(!user){
-                console.log("c'est bon ou pas ?")
-                res.send('No user exist ')
             } else {
-                console.log(user)
-                console.log('boooooooon ?!!!!')
-                req.logIn(user, err =>{
-                    if(err) throw err;
-                    res.send('Authentification correct ')
-                    console.log(req.user)
-                })
+                if (!user) {
+                    res.send('No user exist ')
+                } else {
+                    req.logIn(user, err => {
+                        if (err) throw err;
+                        res.send('Authentification correct ')
+                        console.log(req.user)
+                    })
+                }
             }
-        }) 
-        (req, res, next);
-            
+        })
+            (req, res, next);
+
     }
 
 
