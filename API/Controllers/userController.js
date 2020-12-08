@@ -127,13 +127,13 @@ module.exports = {
     },
 
     checkAuthenticated(req, res, next) {
+
         passport.authenticate('local', (err, user, info) => {
             if (err) {
-                console.log(err)
                 throw err;
             } else {
                 if (!user) {
-                    res.send('No user exist ')
+                    res.send(info)
                 } else {
                     req.logIn(user, err => {
                         if (err) throw err;

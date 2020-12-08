@@ -7,18 +7,17 @@ const bcrypt = require('bcrypt');
 
 module.exports = function (passport) {
     passport.use(
-    new localStrategy(async(Email, Password, done)=> {
-        try{ await User.findOne({Email:Email}, (err, user)=>{
+    new localStrategy({usernameField:"Email",passwordField:"Password"},async(username, password, done)=> {
+        try{ await User.findOne({Email:username}, (err, user)=>{
+            console.log(username)
             if(err)throw err;
             if(!user){
-                console.log(user)
                 return done(null, false);
             }
 
-            bcrypt.compare(Password, user.Password, (err, result)=>{
+            bcrypt.compare(password, user.Password, (err, result)=>{
                 if(err) throw err;
                 if(result){
-                    console.log(user)
                     return done(null, user);
                 }else{
                     return done(null, false);
