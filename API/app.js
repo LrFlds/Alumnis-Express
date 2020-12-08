@@ -20,19 +20,15 @@ app.use(cors({
 }))
 app.set('json spaces', 2);
 app.use(express.urlencoded({ extended: false}));
-app.use(passport.initialize())
-app.use(passport.session())
-<<<<<<< Updated upstream
-require('./Config/passport-config')(passport);
-=======
-app.use(passport)
->>>>>>> Stashed changes
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: true
 
 }));
+app.use(passport.initialize())
+app.use(passport.session())
+require('./Config/passport-config')(passport);
 app.use(cookieParser(process.env.SESSION_SECRET))
 
 

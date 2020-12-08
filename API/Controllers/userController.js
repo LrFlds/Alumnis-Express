@@ -15,10 +15,11 @@ module.exports = {
         })
     },
     getUser(req, res) {
-        const id = req.params.id
+        const id = req.user._id
         User.findOne({ _id: id }).then(result => {
-            res.json(result)
+            res.send(result)
         })
+        
     },
     createUser(req, res) {
         User.findOne({ Email: req.body.Email }).then(result => {
@@ -66,51 +67,51 @@ module.exports = {
             }
         })
     },
-    // updateUser(req,res) {
-    //     User.findOne({ Email: req.body.Email }).then(async (user) => {
-    //         if (user.Description != req.body.Description && req.body.Description != null) {
-    //             user.updateOne({ Description: req.body.Description }).then().catch(error => {
-    //                 res.send(error)
-    //             });
-    //         } if (user.Company != req.body.Company && req.body.Company != null) {
-    //             user.updateOne({ Company: req.body.Company }).then().catch(error => {
-    //                 res.send(error)
-    //             });
-    //         } if (user.Techno != req.body.Techno && req.body.Techno != null) {
-    //             user.updateOne({ Techno: req.body.Techno }).then().catch(error => {
-    //                 res.send(error)
-    //             })
-    //         } if (req.body.Password != null && req.body.newPassword != null && req.body.Password != req.body.newPassword) {
-    //             await bcrypt.compare(req.body.Password, user.Password, (err, match) => {
-    //                 if (err) {
-    //                     res.send(err)
-    //                 } else {
-    //                    await bcrypt.hashPassword(req.body.Password, 10, (err, hash) => {
-    //                         if (err) {
-    //                             res.send(err)
-    //                         } else {
-    //                             user.updateOne({ Password: hash }).then().catch(error => {
-    //                                 res.send(error)
-    //                             })
-    //                         }
-    //                     })
-    //                 }
-    //             })
-    //         } if (req.body.Email != null && req.body.newEmail != null && req.body.Email != req.body.newEmail) {
-    //             await bcrypt.compare(req.body.Password, user.Password, (err, match) => {
-    //                 if (err) {
-    //                     res.send(err)
-    //                 } else {
-    //                     user.updateOne({ Email: req.body.newMail }).then(result=>{
-    //                         res.sendStatus(200)
-    //                     }).catch(error => {
-    //                         res.send(error)
-    //                     })
-    //                 }
-    //             })
-    //     }
-    //     })
-    // },
+    updateUser(req,res) {
+        User.findOne({ Email: req.body.Email }).then(async (user) => {
+            if (user.Description != req.body.Description && req.body.Description != null) {
+                user.updateOne({ Description: req.body.Description }).then().catch(error => {
+                    res.send(error)
+                });
+            } if (user.Company != req.body.Company && req.body.Company != null) {
+                user.updateOne({ Company: req.body.Company }).then().catch(error => {
+                    res.send(error)
+                });
+            } if (user.Techno != req.body.Techno && req.body.Techno != null) {
+                user.updateOne({ Techno: req.body.Techno }).then().catch(error => {
+                    res.send(error)
+                })
+            } if (req.body.Password != null && req.body.newPassword != null && req.body.Password != req.body.newPassword) {
+                 bcrypt.compare(req.body.Password, user.Password, (err, match) => {
+                    if (err) {
+                        res.send(err)
+                    } else {
+                        bcrypt.hashPassword(req.body.Password, 10, (err, hash) => {
+                            if (err) {
+                                res.send(err)
+                            } else {
+                                user.updateOne({ Password: hash }).then().catch(error => {
+                                    res.send(error)
+                                })
+                            }
+                        })
+                    }
+                })
+            } if (req.body.Email != null && req.body.newEmail != null && req.body.Email != req.body.newEmail) {
+                await bcrypt.compare(req.body.Password, user.Password, (err, match) => {
+                    if (err) {
+                        res.send(err)
+                    } else {
+                        user.updateOne({ Email: req.body.newMail }).then(result=>{
+                            res.sendStatus(200)
+                        }).catch(error => {
+                            res.send(error)
+                        })
+                    }
+                })
+        }
+        })
+    },
     updateUserAdmin(req, res) {
         User.findOne({ Email: req.body.Email }).then(user => {
             if (req.body.Name != null && req.body.Name != user.Name) {
@@ -129,16 +130,18 @@ module.exports = {
     checkAuthenticated(req, res, next) {
 
         passport.authenticate('local', (err, user, info) => {
+            
             if (err) {
                 throw err;
             } else {
                 if (!user) {
-                    res.send(info)
+                
+                    res.send("Ta soeur !!!!")
                 } else {
                     req.logIn(user, err => {
                         if (err) throw err;
                         res.send('Authentification correct ')
-                        console.log(req.user)
+                        // console.log(req.user)
                     })
                 }
             }

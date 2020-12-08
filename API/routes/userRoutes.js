@@ -11,7 +11,7 @@ router.route('/login').get()
 
 router.route('/annuaire').get(userController.getAllUsers)
 
-router.route('/profil/:id').get(userController.checkAuthenticated,userController.getUser)
+router.route('/profil').get(userController.checkAuthenticated,userController.getUser)
 
 router.route('/create').post(userController.createUser)
 
