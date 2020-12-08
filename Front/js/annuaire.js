@@ -26,7 +26,7 @@ function addSimploniens(element){
 
 
 
-fetch("http://localhost:3000/annuaire", option).then(reponse => {
+fetch("http://localhost:3000/user/annuaire", option).then(reponse => {
   
 
     if(!reponse.ok){

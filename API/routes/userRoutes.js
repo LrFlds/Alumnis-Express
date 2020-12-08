@@ -15,6 +15,8 @@ router.route('/profil').get(userController.checkAuthenticated,userController.get
 
 router.route('/create').post(userController.createUser)
 
+router.route('/getUser').get(userController.getUser)
+
 
 
 module.exports = router

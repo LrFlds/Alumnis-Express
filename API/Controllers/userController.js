@@ -3,7 +3,8 @@ const User = require('../Domain/Domain_services/Models/userModel');
 const Post = require('../Domain/Domain_services/Models/postModel');
 const bcrypt = require('bcrypt');
 const BDD = require('../Domain/Data/dbConnection');
-const passport = require('passport')
+const passport = require('passport');
+const cookieParser = require('cookie-parser')
 
 
 
@@ -15,10 +16,11 @@ module.exports = {
         })
     },
     getUser(req, res) {
-        const id = req.user._id
-        User.findOne({ _id: id }).then(result => {
-            res.send(result)
-        })
+        console.log(req.user)
+        // const id = req.user._id
+        // User.findOne({ _id: id }).then(result => {
+        //     res.send(result)
+        // })
         
     },
     createUser(req, res) {
@@ -139,9 +141,11 @@ module.exports = {
                     res.send("Ta soeur !!!!")
                 } else {
                     req.logIn(user, err => {
+
                         if (err) throw err;
-                        res.send('Authentification correct ')
-                        // console.log(req.user)
+                        
+                        res.send(201, user)
+                        
                     })
                 }
             }
@@ -149,6 +153,8 @@ module.exports = {
             (req, res, next);
 
     }
+
+
 
 
 }

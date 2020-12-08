@@ -10,7 +10,7 @@ const localStrategy = require('passport-local').Strategy;
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 
 mongoose.Promise = global.Promise;
