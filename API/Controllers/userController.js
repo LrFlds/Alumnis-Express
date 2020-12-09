@@ -142,9 +142,8 @@ module.exports = {
                     res.send("Ta soeur !!!!")
                 } else {
                     req.logIn(user, err => {
-
                         if (err) throw err;
-                        console.log(res.header("Set-Cookie"))
+                      
                         res.send(201, user)
 
                     })

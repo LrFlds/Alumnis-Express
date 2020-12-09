@@ -7,7 +7,7 @@ const userController = require('../Controllers/userController');
 
 
 router.route('/login').get()
-                    .post(userController.checkAuthenticated)
+                      .post(userController.checkAuthenticated)
 
 router.route('/annuaire').get(userController.getAllUsers)
 
