@@ -7,8 +7,9 @@ const passport = require('passport');
 const session = require('express-session');
 const UserController = require('./Controllers/userController');
 const localStrategy = require('passport-local').Strategy;
-const cors = require('cors')
-const cookieParser = require('cookie-parser')
+const cors = require('cors');
+const cookieParser= require('cookie-parser');
+
 
 app.use(express.json());
 
@@ -23,6 +24,7 @@ app.set('json spaces', 2);
 app.use(express.urlencoded({ extended: false}));
 app.use(session({
     secret: process.env.SESSION_SECRET,
+    cookie:{ maxAge: 80000}, 
     resave: false,
     saveUninitialized: false,
     cookie:{httpOnly: false, secure: false, maxAge: 6000}
@@ -30,6 +32,7 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 require('./Config/passport-config')(passport);
+app.use(cookieParser());
 
 
 
