@@ -4,7 +4,9 @@ const Post = require('../Domain/Domain_services/Models/postModel');
 const bcrypt = require('bcrypt');
 const BDD = require('../Domain/Data/dbConnection');
 const passport = require('passport');
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
+const dotenv = require('dotenv');
+
 
 
 
@@ -16,12 +18,10 @@ module.exports = {
         })
     },
     getUser(req, res) {
-        console.log(req.user)
-        // console.log(res.header())
-        // const id = req.user._id
-        // User.findOne({ _id: id }).then(result => {
-        //     res.send(result)
-        // })
+        const id = req.user._id
+        User.findOne({ _id: id }).then(result => {
+            res.send(result)
+        })
 
     },
     createUser(req, res) {
@@ -142,9 +142,8 @@ module.exports = {
                     res.send("Ta soeur !!!!")
                 } else {
                     req.logIn(user, err => {
-
+                        console.log(req.sessionID)
                         if (err) throw err;
-                        console.log(res.header("Set-Cookie"))
                         res.send(201, user)
 
                     })
@@ -153,6 +152,25 @@ module.exports = {
         })
             (req, res, next);
 
+    },
+    Cookie(req, res, next){
+        res.cookie("session_id", process.env.SESSION_SECRET);
+        res.status(200).json({ msg : 'Logged In '})
+       
+    }, 
+    validateCookie(req, res, next){
+        const { cookies } = req;
+        if('session_id' in cookies){
+            if(cookies.session_id === process.env.SESSION_SECRET ){
+               
+                next()
+            } else {
+                res.status(403).send({ msg : 'Not authenticated'})
+            }
+        }else {
+            res.status(403).send({ msg : 'Not autheticated '})
+        }
+        
     }
 
 
