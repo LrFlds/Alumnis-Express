@@ -8,7 +8,7 @@ const session = require('express-session');
 const UserController = require('./Controllers/userController');
 const localStrategy = require('passport-local').Strategy;
 const cors = require('cors')
-const cookieParser = require('cookie-parser')
+
 
 app.use(express.json());
 
@@ -29,7 +29,7 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 require('./Config/passport-config')(passport);
-app.use(cookieParser(process.env.SESSION_SECRET))
+
 
 
 

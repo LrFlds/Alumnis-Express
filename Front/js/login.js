@@ -20,7 +20,7 @@ btn.addEventListener('click', async (e) =>{
             
         },
         body : userJson, 
-        credentials : 'include'
+        WithCredentials : true
 
     }
     const res = await fetch("http://localhost:3000/user/login", option)
