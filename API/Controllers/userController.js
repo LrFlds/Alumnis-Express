@@ -17,11 +17,12 @@ module.exports = {
     },
     getUser(req, res) {
         console.log(req.user)
+        // console.log(res.header())
         // const id = req.user._id
         // User.findOne({ _id: id }).then(result => {
         //     res.send(result)
         // })
-        
+
     },
     createUser(req, res) {
         User.findOne({ Email: req.body.Email }).then(result => {
@@ -132,20 +133,20 @@ module.exports = {
     checkAuthenticated(req, res, next) {
 
         passport.authenticate('local', (err, user, info) => {
-            
+
             if (err) {
                 throw err;
             } else {
                 if (!user) {
-                
+
                     res.send("Ta soeur !!!!")
                 } else {
                     req.logIn(user, err => {
 
                         if (err) throw err;
-                        
+                        console.log(res.header("Set-Cookie"))
                         res.send(201, user)
-                        
+
                     })
                 }
             }

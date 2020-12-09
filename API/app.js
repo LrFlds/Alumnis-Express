@@ -22,14 +22,15 @@ app.set('json spaces', 2);
 app.use(express.urlencoded({ extended: false}));
 app.use(session({
     secret: process.env.SESSION_SECRET,
-    resave: true,
-    saveUninitialized: true
+    resave: false,
+    saveUninitialized: false,
+    cookie:{httpOnly: false, secure: false, maxAge: null}
 
 }));
 app.use(passport.initialize())
 app.use(passport.session())
 require('./Config/passport-config')(passport);
-app.use(cookieParser(process.env.SESSION_SECRET))
+
 
 
 
