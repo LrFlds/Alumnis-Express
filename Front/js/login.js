@@ -19,7 +19,7 @@ btn.addEventListener('click', async (e) =>{
         },
         body : userJson,
         withCredentials: true,
-        credentials:'include',
+        credentials:'include', //Permet de définir de quel domaine on reçoit les cookies
         mode:"cors"
 
     }
