@@ -16,7 +16,9 @@ app.use(express.json());
 
 mongoose.Promise = global.Promise;
 app.use(cors({
-    credentials:true
+    origin:['http://127.0.0.1:5500',"http://api.app.localhost:5500",'http://localhost:5500'],
+    credentials:true,
+
 }))
 app.set('json spaces', 2);
 app.use(express.urlencoded({ extended: false}));
@@ -25,8 +27,7 @@ app.use(session({
     cookie:{ maxAge: 80000}, 
     resave: false,
     saveUninitialized: false,
-    cookie:{httpOnly: false, secure: false, maxAge: null}
-
+    cookie:{httpOnly: false, secure: false, maxAge: 6000}
 }));
 app.use(passport.initialize())
 app.use(passport.session())
