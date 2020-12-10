@@ -142,8 +142,8 @@ module.exports = {
                     res.send("Ta soeur !!!!")
                 } else {
                     req.logIn(user, err => {
-                        console.log(req.sessionID)
                         if (err) throw err;
+
                         res.send(201, user)
 
                     })
@@ -156,13 +156,13 @@ module.exports = {
     Cookie(req, res, next){
         res.cookie("session_id", process.env.SESSION_SECRET);
         res.status(200).json({ msg : 'Logged In '})
-       
-    }, 
+
+    },
     validateCookie(req, res, next){
         const { cookies } = req;
         if('session_id' in cookies){
             if(cookies.session_id === process.env.SESSION_SECRET ){
-               
+
                 next()
             } else {
                 res.status(403).send({ msg : 'Not authenticated'})
@@ -170,7 +170,7 @@ module.exports = {
         }else {
             res.status(403).send({ msg : 'Not autheticated '})
         }
-        
+
     }
 
 

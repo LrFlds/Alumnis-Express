@@ -7,7 +7,7 @@ const userController = require('../Controllers/userController');
 
 
 router.route('/login').get()
-                    .post(userController.checkAuthenticated, userController.Cookie)
+                      .post(userController.checkAuthenticated)
 
 router.route('/annuaire').get(userController.validateCookie,userController.getAllUsers)
 

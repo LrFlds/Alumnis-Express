@@ -8,7 +8,6 @@ btn.addEventListener('click', async (e) =>{
     const pass = document.querySelector('#pass');
 
     const user = {
-
         Email: mail.value,
         Password : pass.value
     }
@@ -16,16 +15,17 @@ btn.addEventListener('click', async (e) =>{
     const option = {
         method : "POST",
         headers : {
-            'Content-type': 'application/json; charset=UTF-8',
-
+            'Content-type': 'application/json; charset=UTF-8'
         },
-        body : userJson, 
-        WithCredentials : true
+        body : userJson,
+        withCredentials: true,
+        credentials:'include', //Permet de définir de quel domaine on reçoit les cookies
+        mode:"cors"
 
     }
-    const res = await fetch("http://localhost:3000/user/login", option)
+    const res = await fetch("http://api.app.localhost:3000/user/login", option)
     if(res.status == 201){
-
+        console.log('tu me soules')
     // document.location.href = './annuaire.html'
 
 
