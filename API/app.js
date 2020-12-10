@@ -15,10 +15,7 @@ app.use(express.json());
 
 
 mongoose.Promise = global.Promise;
-app.use(cors({
-    origin:'http://127.0.0.1:5500',
-    credentials:true
-}))
+app.use(cors())
 app.set('json spaces', 2);
 app.use(express.urlencoded({ extended: false}));
 app.use(session({
