@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 
-const PostSchema = new Post ({
+const PostSchema = new Schema ({
     CategoryTitle: { type: String, required: true }, 
     SubCategoryTitle: { type: String, required: true },
     PostTitle: { type: String, required: true },
