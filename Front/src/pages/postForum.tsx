@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import User from '../models/user';
-import USERS from '../models/mock-user';
 import {Link} from 'react-router-dom';
 import UserProfil from '../components/profil';
 
@@ -8,7 +7,7 @@ const UserList: FunctionComponent = () => {
 const [users, setUser] = useState<User[]>([]);
 
   useEffect(() => {
-  setUser(USERS);
+  
   }, []);
 
   return (
@@ -25,24 +24,24 @@ const [users, setUser] = useState<User[]>([]);
         </div>
       </li>
       <div className="contener-nav">
-        <li className="nav-gauche tab"><Link to="/profil"><i
+        <li className="nav-gauche tab"><Link to="/user/profil"><i
               className="small material-icons">person_outline</i>Profil</Link></li>
         <li className="nav-gauche tab"><a href="#!"><i className="small material-icons">chat_bubble_outline</i>Chat</a>
         </li>
-        <li className="nav-gauche tab"><Link to="/" className="active" ><i
+        <li className="nav-gauche tab"><Link to="/user/annuaire" className="active" ><i
               className="small material-icons">search</i>Annuaire</Link></li>
         <li className="nav-gauche tab activ"><a href="#!"><i className="small material-icons">people_outline</i>Forum</a></li>
         <br />
         <li className="nav-gauche tab"><a href="#!"><i className="small material-icons">settings</i>Réglage</a></li>
       </div>
-      <Link to="/" href="" className="btn-flat">Déconnexion</Link>
+      <Link to="/user/login" href="" className="btn-flat">Déconnexion</Link>
     </ul>
 
     <div id="test2" className="contener-global">
       <div className="contener-main">
       <div className="row contener-nav">
           <div className="col  end">
-     <Link to="/profil" className="panneau">Panneau d'aministration</Link>
+     <Link to="/user/profil" className="panneau">Panneau d'aministration</Link>
 </div>
 <div className="col s3 end">
       <a href="#!" className="notif"><i className="small material-icons">notifications_none</i></a>
@@ -69,7 +68,7 @@ const [users, setUser] = useState<User[]>([]);
             </div>
             <div className="row">
                <div className="ariane">
-                   <Link to="/forum" > <p>Accueil du forum</p> </Link>
+                   <Link to="/user/forum" > <p>Accueil du forum</p> </Link>
                    <h1>Titre du topic</h1>
                </div>
                <div className="contener-post">

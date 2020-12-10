@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import User from '../models/user';
-import USERS from '../models/mock-user';
 import Login from '../js/login.js';
+import img from '../imgs/illu-acceuil.png';
 import {Link} from 'react-router-dom';
 import UserProfil from '../components/profil';
 
@@ -10,7 +10,6 @@ const [users, setUser] = useState<User[]>([]);
 
   useEffect(() => {
   Login();
-  setUser(USERS);
   }, []);
 
   return (
@@ -19,9 +18,9 @@ const [users, setUser] = useState<User[]>([]);
     <div className="row">
         <div className="container">
         <div className="col s7 container-bienvenue">
-            <h1>BIENVENUE <br /> <span> SUR LE SITE </span></h1>
+            <h1>BIENVENUE SUR <br /> <span>SIMPLONPLON</span></h1>
             <div className="container-illu">
-                <img src="imgs/illu-acceuil.png" alt="" />
+                <img src={img} alt="" />
             </div>
         </div>
 
@@ -30,7 +29,7 @@ const [users, setUser] = useState<User[]>([]);
             <div className="suis">
                 <h2>je suis :</h2>
                 <div className="container-button ">
-                    <span className="al">Simplonien</span>
+                    <span className="al">Simplonnien</span>
                     <span className="re">Recruteur</span>
                 </div>
             </div>

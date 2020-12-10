@@ -22,13 +22,15 @@ btn.addEventListener('click', async (e) =>{
         body : userJson,
         withCredentials: true,
         credentials:'include', //Permet de définir de quel domaine on reçoit les cookies
-        mode:"cors"
+        mode: "cors",
+     
 
     }
-    const res = await fetch("http://api.app.localhost:3000/user/login", option)
+    const res = await fetch("http://api.app.localhost:3001/user/login", option)
+    console.log(res.status)
     if(res.status == 201){
         console.log('tu me soules')
-    // document.location.href = './annuaire.html'
+    setTimeout(function(){document.location.href = '/user/annuaire'; }, 3000);
 
 
     }else{

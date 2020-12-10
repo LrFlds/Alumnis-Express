@@ -9,9 +9,9 @@ const userController = require('../Controllers/userController');
 router.route('/login').get()
                       .post(userController.checkAuthenticated)
 
-router.route('/annuaire').get(userController.validateCookie,userController.getAllUsers)
+router.route('/annuaire').get(userController.getAllUsers)
 
-router.route('/profil').get(userController.checkAuthenticated,userController.getUser)
+router.route('/profil/:id').get(userController.getUserByID)
 
 router.route('/create').post(userController.createUser)
 

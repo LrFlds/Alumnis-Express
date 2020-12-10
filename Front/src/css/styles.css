@@ -367,7 +367,7 @@ li {
 }
 
 .test .contener-profil .techno .tech {
-  width: calc(37% - 60px);
+  width: calc(36% - 60px);
   text-align: center;
   color: #9D9797;
   border: 1px solid #9D9797;
@@ -687,6 +687,11 @@ li {
   text-transform: uppercase;
   font-weight: 700;
   cursor: pointer;
+}
+
+.acceuil .row .container .droite form input[type=password]:not(.browser-default):focus:not([readonly]) {
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .acceuil .row .container .droite form input[type=password] {

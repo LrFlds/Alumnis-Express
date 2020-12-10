@@ -1,25 +1,27 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import User from '../models/user';
-import USERS from '../models/mock-user';
 import '../css/styles.css';
 
 
 
   
-type Params = { id: string };
+type Params = { _id: string };
   
 const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) => {
     
   const [user, setUser] = useState<User|null>(null);
   
   useEffect(() => {
-   USERS.forEach(user => {
-      if (match.params.id === user.id.toString()) {
-        setUser(user);
-      }
-    })
-  }, [match.params.id]);
+    fetch(`http://api.app.localhost:3001/user/profil/${match.params._id}`)
+  .then((response) => {
+    return response.json();
+  }).then(user => {
+    setUser(user) 
+    console.log(user)
+  })
+  }
+  , [match.params._id]);
     
   return (
     <div>
@@ -36,17 +38,17 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
         </div>
       </li>
       <div className="contener-nav">
-        <li className="nav-gauche tab"><Link to="/profil"><i
+        <li className="nav-gauche tab"><Link to="/user/profil"><i
               className="small material-icons">person_outline</i>Profil</Link></li>
         <li className="nav-gauche tab"><a href="#!"><i className="small material-icons">chat_bubble_outline</i>Chat</a>
         </li>
         <li className="nav-gauche tab"><a className=" active" href="#test2"><i
               className="small material-icons">search</i>Annuaire</a></li>
-        <li className="nav-gauche tab"><a href="#!"><i className="small material-icons">people_outline</i>Forum</a></li>
+        <li className="nav-gauche tab"><Link to="/user/forum"><i className="small material-icons">people_outline</i>Forum</Link></li>
         <br />
         <li className="nav-gauche tab"><a href="#!"><i className="small material-icons">settings</i>Réglage</a></li>
       </div>
-      <Link to="/" href="" className="btn-flat">Déconnexion</Link>
+      <Link to="/user/login" href="" className="btn-flat">Déconnexion</Link>
     </ul>
      
      
@@ -55,7 +57,7 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
            <div className="contener-main">
            <div className="row contener-nav">
                <div className="col  end">
-          <Link to="/" className="ret">  <i className="small material-icons">arrow_back</i> retour</Link>
+          <Link to="/user/annuaire" className="ret">  <i className="small material-icons">arrow_back</i> retour</Link>
      </div>
      <div className="col s3 end">
            <a href="#!" className="notif"><i className="small material-icons">notifications_none</i></a>
@@ -73,18 +75,18 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
 
              <div className="contener-img">
                  <div className="contener-image">
-              <img src={`../${user.picture}`} />
+              <img src={`../${user.Picture}`} />
               </div>
               <span className="statut"></span>
               <div className="contener-text">
-                <span className="card-title">{user.firstName} {user.name}
+                <span className="card-title">{user.FirstName} {user.Name}
                 </span>
-                <span className="card-subTitle">{user.company}</span>
+                <span className="card-subTitle">{user.Company}</span>
               </div>
             </div>
             <div className="contener-description">
               <h2>Description</h2>
-              <p>{user.description}</p>   
+              <p>{user.Description}</p>   
             </div>
             </div>
             <div className="col s7">
@@ -97,24 +99,25 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
        <div className="row">
          <div className="col s6">
            <h2 className="promo">Année de promo</h2>
-           <p className="annee">{user.year}</p>
+           <p className="annee">{user.Year}</p>
            
          </div>
          <div className="col s6">
            <h2>Lieu</h2>
-           <p className="ville"> {user.fabric} </p>
+           <p className="ville"> {user.Fabric} </p>
          </div>
          <div className="col s12"></div>
          <h2 className="titre-techno">Technologies
          </h2>
        <div className="techno">
-       
-       <span className="tech"> {user.techno[0]} </span>
-       <span className="tech"> {user.techno[1]} </span>
-       <span className="tech"> {user.techno[2]} </span>
-       <span className="tech"> {user.techno[2]} </span>
-       <span className="tech"> {user.techno[2]} </span>
-       <span className="tech"> {user.techno[2]} </span>
+   
+       <span className="tech"> {user.Techno[0]} </span>
+       <span className="tech"> {user.Techno[1]} </span>
+       <span className="tech"> {user.Techno[2]} </span>
+       <span className="tech"> {user.Techno[2]} </span>
+       <span className="tech"> {user.Techno[2]} </span>
+       <span className="tech"> {user.Techno[2]} </span>
+
      </div>
      <div className="col s12"></div>
      <h2>Me suivre
@@ -137,6 +140,6 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
       )}
     </div>
   );
-}
-  
+      }
+
 export default UserDetail;

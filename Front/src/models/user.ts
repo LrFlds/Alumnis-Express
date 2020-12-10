@@ -1,53 +1,53 @@
 export default class User {
-    id: number;
-    name: string;
-    firstName: string;
-    email: string;
-    password: string;
-    fabric: string;
-    year: number;
-    typeFormation: string;
-    techno: Array<string>;
-    description: string;
-    company: string;
-    status: boolean;
-    isAdmin: boolean;
-    picture: string;
+    _id: number;
+    Name: string;
+    FirstName: string;
+    Email: string;
+    Password: string;
+    Fabric: string;
+    Year: number;
+    TypeFormation: string;
+    Techno: Array<string>;
+    Description: string;
+    Company: string;
+    Status: boolean;
+    IsAdmin: boolean;
+    Picture: string;
 
      
    
     constructor(
-     id: number,
-     name: string = 'name',
-     firstName: string = 'nom',
-     email: string = 'email',
-     password: string = 'pass',
-     fabric: string = 'calais',
-     year: number = 2020,
-     typeFormation: string ='formation',
-     techno: Array<string> = ['Javascript'],
-     description: string = 'votre desciption',
-     company: string = 'entreprise',
-     status: boolean = false,
-     isAdmin: boolean = false,
-     picture: string = 'http://...',
+     _id: number,
+     Name: string = 'name',
+     FirstName: string = 'nom',
+     Email: string = 'email',
+     Password: string = 'pass',
+     Fabric: string = 'calais',
+     Year: number = 2020,
+     TypeFormation: string ='formation',
+     Techno: Array<string> = ['Javascript'],
+     Description: string = 'votre desciption',
+     Company: string = 'entreprise',
+     Status: boolean = false,
+     IsAdmin: boolean = false,
+     Picture: string = 'http://...',
      
 
     ) {
      // 3. Initialisation des propiétés d'un pokémons.
-     this.id = id;
-    this.name = name;
-    this.firstName = firstName;
-    this.email = email;
-    this.password = password;
-    this.fabric = fabric;
-    this.year = year;
-    this.typeFormation = typeFormation;
-    this.techno = techno;
-    this.description = description;
-    this.company = company;
-    this.status = status;
-    this. isAdmin = isAdmin;
-    this.picture = picture;
+     this._id = _id;
+    this.Name = Name;
+    this.FirstName = FirstName;
+    this.Email = Email;
+    this.Password = Password;
+    this.Fabric = Fabric;
+    this.Year = Year;
+    this.TypeFormation = TypeFormation;
+    this.Techno = Techno;
+    this.Description = Description;
+    this.Company = Company;
+    this.Status = Status;
+    this. IsAdmin = IsAdmin;
+    this.Picture = Picture;
     }
    }

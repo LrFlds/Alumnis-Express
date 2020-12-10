@@ -1,8 +1,10 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import User from '../models/user';
-import USERS from '../models/mock-user';
 import UserProfil from '../components/profil';
 import {Link} from 'react-router-dom';
+import img from '../imgs/laura.png';
+import imgProf from '../imgs/laura.png';
+
 
 
 const UserList: FunctionComponent = () => {
@@ -11,13 +13,13 @@ const UserList: FunctionComponent = () => {
 const [users, setUser] = useState<User[]>([]);
 
  useEffect(() => {
-  
-    fetch('http://localhost:3001/user/annuaire')
-    .then(response => response.json())
-    .then((users) => {
-      setUser(users)
-    });
+  fetch('http://api.app.localhost:3001/user/annuaire')
+  .then((response) => {
+    return response.json();
+  }).then((users) => {
+    setUser(users)
     console.log(users)
+  })
   }, []);
 
   return (
@@ -26,7 +28,7 @@ const [users, setUser] = useState<User[]>([]);
       <li>
         <div className="user-view row">
           <div className="contener-image">
-          <a className="image-contener-sidebar" href="#user"><img  src="imgs/quentin.png" /> </a>
+          <a className="image-contener-sidebar" href="#user"><img  src={img} /> </a>
               </div>
               <span className="statut"></span>
           <a href="#name"><span className="white-text name col s12">Nom Prénom</span></a>
@@ -34,17 +36,17 @@ const [users, setUser] = useState<User[]>([]);
         </div>
       </li>
       <div className="contener-nav">
-        <li className="nav-gauche tab"><Link to="/profil"><i
+        <li className="nav-gauche tab"><Link to="/user/profil"><i
               className="small material-icons">person_outline</i>Profil</Link></li>
         <li className="nav-gauche tab"><a href="#!"><i className="small material-icons">chat_bubble_outline</i>Chat</a>
         </li>
         <li className="nav-gauche tab activ"><a className="active" href="#test2"><i
               className="small material-icons">search</i>Annuaire</a></li>
-        <li className="nav-gauche tab"><Link to="/forum"><i className="small material-icons">people_outline</i>Forum</Link></li>
+        <li className="nav-gauche tab"><Link to="/user/forum"><i className="small material-icons">people_outline</i>Forum</Link></li>
         <br />
         <li className="nav-gauche tab"><a href="#!"><i className="small material-icons">settings</i>Réglage</a></li>
       </div>
-      <Link to="/" href="" className="btn-flat">Déconnexion</Link>
+      <Link to="/user/login" href="" className="btn-flat">Déconnexion</Link>
     </ul>
 
     <div id="test2" className="contener-global">
@@ -62,10 +64,14 @@ const [users, setUser] = useState<User[]>([]);
           <div className="row">
             <div id="contenerCarte" className=" contener">
             {users.map( user => (
-             <UserProfil key={user.id} user={user} />
+              
+             <UserProfil key={user._id} user={user}  />
+            
             ))}
+            
             </div>
           </div>
+          
         </div>
       </div>
     </div>
