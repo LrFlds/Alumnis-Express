@@ -371,7 +371,7 @@ li {
 
             .tech {
 
-                width: calc(37% - 60px);
+                width: calc(36% - 60px);
                 text-align: center;
                 color: #9D9797;
                 border: 1px solid #9D9797;
@@ -704,7 +704,9 @@ li {
                         font-weight: 700;
                         cursor: pointer;
                     }
-
+                    input[type=password]:not(.browser-default):focus:not([readonly]){
+                        box-shadow: none;
+                    }
                     input[type=password] {
                         width: 77%;
                         margin-bottom: 10px;

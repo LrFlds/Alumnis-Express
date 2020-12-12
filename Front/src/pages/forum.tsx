@@ -1,14 +1,15 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import User from '../models/user';
-import USERS from '../models/mock-user';
 import {Link} from 'react-router-dom';
+import img from '../imgs/illu-forum.png';
+import imgProf from '../imgs/laura.png';
 import UserProfil from '../components/profil';
 
 const UserList: FunctionComponent = () => {
 const [users, setUser] = useState<User[]>([]);
 
   useEffect(() => {
-  setUser(USERS);
+ 
   }, []);
 
   return (
@@ -17,7 +18,7 @@ const [users, setUser] = useState<User[]>([]);
       <li>
         <div className="user-view row">
           <div className="contener-image">
-          <a className="image-contener-sidebar" href="#user"><img  src="imgs/quentin.png" /> </a>
+          <a className="image-contener-sidebar" href="#user"><img  src={imgProf} /> </a>
               </div>
               <span className="statut"></span>
           <a href="#name"><span className="white-text name col s12">Nom Prénom</span></a>
@@ -25,24 +26,24 @@ const [users, setUser] = useState<User[]>([]);
         </div>
       </li>
       <div className="contener-nav">
-        <li className="nav-gauche tab"><Link to="/profil"><i
+        <li className="nav-gauche tab"><Link to="/user/profil"><i
               className="small material-icons">person_outline</i>Profil</Link></li>
         <li className="nav-gauche tab"><a href="#!"><i className="small material-icons">chat_bubble_outline</i>Chat</a>
         </li>
-        <li className="nav-gauche tab"><Link to="/" className="active" ><i
+        <li className="nav-gauche tab"><Link to="/user/annuaire" className="active" ><i
               className="small material-icons">search</i>Annuaire</Link></li>
         <li className="nav-gauche tab activ"><a href="#!"><i className="small material-icons">people_outline</i>Forum</a></li>
         <br />
         <li className="nav-gauche tab"><a href="#!"><i className="small material-icons">settings</i>Réglage</a></li>
       </div>
-      <Link to="/" href="" className="btn-flat">Déconnexion</Link>
+      <Link to="/user/login" href="" className="btn-flat">Déconnexion</Link>
     </ul>
 
     <div id="test2" className="contener-global">
       <div className="contener-main">
       <div className="row contener-nav">
           <div className="col  end">
-     <Link to="/profil" className="panneau">Panneau d'aministration</Link>
+     <Link to="/user/profil" className="panneau">Panneau d'aministration</Link>
 </div>
 <div className="col s3 end">
       <a href="#!" className="notif"><i className="small material-icons">notifications_none</i></a>
@@ -51,7 +52,7 @@ const [users, setUser] = useState<User[]>([]);
         <div className="contener-carte">
         <div className="row">
             <h4>Bienvenue sur le <b>forum</b></h4>   
-            <img className="illuForum" src="imgs/illu-forum.png" alt=""/> 
+            <img className="illuForum" src={img} alt=""/> 
             <div className="carou">
                 <h1>News</h1>
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quaerat suscipit aperiam </p>
@@ -72,7 +73,7 @@ const [users, setUser] = useState<User[]>([]);
                     <h1>01</h1>
                     <p>Annonces &amp; infos</p>
                 </div>
-                <Link to="/postForum" className="contenue-annonce">
+                <Link to="/user/postForum" className="contenue-annonce">
                     <div className="contener-titre">
                         <h1>TITRE</h1>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid quisquam maiores sint, quasi facilis exercitationem voluptatibus, assumenda quis culpa, dignissimos necessitatibus accusantium earum debitis tempora ex officiis minima voluptatum? Iste!</p>
@@ -95,7 +96,7 @@ const [users, setUser] = useState<User[]>([]);
                         <h1>titre du sujet</h1>
                         <p>01/12/2020 8h30</p>
                         <div className="contener-image-info">
-                            <img src="imgs/quentin.png" alt=""/>
+                            <img src={imgProf} alt=""/>
                         </div>
                         <p>par <b>Pseudo</b></p>
                     </div>
@@ -130,7 +131,7 @@ const [users, setUser] = useState<User[]>([]);
                         <h1>titre du sujet</h1>
                         <p>01/12/2020 8h30</p>
                         <div className="contener-image-info">
-                            <img src="imgs/quentin.png" alt=""/>
+                            <img src={imgProf} alt=""/>
                         </div>
                         <p>par <b>Pseudo</b></p>
                     </div>
@@ -165,7 +166,7 @@ const [users, setUser] = useState<User[]>([]);
                         <h1>titre du sujet</h1>
                         <p>01/12/2020 8h30</p>
                         <div className="contener-image-info">
-                            <img src="imgs/quentin.png" alt=""/>
+                            <img src={imgProf} alt=""/>
                         </div>
                         <p>par <b>Pseudo</b></p>
                     </div>

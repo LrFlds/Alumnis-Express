@@ -24,6 +24,13 @@ module.exports = {
         })
 
     },
+
+    getUserByID(req, res) {
+        User.findOne({ _id: req.params.id }).then(result => {
+            res.send(result)
+        })
+    },
+
     createUser(req, res) {
         User.findOne({ Email: req.body.Email }).then(result => {
             if (result == null) {

@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import User from '../models/user';
-import USERS from '../models/mock-user';
 import {Link} from 'react-router-dom';
 import modal from '../js/modalFormation.js';
 
@@ -14,7 +13,7 @@ const [users, setUser] = useState<User[]>([]);
 
     useEffect(() => {
     modal();
-    setUser(USERS);
+   
     }, []);
 
     return (
@@ -33,27 +32,27 @@ const [users, setUser] = useState<User[]>([]);
             </li>
             <div className="contener-nav">
                 <li className="nav-gauche tab">
-                    <Link to='/avatar'><i className="small material-icons">person_outline</i>Avatar</Link>
+                    <Link to='/user/avatar'><i className="small material-icons">person_outline</i>Avatar</Link>
                 </li>
                 <li className="nav-gauche tab ">
-                    <Link to="/profil"><i className="small material-icons">search</i>Informations</Link>
+                    <Link to="/user/profil"><i className="small material-icons">search</i>Informations</Link>
                 </li>
                 <li className="nav-gauche tab activ"><a className="active"><i
                             className="small material-icons">people_outline</i>Formations</a></li>
                 <li className="nav-gauche tab">
-                    <Link to="/techno"><i className="small material-icons">settings</i>Technologies</Link>
+                    <Link to="/user/techno"><i className="small material-icons">settings</i>Technologies</Link>
                 </li>
                 <li className="nav-gauche tab"><a href="https://simplon.co/contact.html" target="_blank"><i
                             className="small material-icons">person_outline</i>Contact</a></li>
             </div>
-            <Link to="/" href="" className="btn-flat">Déconnexion</Link>
+            <Link to="/user/login" href="" className="btn-flat">Déconnexion</Link>
         </ul>
 
         <div id="test2" className="contener-global">
             <div className="contener-main">
                 <div className="row contener-nav">
                     <div className="col  end">
-                        <Link to="/" className="ret"> <i className="small material-icons">arrow_back</i> retour</Link>
+                        <Link to="/user/annuaire" className="ret"> <i className="small material-icons">arrow_back</i> retour</Link>
                     </div>
                     <div className="col s3 end">
                         <a href="#!" className="notif"><i className="small material-icons">notifications_none</i></a>
