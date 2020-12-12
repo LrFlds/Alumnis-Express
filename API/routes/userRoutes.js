@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../Controllers/userController');
+const multer = require('../Config/multer')
 
 
 
@@ -17,7 +18,7 @@ router.route('/create').post(userController.createUser)
 
 router.route('/getUser').get(userController.getUser)
 
-router.route('/testcookie').get(userController.validateCookie,userController.Cookie)
+router.route('/settingUser').post(multer, userController.picture)
 
 
 

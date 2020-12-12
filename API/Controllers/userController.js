@@ -1,6 +1,7 @@
 
 const User = require('../Domain/Domain_services/Models/userModel');
 const Post = require('../Domain/Domain_services/Models/postModel');
+const Picture = require('../Domain/Domain_services/Models/pictureModel')
 const bcrypt = require('bcrypt');
 const BDD = require('../Domain/Data/dbConnection');
 const passport = require('passport');
@@ -132,6 +133,7 @@ module.exports = {
                 user.updateOne({ FirstName: req.body.FirstName })
                 res.sendStatus(200)
             }
+
         }).catch(err => {
             res.send(err);
         })
@@ -165,19 +167,25 @@ module.exports = {
         res.status(200).json({ msg : 'Logged In '})
 
     },
-    validateCookie(req, res, next){
-        const { cookies } = req;
-        if('session_id' in cookies){
-            if(cookies.session_id === process.env.SESSION_SECRET ){
-
-                next()
+    picture(req, res, next){
+        User.findOne({ Email: req.body.Email }).then(result => {
+        const pictureObject = JSON.parse(req.body.picture)
+        delete pictureObject._id;
+        const picture = new Picture({
+            ...pictureObject,
+            Picture: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        })
+        picture.save((err, user)=>{
+            if (err) {
+                res.send(err)
             } else {
-                res.status(403).send({ msg : 'Not authenticated'})
+                res.sendStatus(201)
+                console.log('Photo enregistrée')
             }
-        }else {
-            res.status(403).send({ msg : 'Not autheticated '})
-        }
-
+        })
+        
+    })
+    
     }
 
 

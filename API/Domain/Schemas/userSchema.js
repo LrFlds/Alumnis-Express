@@ -6,7 +6,7 @@ const UserSchema = new Schema({
     FirstName: { type: String, required: true },
     Email: { type: String, required: [true, "Email obligatoire"], unique: [true, "Mail déjà existant ..."], match: /^[a-zA-Z0-9._-][^<§!:/;,\|()"#`~&=+%µ*$£%>]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/ },
     Password: { type: String, match: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,})$/ },
-    Picture: { type: String }, // A MODIFIER
+    Picture: [{ type: Schema.Types.ObjectId, ref: 'PostModel' }], 
     Fabric: { type: String, enum: ["Liste à définir", "Liste à définir"], required: true },
     Year: [{ type: Number, required: true }],// VOIR AVEC FRONT POUR MENU DEROULANT
     TypeFormation: [{ type: String, enum: ["liste à définir", "liste à définir"], required: true }],

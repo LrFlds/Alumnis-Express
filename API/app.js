@@ -9,6 +9,7 @@ const UserController = require('./Controllers/userController');
 const localStrategy = require('passport-local').Strategy;
 const cors = require('cors');
 const cookieParser= require('cookie-parser');
+const path = require('path')
 
 
 app.use(express.json());
@@ -32,7 +33,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 require('./Config/passport-config')(passport);
 app.use(cookieParser());
-
+app.use('/images', express.static(path.join(__dirname, 'images')))
 
 
 
