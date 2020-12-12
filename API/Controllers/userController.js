@@ -162,11 +162,6 @@ module.exports = {
             (req, res, next);
 
     },
-    Cookie(req, res, next){
-        res.cookie("session_id", process.env.SESSION_SECRET);
-        res.status(200).json({ msg : 'Logged In '})
-
-    },
     picture(req, res, next){
         User.findOne({ Email: req.body.Email }).then(result => {
         const pictureObject = JSON.parse(req.body.picture)
