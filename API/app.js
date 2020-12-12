@@ -24,7 +24,6 @@ app.set('json spaces', 2);
 app.use(express.urlencoded({ extended: false}));
 app.use(session({
     secret: process.env.SESSION_SECRET,
-    cookie:{ maxAge: 80000}, 
     resave: false,
     saveUninitialized: false,
     cookie:{httpOnly: false, secure: false, maxAge: 6000}
