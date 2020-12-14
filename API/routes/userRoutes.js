@@ -1,10 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../Controllers/userController');
-const multer = require('../Config/multer')
-
-
-
+const upload = require('../Config/multer');
 
 
 router.route('/login').get()
@@ -18,8 +15,6 @@ router.route('/create').post(userController.createUser)
 
 router.route('/getUser').get(userController.getUser)
 
-router.route('/settingUser').post(multer, userController.picture)
-
-
+router.post('/settingUser', upload.single('image'), userController.picture)
 
 module.exports = router

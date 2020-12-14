@@ -1,22 +1,36 @@
-import React, { FunctionComponent, useState, useEffect } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import User from '../models/user';
 import {Link} from 'react-router-dom';
 import UserProfil from '../components/profil';
 import file from '../js/picture.js';
 
-const UserList: FunctionComponent = () => {
-const [users, setUser] = useState<User[]>([]);
 
+class App extends Component {   
+  
 
-
-
-
-
-
-  useEffect(() => {
-  file();
-
-  }, []);
+ 
+  state={
+          selectedFile: null
+      }
+fileSelectedHandler = (event: any) => {
+    
+    return this.setState({
+        selectedFile: event.target.files[0]
+       
+    })
+}
+fileUploadHandler = () => {
+    const fd = new FormData();
+    fd.append('image', this.state.selectedFile!);
+fetch("http://api.app.localhost:3001/user/settingUser/",{
+    method: "POST",
+    body: fd,
+})
+.then(res =>{
+    console.log(res);
+});
+}
+render(){
 
 
   return (
@@ -57,11 +71,11 @@ const [users, setUser] = useState<User[]>([]);
                                     <div className="contener-image">
                                     <img id="photo" src="imgs/quentin.png" />
                                     </div>
-                                    <form action="#">
+                                    <form encType="multipart/form-data" action="#">
                                     <div className="file-field input-field">
                                     <div className="btn">
                                         <span id="up">parcourir ...</span>
-                                        <input id="file" type="file"></input>
+                                        <input name="image" id="file"  type="file" onChange={this.fileSelectedHandler}></input>
                                     </div>
                                     <div className="file-path-wrapper">
                                         <input className="file-path validate" type="text" placeholder="aucun fichier sélectionné"></input>
@@ -73,7 +87,7 @@ const [users, setUser] = useState<User[]>([]);
                         </div>
                         <div className="row">
                             <div className="col s12 end">
-                                <a id="save" href="#!" className="btn-val">Enregistrer les modifications</a>
+                                <a id="save" href="#!" onClick={this.fileUploadHandler}  className="btn-val">Enregistrer les modifications</a>
                             </div>
                         </div>
                     </div>
@@ -83,5 +97,5 @@ const [users, setUser] = useState<User[]>([]);
   </div>
   );
   }
-
-  export default UserList;
+}
+  export default App;

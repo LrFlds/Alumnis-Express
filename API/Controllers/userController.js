@@ -7,6 +7,7 @@ const BDD = require('../Domain/Data/dbConnection');
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
+const cloudinary = require('../Config/cloudinary');
 
 
 
@@ -162,30 +163,20 @@ module.exports = {
             (req, res, next);
 
     },
-    picture(req, res, next){
-        User.findOne({ Email: req.body.Email }).then(result => {
-        const pictureObject = JSON.parse(req.body.picture)
-        delete pictureObject._id;
-        const picture = new Picture({
-            ...pictureObject,
-            Picture: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-        })
-        picture.save((err, user)=>{
-            if (err) {
-                res.send(err)
-            } else {
-                res.sendStatus(201)
-                console.log('Photo enregistrée')
-            }
-        })
-        
-    })
-    
+    async picture(req, res, next){
+        try{
+            const result = await cloudinary.uploader.upload(req.file.path)
+            let picture = new Picture({
+                Picture: result.secure_url,
+                Cloudinary_id: result.public_id
+            });
+            console.log(picture)
+            await picture.save()
+            res.json(picture);
+        }catch(err){
+            console.log(err)
+        }
     }
-
-
-
-
 }
 
 
