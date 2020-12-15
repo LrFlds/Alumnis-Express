@@ -30,7 +30,7 @@ btn.addEventListener('click', async (e) =>{
     console.log(res.status)
     if(res.status == 201){
         console.log('tu me soules')
-    setTimeout(function(){console.log(res.cookie)}, 4000);
+    setTimeout(function(){window.location.href="/user/annuaire"}, 4000);
 
 
     }else{
