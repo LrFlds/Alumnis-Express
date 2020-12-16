@@ -11,11 +11,11 @@ const UserSchema = new Schema({
     Year: [{ type: Number, required: true }],// VOIR AVEC FRONT POUR MENU DEROULANT
     TypeFormation: [{ type: String, enum: ["Analyste cybersécurité", "liste à définirCoder et déployer une application web simple","Concepteur développeur d'applications","Développeur web et web mobile","Développeur data","Objets connectés","Référent digital","Spécialisation DevOps - Administrer avec la méthode DevOps","Spécialisation DevOps - Développer avec la méthode DevOps","Spécialisation DevOps - La méthode","Technicien d’assistance en informatique","Technicien supérieur systèmes et réseaux","Artis - Culture et techniques du numérique","Cléa numérique - Les bases","Compétences numériques fondamentales","Hackeuses - Culture et techniques du numérique","Méthodes agiles de gestion et amorçage de projet","Parcours Welcode","Refugeeks","Réaliser un site internet à partir de WordPress"], required: true }],
     Techno: [{ type: String, required: true }],
-    Description: { type: String }, // DESCRIPTION VIDEO A VOIR
+    Description: { type: String }, 
     Company: { type: String },
     PostList: [{ type: Schema.Types.ObjectId, ref: 'PostModel' }], // VERIF LIEN
     Status: { type: Boolean },
-    IsAdmin: { type: Boolean, default: "false"  },
+    IsAdmin: { type: Boolean, default: "false" },
 })
 
 module.exports = UserSchema;
