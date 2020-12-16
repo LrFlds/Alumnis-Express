@@ -95,6 +95,44 @@ a {
 }
 
 /* ------------------------------- END RECURENTES -- */
+.burger {
+  display: none;
+  width: 10%;
+  height: 50px;
+  cursor: pointer;
+  position: absolute;
+  position: fixed;
+  top: 20px;
+  left: 0;
+  left: 10px;
+  z-index: 40000;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.burger span {
+  display: block;
+  width: 30px;
+  height: 2px;
+  background-color: #dd2656;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.burger span:nth-child(2) {
+  top: 70%;
+  width: 25px;
+}
+
+.burger span:nth-child(3) {
+  top: 90%;
+}
+
 .activ {
   background-color: #fff;
 }
@@ -119,8 +157,11 @@ a {
   color: #CE0033 !important;
 }
 
-.row .col.m4 {
-  width: 30% !important;
+.row .col.l4 {
+  width: 28.333333%;
+  margin-left: auto;
+  left: auto;
+  right: auto;
 }
 
 .modal {
@@ -454,7 +495,7 @@ li {
   height: 2px;
   -webkit-transform: rotate(-45deg) !important;
           transform: rotate(-45deg) !important;
-  background-color: #280303;
+  background-color: white;
   position: absolute;
   right: 10px;
   top: 20px;
@@ -620,7 +661,7 @@ li {
 }
 
 .acceuil .row .container .droite form {
-  height: 425px;
+  height: auto;
   width: 100%;
   margin-top: 30px;
   padding-top: 10px;
@@ -628,6 +669,12 @@ li {
 
 .acceuil .row .container .droite form .box {
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .acceuil .row .container .droite form .box label {
@@ -648,7 +695,6 @@ li {
 .acceuil .row .container .droite form .box input {
   width: 80%;
   display: block;
-  margin-left: 65px;
   height: 50px;
   border: none;
   background-color: #E3E3E3;
@@ -754,6 +800,31 @@ footer .row .container-picto a i {
           transform: none !important;
   background-color: #CE0030 !important;
   width: 330px !important;
+}
+
+.sidenav .closerespo {
+  z-index: 8000 !important;
+  display: none;
+  width: 40px;
+  height: 40px;
+  right: 30px;
+  top: 30px;
+  position: absolute;
+}
+
+.sidenav .closerespo span {
+  top: 20px;
+  position: absolute;
+  height: 2px;
+  width: 40px;
+  background-color: white;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+.sidenav .closerespo span:nth-child(1) {
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
 }
 
 .sidenav .contener-nav {
@@ -882,7 +953,7 @@ footer .row .container-picto a i {
 
 .contener-global .contener-main {
   position: absolute;
-  left: 335px;
+  left: 340px;
   width: 82%;
   margin: 0 auto;
   display: -webkit-box;
@@ -1624,6 +1695,38 @@ footer .row .container-picto a i {
   word-wrap: break-word;
 }
 
+.chips.focus {
+  border-bottom: 1px solid #CE0030;
+  -webkit-box-shadow: 0 1px 0 0 #CE0030;
+          box-shadow: 0 1px 0 0 #CE0030;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]) + label {
+  color: #CE0030;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]) {
+  border-bottom: 1px solid #CE0030;
+  -webkit-box-shadow: 0 1px 0 0 #CE0030;
+          box-shadow: 0 1px 0 0 #CE0030;
+}
+
+input[type=password]:not(.browser-default):focus:not([readonly]) + label {
+  color: #CE0030;
+}
+
+input[type=password]:not(.browser-default):focus:not([readonly]) {
+  border-bottom: 1px solid #CE0030;
+  -webkit-box-shadow: 0 1px 0 0 #CE0030;
+          box-shadow: 0 1px 0 0 #CE0030;
+}
+
+input.valid[type=text]:not(.browser-default) {
+  border-bottom: 1px solid #CE0030;
+  -webkit-box-shadow: 0 1px 0 0 #CE0030;
+          box-shadow: 0 1px 0 0 #CE0030;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -1647,10 +1750,201 @@ footer .row .container-picto a i {
 }
 
 /* ------------------------ MEDIA QUERIES 960px ---- */
-@media screen and (max-width: 960px) {
-  .center {
+@media screen and (max-width: 1850px) {
+  .acceuil .row .container .container-bienvenue h1 {
+    font-size: 90px !important;
+  }
+}
+
+@media screen and (max-width: 1700px) {
+  .acceuil .row .container .container-bienvenue h1 {
+    font-size: 80px !important;
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .acceuil .row .container .container-bienvenue h1 {
+    font-size: 70px !important;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .acceuil .row .container .container-illu {
+    width: 55%;
+    top: 50px !important;
+  }
+}
+
+@media screen and (max-width: 1340px) {
+  .acceuil .row .container .container-bienvenue h1 {
+    font-size: 60px !important;
+  }
+}
+
+@media screen and (max-width: 1270px) {
+  .row .col.l4 {
+    width: 45%;
+  }
+}
+
+@media screen and (max-width: 1230px) {
+  .acceuil .row .container .container-illu {
+    height: 530px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .acceuil .row .container .container-bienvenue h1 {
+    font-size: 50px !important;
+  }
+}
+
+@media screen and (max-width: 1020px) {
+  .acceuil .row .container .container-bienvenue h1 {
+    font-size: 40px !important;
+  }
+  .acceuil .row .container .container-illu {
+    width: 46%;
+    top: 20px !important;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  footer {
+    background-color: black !important;
     width: 100%;
-    margin: 0;
+    height: 250px;
+  }
+  .acceuil .row .container .container-bienvenue h1 {
+    font-size: 60px !important;
+    text-align: center;
+  }
+  .acceuil .row .container .droite {
+    position: absolute;
+    width: 100%;
+    top: 460px;
+  }
+  .acceuil {
+    height: 1000px;
+  }
+  body {
+    overflow-y: scroll;
+  }
+  .acceuil .row .container .container-illu {
+    width: 60%;
+    top: 40px !important;
+    left: 50%;
+    -webkit-transform: translate(-50%);
+            transform: translate(-50%);
+  }
+  .acceuil .row .container .droite form input[type=submit] {
+    width: 60%;
+  }
+  .acceuil .row .container .droite form input[type=password] {
+    margin-bottom: 10px;
+  }
+  .acceuil .row .container .droite form .box label {
+    left: 13%;
+    padding-left: 0px;
+  }
+  footer .row .container-picto {
+    width: 100%;
+  }
+  .acceuil .row .container .droite form .box input[type=mail]:focus + label, .acceuil .row .container .droite form .box input[type=password]:focus + label {
+    padding-left: 0px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .row .col.l4 {
+    width: 45%;
+  }
+  .burger {
+    display: block;
+  }
+  .sidenav {
+    left: -500px;
+  }
+  .contener-global .contener-main {
+    left: 0px;
+    width: 100%;
+  }
+  .sidenav .closerespo {
+    display: block;
+  }
+  .contener-global .contener-main .contener-carte {
+    width: 100%;
+    overflow-y: scroll;
+    height: 860px;
+    margin-top: 0px;
+    position: relative;
+    padding-bottom: 90px;
+    padding-right: 0px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .acceuil .row .container .container-bienvenue h1 {
+    font-size: 50px !important;
+    text-align: center;
+  }
+  .acceuil .row .container .container-illu {
+    width: 90%;
+    top: 40px !important;
+    left: 50%;
+    -webkit-transform: translate(-50%);
+            transform: translate(-50%);
+  }
+  .row .col.l4 {
+    width: 97%;
+  }
+  .contener-global .contener-main .contener-nav {
+    padding-right: 0px !important;
+  }
+  .burger {
+    top: 0px;
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .contener-global .contener-main .contener-carte .card {
+    margin: 0px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .acceuil .row .container {
+    position: relative;
+    width: 100% !important;
+    max-width: inherit !important;
+  }
+  .acceuil .row .container .container-bienvenue h1 {
+    padding: 0px;
+  }
+  footer .row .container-picto a i {
+    color: white;
+    font-size: 32px !important;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .acceuil .row .container .droite .suis .container-button .al {
+    padding: 13px;
+    font-size: 17px;
+  }
+  .acceuil .row .container .droite .suis .container-button .re {
+    padding: 13px;
+    font-size: 17px;
+  }
+  .acceuil .row .container .droite form .box label {
+    font-size: 18px;
+    top: 13px;
+  }
+  .acceuil .row .container .container-bienvenue h1 {
+    font-size: 45px !important;
+    text-align: center;
   }
 }
 /*# sourceMappingURL=styles.css.map */

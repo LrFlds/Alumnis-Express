@@ -17,7 +17,11 @@ module.exports = {
     getAllUsers(req, res) {
         User.find().then(result => {
             res.send(result)
+<<<<<<< HEAD
             
+=======
+            console.log(req.cookies)
+>>>>>>> e78eaac0911661bc2f68b76c4ea1a580634a9634
         })
     },
     getUser(req, res) {
