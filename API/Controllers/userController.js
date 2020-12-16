@@ -17,11 +17,7 @@ module.exports = {
     getAllUsers(req, res) {
         User.find().then(result => {
             res.send(result)
-<<<<<<< HEAD
             
-=======
-            console.log(req.cookies)
->>>>>>> e78eaac0911661bc2f68b76c4ea1a580634a9634
         })
     },
     getUser(req, res) {
@@ -204,10 +200,13 @@ module.exports = {
         try{
             let user = await User.findOne({Email:req.user.Email});
             
-            await cloudinary.uploader.destroy(user.Cloudinary_id);
+            // await cloudinary.uploader.destroy(user.Cloudinary_id);
             const result = await cloudinary.uploader.upload(req.file.path);
-            const data = {
+            console.log("t'es la ?")            
+             const data = {
+                
                 Picture: result.secure_url || user.Picture,
+                
                 Cloudinary_id: result.public_id || user.Cloudinary_id
             };
             user = await User.findOneAndUpdate(req.user.Email, data, { new: true})
