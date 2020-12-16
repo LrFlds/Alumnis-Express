@@ -101,6 +101,39 @@ a {
 
 /* ------------------------------- END RECURENTES -- */
 
+.burger{
+    display: none;
+    width: 10%;
+    height: 50px;
+    cursor: pointer;
+    position: absolute;
+    position: fixed;
+    top: 20px;
+    left: 0;
+    left: 10px;
+    z-index: 40000;
+    transition: all 0.3s ease-in-out;
+    span{
+        display: block;
+        width: 30px;
+        height: 2px;
+        background-color: #dd2656;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: all 0.3s ease-in-out;
+        &:nth-child(2){
+            top: 70%;
+            width: 25px;
+        }
+        &:nth-child(3) {
+            top: 90%;
+        }
+
+    }
+
+}
 .activ{
     background-color: #fff;
     a{
@@ -120,8 +153,11 @@ a {
     } 
 }
 
-.row .col.m4{
-    width: 30% !important;
+.row .col.l4 {
+    width: 28.333333%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
 }
 .modal{
     height: 280px !important;
@@ -774,7 +810,25 @@ footer {
     background-color: #CE0030 !important;
     width: 330px !important;
 
-
+    .closerespo {
+        display: none;
+        width: 40px;
+        height: 40px;
+        right: 30px;
+        top: 30px;
+        position: absolute;
+        span{
+            top: 20px;
+    position: absolute;
+    height: 2px;
+    width: 40px;
+    background-color: white;
+    transform: rotate(45deg);
+            &:nth-child(1) {
+                transform: rotate(-45deg);
+            }
+        }
+    }
     .contener-nav {
         padding-left: 50px;
         padding-top: 50px;
@@ -901,7 +955,7 @@ footer {
 
     .contener-main {
         position: absolute;
-        left: 335px;
+        left: 0px;
         width: 82%;
         margin: 0 auto;
         display: flex;
@@ -1634,6 +1688,11 @@ input.valid[type=text]:not(.browser-default){
 
     }
 }
+@media screen and (max-width: 1270px){
+    .row .col.l4 {
+        width: 45%;
+    }
+}
 @media screen and (max-width: 1230px){
     .acceuil .row .container .container-illu {
         height: 530px;
@@ -1701,7 +1760,33 @@ input.valid[type=text]:not(.browser-default){
     }
     
 }
-
+@media screen and (max-width: 900px){
+    .row .col.l4 {
+        width: 45%;
+ 
+    }
+    .burger {
+        display: block;
+    }
+    .sidenav{
+        left: -500px;
+    }
+    .contener-global .contener-main {
+       
+        left: 0px;
+        width: 100%;
+        
+    }
+    .contener-global .contener-main .contener-carte {
+        width: 100%;
+        overflow-y: scroll;
+        height: 860px;
+        margin-top: 0px;
+        position: relative;
+        padding-bottom: 90px;
+        padding-right: 0px; 
+    }
+}
 
 @media screen and (max-width: 700px){  
 .acceuil .row .container .container-bienvenue h1 {

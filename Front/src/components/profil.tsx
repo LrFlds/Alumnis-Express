@@ -11,7 +11,7 @@ const UserProfil: FunctionComponent <Props> = ({user}) => {
     return (
         <div>
              
-                <div className="card col s6 m4" key={user._id} >
+                <div className="card col s12 m6 l4" key={user._id} >
                 <Link to={`/user/getUser/${user._id}`}>
                 <div className="card-image" >
                     <div className="contener-image"> 
