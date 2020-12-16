@@ -1,6 +1,5 @@
 import React from 'react';
-const modal = () => {
-
+const burger  = () => {
 
 
     const triger = document.querySelector('.trigger');
@@ -11,12 +10,12 @@ const modal = () => {
         pop.style.display = "block";
         pop.style.transition = " all 0.5s";
        
-    })
+    });
 
     close.addEventListener('click', () =>{
         pop.style.display ="none";
         pop.style.transition = " all 0.5s";
-    })
+    });
 
 
 
@@ -31,4 +30,4 @@ const modal = () => {
 
 
         }
-export default modal;
+export default burger;

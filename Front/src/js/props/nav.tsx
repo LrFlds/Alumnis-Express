@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import img from '../../imgs/laura.png';
 
 
+
 function Nav(props: any) {
     return (
 

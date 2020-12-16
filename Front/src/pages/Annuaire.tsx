@@ -2,6 +2,8 @@ import React, { FunctionComponent, useState, useEffect } from 'react';
 import User from '../models/user';
 import UserProfil from '../components/profil';
 import Nav from '../js/props/nav';
+import burger from '../js/burger';
+import close from '../js/close';
 import {Link} from 'react-router-dom';
 import img from '../imgs/laura.png';
 
@@ -14,6 +16,8 @@ const UserList: FunctionComponent = () => {
 const [users, setUser] = useState<User[]>([]);
 
  useEffect(() => {
+   burger();
+   close();
   fetch('http://api.app.localhost:3001/user/annuaire', {
     method: "GET",
     credentials:'include',

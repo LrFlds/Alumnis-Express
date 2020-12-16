@@ -495,7 +495,7 @@ li {
   height: 2px;
   -webkit-transform: rotate(-45deg) !important;
           transform: rotate(-45deg) !important;
-  background-color: #280303;
+  background-color: white;
   position: absolute;
   right: 10px;
   top: 20px;
@@ -803,6 +803,7 @@ footer .row .container-picto a i {
 }
 
 .sidenav .closerespo {
+  z-index: 8000 !important;
   display: none;
   width: 40px;
   height: 40px;
@@ -952,7 +953,7 @@ footer .row .container-picto a i {
 
 .contener-global .contener-main {
   position: absolute;
-  left: 0px;
+  left: 340px;
   width: 82%;
   margin: 0 auto;
   display: -webkit-box;
@@ -1868,6 +1869,9 @@ input.valid[type=text]:not(.browser-default) {
     left: 0px;
     width: 100%;
   }
+  .sidenav .closerespo {
+    display: block;
+  }
   .contener-global .contener-main .contener-carte {
     width: 100%;
     overflow-y: scroll;
@@ -1890,6 +1894,23 @@ input.valid[type=text]:not(.browser-default) {
     left: 50%;
     -webkit-transform: translate(-50%);
             transform: translate(-50%);
+  }
+  .row .col.l4 {
+    width: 97%;
+  }
+  .contener-global .contener-main .contener-nav {
+    padding-right: 0px !important;
+  }
+  .burger {
+    top: 0px;
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .contener-global .contener-main .contener-carte .card {
+    margin: 0px;
+    margin-left: 10px;
+    margin-bottom: 10px;
   }
 }
 
