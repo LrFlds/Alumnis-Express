@@ -25,6 +25,10 @@ fileUploadHandler = () => {
 fetch("http://api.app.localhost:3001/user/settingUser/",{
     method: "POST",
     body: fd,
+    credentials:'include',
+    headers: {
+        Cookie: document.cookie,
+      }
 })
 .then(res =>{
     console.log(res);

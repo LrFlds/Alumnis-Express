@@ -17,4 +17,6 @@ router.route('/getUser').get(userController.getUser)
 
 router.post('/settingUser', upload.single('image'), userController.picture)
 
+router.post('/UpdateImage', upload.single('image'), userController.UpdateImage)
+
 module.exports = router

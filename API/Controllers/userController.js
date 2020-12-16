@@ -17,6 +17,7 @@ module.exports = {
     getAllUsers(req, res) {
         User.find().then(result => {
             res.send(result)
+            
         })
     },
     getUser(req, res) {
@@ -121,7 +122,7 @@ module.exports = {
                         })
                     }
                 })
-        }
+        } 
         })
     },
     updateUserAdmin(req, res) {
@@ -164,15 +165,50 @@ module.exports = {
 
     },
     async picture(req, res, next){
+        console.log(req.user)
+        User.findOne({Email: req.user.Email}).then(async user =>{
+            if(user != null){
+                try{
+                    const result = await cloudinary.uploader.upload(req.file.path)
+        
+                    let picture =  new Picture({
+                        Picture: result.secure_url,
+                        Cloudinary_id: result.public_id
+                    });
+                    await picture.save()
+                    
+                    user.Picture.push(picture._id)
+                    console.log(req.user)
+                    user.save((err, user) => {
+                        if (err) {
+                            res.send(err)
+                        } else {
+                            res.sendStatus(201)
+                        }
+                    })
+                }catch(err){
+                    console.log(err)
+                }
+
+            }else{
+                console.log('crotte de chévre')
+            }
+
+        })
+    },
+    async UpdateImage(req, res, next){
         try{
-            const result = await cloudinary.uploader.upload(req.file.path)
-            let picture = new Picture({
-                Picture: result.secure_url,
-                Cloudinary_id: result.public_id
-            });
-            console.log(picture)
-            await picture.save()
-            res.json(picture);
+            let user = await User.findOne({Email:req.user.Email});
+            
+            await cloudinary.uploader.destroy(user.Cloudinary_id);
+            const result = await cloudinary.uploader.upload(req.file.path);
+            const data = {
+                Picture: result.secure_url || user.Picture,
+                Cloudinary_id: result.public_id || user.Cloudinary_id
+            };
+            user = await User.findOneAndUpdate(req.user.Email, data, { new: true})
+            res.json(user)
+
         }catch(err){
             console.log(err)
         }
