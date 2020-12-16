@@ -17,7 +17,7 @@ module.exports = {
     getAllUsers(req, res) {
         User.find().then(result => {
             res.send(result)
-            
+            console.log(req.user)
         })
     },
     getUser(req, res) {
@@ -80,7 +80,7 @@ module.exports = {
             }
         })
     },
-    updateUser(req,res) {
+    updateUser(req, res) {
         User.findOne({ Email: req.body.Email }).then(async (user) => {
             if (user.Description != req.body.Description && req.body.Description != null) {
                 user.updateOne({ Description: req.body.Description }).then().catch(error => {
@@ -95,7 +95,7 @@ module.exports = {
                     res.send(error)
                 })
             } if (req.body.Password != null && req.body.newPassword != null && req.body.Password != req.body.newPassword) {
-                 bcrypt.compare(req.body.Password, user.Password, (err, match) => {
+                bcrypt.compare(req.body.Password, user.Password, (err, match) => {
                     if (err) {
                         res.send(err)
                     } else {
@@ -115,14 +115,14 @@ module.exports = {
                     if (err) {
                         res.send(err)
                     } else {
-                        user.updateOne({ Email: req.body.newMail }).then(result=>{
+                        user.updateOne({ Email: req.body.newMail }).then(result => {
                             res.sendStatus(200)
                         }).catch(error => {
                             res.send(error)
                         })
                     }
                 })
-        } 
+            }
         })
     },
     updateUserAdmin(req, res) {
@@ -149,8 +149,7 @@ module.exports = {
                 throw err;
             } else {
                 if (!user) {
-
-                    res.send("Ta soeur !!!!")
+                    res.send(401, "Ta soeur !!!!")
                 } else {
                     req.logIn(user, err => {
                         if (err) throw err;
@@ -164,55 +163,44 @@ module.exports = {
             (req, res, next);
 
     },
-    async picture(req, res, next){
-        console.log(req.user)
-        User.findOne({Email: req.user.Email}).then(async user =>{
-            if(user != null){
-                try{
-                    const result = await cloudinary.uploader.upload(req.file.path)
-        
-                    let picture =  new Picture({
-                        Picture: result.secure_url,
-                        Cloudinary_id: result.public_id
-                    });
-                    await picture.save()
-                    
-                    user.Picture.push(picture._id)
-                    console.log(req.user)
-                    user.save((err, user) => {
-                        if (err) {
-                            res.send(err)
-                        } else {
-                            res.sendStatus(201)
-                        }
+    async picture(req, res, next) {
+
+        if (req.user != undefined) {
+            const result = await cloudinary.uploader.upload(req.file.path)
+            let picture = new Picture({
+                Picture: result.secure_url,
+                Cloudinary_id: result.public_id
+            });
+            await picture.save().then((picture) => {
+
+                User.update({ Email: req.user.Email },{$set:{Picture:picture._id}})
+                }).then(
+                    User.findOne({Email:req.user.Email}).then(user=>{
+                        console.log(user)
+                        res.send(201,user)
                     })
-                }catch(err){
-                    console.log(err)
-                }
-
-            }else{
-                console.log('crotte de chévre')
-            }
-
-        })
+                )
+        } else {
+            console.log("crotte de chèvre")
+        }
     },
-    async UpdateImage(req, res, next){
-        try{
-            let user = await User.findOne({Email:req.user.Email});
-            
+    async UpdateImage(req, res, next) {
+        try {
+            let user = await User.findOne({ Email: req.user.Email });
+
             // await cloudinary.uploader.destroy(user.Cloudinary_id);
             const result = await cloudinary.uploader.upload(req.file.path);
-            console.log("t'es la ?")            
-             const data = {
-                
+            console.log("t'es la ?")
+            const data = {
+
                 Picture: result.secure_url || user.Picture,
-                
-                Cloudinary_id: result.public_id || user.Cloudinary_id
+
+                Cloudinary_id: result.public_id || user.Picture
             };
-            user = await User.findOneAndUpdate(req.user.Email, data, { new: true})
+            user = await User.findOneAndUpdate(req.user.Email, data, { new: true })
             res.json(user)
 
-        }catch(err){
+        } catch (err) {
             console.log(err)
         }
     }
