@@ -620,7 +620,7 @@ li {
 }
 
 .acceuil .row .container .droite form {
-  height: 425px;
+  height: auto;
   width: 100%;
   margin-top: 30px;
   padding-top: 10px;
@@ -628,6 +628,12 @@ li {
 
 .acceuil .row .container .droite form .box {
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .acceuil .row .container .droite form .box label {
@@ -648,7 +654,6 @@ li {
 .acceuil .row .container .droite form .box input {
   width: 80%;
   display: block;
-  margin-left: 65px;
   height: 50px;
   border: none;
   background-color: #E3E3E3;
@@ -1624,6 +1629,38 @@ footer .row .container-picto a i {
   word-wrap: break-word;
 }
 
+.chips.focus {
+  border-bottom: 1px solid #CE0030;
+  -webkit-box-shadow: 0 1px 0 0 #CE0030;
+          box-shadow: 0 1px 0 0 #CE0030;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]) + label {
+  color: #CE0030;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]) {
+  border-bottom: 1px solid #CE0030;
+  -webkit-box-shadow: 0 1px 0 0 #CE0030;
+          box-shadow: 0 1px 0 0 #CE0030;
+}
+
+input[type=password]:not(.browser-default):focus:not([readonly]) + label {
+  color: #CE0030;
+}
+
+input[type=password]:not(.browser-default):focus:not([readonly]) {
+  border-bottom: 1px solid #CE0030;
+  -webkit-box-shadow: 0 1px 0 0 #CE0030;
+          box-shadow: 0 1px 0 0 #CE0030;
+}
+
+input.valid[type=text]:not(.browser-default) {
+  border-bottom: 1px solid #CE0030;
+  -webkit-box-shadow: 0 1px 0 0 #CE0030;
+          box-shadow: 0 1px 0 0 #CE0030;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -1647,10 +1684,150 @@ footer .row .container-picto a i {
 }
 
 /* ------------------------ MEDIA QUERIES 960px ---- */
-@media screen and (max-width: 960px) {
-  .center {
+@media screen and (max-width: 1850px) {
+  .acceuil .row .container .container-bienvenue h1 {
+    font-size: 90px !important;
+  }
+}
+
+@media screen and (max-width: 1700px) {
+  .acceuil .row .container .container-bienvenue h1 {
+    font-size: 80px !important;
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .acceuil .row .container .container-bienvenue h1 {
+    font-size: 70px !important;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .acceuil .row .container .container-illu {
+    width: 55%;
+    top: 50px !important;
+  }
+}
+
+@media screen and (max-width: 1340px) {
+  .acceuil .row .container .container-bienvenue h1 {
+    font-size: 60px !important;
+  }
+}
+
+@media screen and (max-width: 1230px) {
+  .acceuil .row .container .container-illu {
+    height: 530px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .acceuil .row .container .container-bienvenue h1 {
+    font-size: 50px !important;
+  }
+}
+
+@media screen and (max-width: 1020px) {
+  .acceuil .row .container .container-bienvenue h1 {
+    font-size: 40px !important;
+  }
+  .acceuil .row .container .container-illu {
+    width: 46%;
+    top: 20px !important;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  footer {
+    background-color: black !important;
     width: 100%;
-    margin: 0;
+    height: 250px;
+  }
+  .acceuil .row .container .container-bienvenue h1 {
+    font-size: 60px !important;
+    text-align: center;
+  }
+  .acceuil .row .container .droite {
+    position: absolute;
+    width: 100%;
+    top: 460px;
+  }
+  .acceuil {
+    height: 1000px;
+  }
+  body {
+    overflow-y: scroll;
+  }
+  .acceuil .row .container .container-illu {
+    width: 60%;
+    top: 40px !important;
+    left: 50%;
+    -webkit-transform: translate(-50%);
+            transform: translate(-50%);
+  }
+  .acceuil .row .container .droite form input[type=submit] {
+    width: 60%;
+  }
+  .acceuil .row .container .droite form input[type=password] {
+    margin-bottom: 10px;
+  }
+  .acceuil .row .container .droite form .box label {
+    left: 13%;
+    padding-left: 0px;
+  }
+  footer .row .container-picto {
+    width: 100%;
+  }
+  .acceuil .row .container .droite form .box input[type=mail]:focus + label, .acceuil .row .container .droite form .box input[type=password]:focus + label {
+    padding-left: 0px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .acceuil .row .container .container-bienvenue h1 {
+    font-size: 50px !important;
+    text-align: center;
+  }
+  .acceuil .row .container .container-illu {
+    width: 90%;
+    top: 40px !important;
+    left: 50%;
+    -webkit-transform: translate(-50%);
+            transform: translate(-50%);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .acceuil .row .container {
+    position: relative;
+    width: 100% !important;
+    max-width: inherit !important;
+  }
+  .acceuil .row .container .container-bienvenue h1 {
+    padding: 0px;
+  }
+  footer .row .container-picto a i {
+    color: white;
+    font-size: 32px !important;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .acceuil .row .container .droite .suis .container-button .al {
+    padding: 13px;
+    font-size: 17px;
+  }
+  .acceuil .row .container .droite .suis .container-button .re {
+    padding: 13px;
+    font-size: 17px;
+  }
+  .acceuil .row .container .droite form .box label {
+    font-size: 18px;
+    top: 13px;
+  }
+  .acceuil .row .container .container-bienvenue h1 {
+    font-size: 45px !important;
+    text-align: center;
   }
 }
 /*# sourceMappingURL=styles.css.map */

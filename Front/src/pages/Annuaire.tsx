@@ -18,10 +18,11 @@ const [users, setUser] = useState<User[]>([]);
     credentials:'include',
   })
   .then((response) => {
+  
     return response.json();
   }).then((users) => {
     setUser(users)
-    console.log(users)
+    
   })
   }, []);
 

@@ -1,7 +1,8 @@
-const option = {method:"GET",
-headers:{'Content-type': 'application/json; charset=UTF-8',
-},
-withCredentials:true}
+const option = {
+method:"GET",
+headers:{'Content-type': 'application/json; charset=UTF-8',},
+withCredentials:true
+}
 
 function addSimploniens(element){
     const contener = document.getElementById('contenerCarte')
@@ -29,9 +30,9 @@ function addSimploniens(element){
 
 
 
-fetch("http://localhost:3000/user/getUser", option).then(reponse => {
+fetch("http://api.app.localhost:3000/user/getUser", option).then(reponse => {
 
-
+    console.log(reponse)
     if(!reponse.ok){
 
         console.log('connection is not good');
@@ -41,7 +42,7 @@ fetch("http://localhost:3000/user/getUser", option).then(reponse => {
         return reponse.json()
 
     }
-
+   
 }).then(data => {
 
     data.forEach(element => {
@@ -51,5 +52,3 @@ fetch("http://localhost:3000/user/getUser", option).then(reponse => {
     })
 
 })
-
-

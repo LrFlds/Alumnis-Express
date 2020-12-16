@@ -17,6 +17,7 @@ module.exports = {
     getAllUsers(req, res) {
         User.find().then(result => {
             res.send(result)
+            console.log(req.cookies)
         })
     },
     getUser(req, res) {

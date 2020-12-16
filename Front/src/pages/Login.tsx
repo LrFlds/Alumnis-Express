@@ -17,14 +17,14 @@ const [users, setUser] = useState<User[]>([]);
         <div className="acceuil">
     <div className="row">
         <div className="container">
-        <div className="col s7 container-bienvenue">
+        <div className="col l7 m12 container-bienvenue">
             <h1>BIENVENUE SUR <br /> <span>SIMPLONPLON</span></h1>
             <div className="container-illu">
                 <img src={img} alt="" />
             </div>
         </div>
 
-        <div className="col s5">
+        <div className="col m12 l5">
             <div className="droite">
             <div className="suis">
                 <h2>je suis :</h2>
@@ -58,14 +58,14 @@ const [users, setUser] = useState<User[]>([]);
 <footer className="page-footer">
  
       <div className="row">
-        <div className="col l4 offset-l2 s12">
+        <div className="col l4 offset-l2 s6">
           <ul>
             <li><a className="grey-text text-lighten-3" href="#!">à propos</a></li>
             <li><a className="grey-text text-lighten-3" href="#!">Conditions generales d’utilisation</a></li>
             <li><a className="grey-text text-lighten-3" href="#!">nous contacter</a></li>
           </ul>
         </div>
-        <div className="col l6 s12">
+        <div className="col l6 s6">
            <div className="container-picto">
                <a><i className="fab fa-facebook-square"></i></a>
                <a><i className="fab fa-instagram-square"></i></a>
