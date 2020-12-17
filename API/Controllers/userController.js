@@ -172,15 +172,14 @@ module.exports = {
                 Cloudinary_id: result.public_id
             });
             await picture.save()
-                Picture.findOne({Picture:result.secure_url}).then(pictureFound=>{
-                       User.findOneAndUpdate({ Email: req.user.Email },{$set:{Picture:[pictureFound._id]}})
-                }).then(
-                    User.findOne({Email:req.user.Email}).then(user=>{
-                        console.log(user)
-                        res.send(201,user)
-                    })
-                )
-            
+
+            User.findOneAndUpdate({ Email: req.user.Email },{Picture:picture._id}).then(()=>{
+                res.sendStatus(201)
+            })
+
+
+
+
 
         } else {
             console.log("crotte de chèvre")
