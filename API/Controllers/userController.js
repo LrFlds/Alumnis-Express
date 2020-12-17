@@ -17,7 +17,7 @@ module.exports = {
     getAllUsers(req, res) {
         User.find().then(result => {
             res.send(result)
-            console.log(req.user)
+            console.log("log du user en cours :"+req.user)
         })
     },
     getUser(req, res) {
@@ -171,15 +171,16 @@ module.exports = {
                 Picture: result.secure_url,
                 Cloudinary_id: result.public_id
             });
-            await picture.save().then((picture) => {
+            await picture.save()
 
-                User.update({ Email: req.user.Email },{$set:{Picture:picture._id}})
-                }).then(
-                    User.findOne({Email:req.user.Email}).then(user=>{
-                        console.log(user)
-                        res.send(201,user)
-                    })
-                )
+            User.findOneAndUpdate({ Email: req.user.Email },{Picture:picture._id}).then(()=>{
+                res.sendStatus(201)
+            })
+
+
+
+
+
         } else {
             console.log("crotte de chèvre")
         }

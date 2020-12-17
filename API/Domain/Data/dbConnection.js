@@ -4,7 +4,7 @@ const dotenvExpand = require('dotenv-expand');
 
 const myEnv = dotenv.config();
 dotenvExpand(myEnv);
-
+mongoose.set('useFindAndModify', false);
 mongoose.connect(`${process.env.CONNECTION_STRING}`, { useNewUrlParser: true, useUnifiedTopology: true});
 
 mongoose.connection.once('open', () => {

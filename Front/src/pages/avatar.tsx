@@ -6,18 +6,18 @@ import file from '../js/picture.js';
 import NavProf from '../js/props/navProf';
 
 
-class App extends Component {   
-  
+class App extends Component {
 
- 
+
+
   state={
           selectedFile: null
       }
 fileSelectedHandler = (event: any) => {
-    
+
     return this.setState({
         selectedFile: event.target.files[0]
-       
+
     })
 }
 fileUploadHandler = () => {
@@ -32,7 +32,9 @@ fetch("http://api.app.localhost:3001/user/settingUser/",{
       }
 })
 .then(res =>{
-    console.log(res);
+    if(res.status == 201){
+        window.location.href= '/user/avatar'
+    }
 });
 }
 render(){
@@ -80,7 +82,7 @@ render(){
                             </div>
                         </div>
                     </div>
-        
+
       </div>
     </div>
   </div>
