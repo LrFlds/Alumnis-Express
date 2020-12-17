@@ -21,6 +21,9 @@ const [users, setUser] = useState<User[]>([]);
   fetch('http://api.app.localhost:3001/user/annuaire', {
     method: "GET",
     credentials:'include',
+    headers: {
+      Cookie: document.cookie,
+    }
   })
   .then((response) => {
   

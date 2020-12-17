@@ -16,10 +16,13 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
   const [user, setUser] = useState<User|null>(null);
   
   useEffect(() => {
-    close();
     burger();
-    
-    fetch(`http://api.app.localhost:3001/user/profil/${match.params._id}`)
+    close();
+    fetch(`http://api.app.localhost:3001/user/profil/${match.params._id}`,{
+      headers: {
+        Cookie: document.cookie,
+      }
+    })
   .then((response) => {
     return response.json();
   }).then(user => {
