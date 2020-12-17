@@ -72,7 +72,7 @@ render(){
                         </div>
                         <div className="row">
                             <div className="col s12 end">
-                                <a id="save" href="#!" onClick={this.fileUploadHandler}  className="btn-val">Enregistrer les modifications</a>
+                                <button type="submit" id="save" onClick={this.fileUploadHandler}  className="btn-val">Enregistrer les modifications</button>
                             </div>
                         </div>
                     </div>

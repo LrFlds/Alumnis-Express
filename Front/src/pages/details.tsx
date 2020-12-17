@@ -3,6 +3,8 @@ import { RouteComponentProps, Link } from 'react-router-dom';
 import User from '../models/user';
 import Nav from '../js/props/nav';
 import '../css/styles.css';
+import burger from '../js/burger';
+import close from '../js/close';
 
 
 
@@ -14,6 +16,9 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
   const [user, setUser] = useState<User|null>(null);
   
   useEffect(() => {
+    close();
+    burger();
+    
     fetch(`http://api.app.localhost:3001/user/profil/${match.params._id}`)
   .then((response) => {
     return response.json();

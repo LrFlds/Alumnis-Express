@@ -4,13 +4,16 @@ import {Link} from 'react-router-dom';
 import img from '../imgs/illu-forum.png';
 import imgProf from '../imgs/laura.png';
 import Nav from '../js/props/nav';
+import burger from '../js/burger';
+import close from '../js/close';
 import UserProfil from '../components/profil';
 
 const UserList: FunctionComponent = () => {
 const [users, setUser] = useState<User[]>([]);
 
   useEffect(() => {
- 
+ close();
+ burger();
   }, []);
 
   return (
