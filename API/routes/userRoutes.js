@@ -21,6 +21,8 @@ router.post('/settingUser', upload.single('image'), userController.picture)
 
 router.route('/updateUser').post(userController.updateUser)
 
+router.route('/connectedUser').get(userController.connectedUser)
+
 // router.post('/UpdateImage', upload.single('image'), userController.UpdateImage)
 
 module.exports = router

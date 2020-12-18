@@ -10,7 +10,7 @@ function Nav(props: any) {
   const [user, setUserBis] = useState<User>();
   useEffect(() => {
    
-   fetch('http://api.app.localhost:3001/user/annuaire', {
+   fetch('http://api.app.localhost:3001/user/connectedUser', {
      method: "GET",
      credentials:'include',
      headers: {
@@ -21,10 +21,8 @@ function Nav(props: any) {
    
      return response.json();
    }).then((data) => {
-     setUserBis(data.user!)
-     
-    }).then(()=>{
-     console.log()
+     setUserBis(data)
+
 
    })
    }, []);
@@ -40,7 +38,7 @@ function Nav(props: any) {
       <li>
         <div className="user-view row">
           <div className="contener-image">
-          <a className="image-contener-sidebar" href="#user"><img  src={img} /> </a>
+          <a className="image-contener-sidebar" href="#user"><img src={`${props.user.Picture}`} /></a>
               </div>
               <span className="statut"></span>
           <a href="#name"><span className="white-text name col s12">Nom Prénom</span></a>
