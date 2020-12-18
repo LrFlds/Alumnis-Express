@@ -16,7 +16,7 @@ const cloudinary = require('../Config/cloudinary');
 module.exports = {
     getAllUsers(req, res) {
         User.find().then(result => {
-            res.send(result)
+            res.send({result:result, user:req.user})
             console.log("log du user en cours :"+req.user)
         })
     },

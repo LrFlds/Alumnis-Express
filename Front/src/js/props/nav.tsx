@@ -1,10 +1,33 @@
+
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import img from '../../imgs/laura.png';
+import User from '../../models/user';
 
 
 
 function Nav(props: any) {
+  const [user, setUserBis] = useState<User>();
+  useEffect(() => {
+   
+   fetch('http://api.app.localhost:3001/user/annuaire', {
+     method: "GET",
+     credentials:'include',
+     headers: {
+       Cookie: document.cookie,
+     }
+   })
+   .then((response) => {
+   
+     return response.json();
+   }).then((data) => {
+     setUserBis(data.user!)
+     
+    }).then(()=>{
+     console.log()
+
+   })
+   }, []);
     return (
 
 <div>

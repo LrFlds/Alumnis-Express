@@ -28,8 +28,9 @@ const [users, setUser] = useState<User[]>([]);
   .then((response) => {
   
     return response.json();
-  }).then((users) => {
-    setUser(users)
+  }).then((data) => {
+    setUser(data.result)
+    // console.log(data.user)
     
   })
   }, []);
