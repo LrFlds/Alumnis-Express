@@ -11,6 +11,9 @@ const cors = require('cors');
 const cookieParser= require('cookie-parser');
 const path = require('path');
 const multer = require('multer');
+const nodemailer = require('nodemailer');
+const exphbs = require('express-handlebars');
+
 
 const upload = multer();
 app.use(express.json());
@@ -24,6 +27,8 @@ app.use(cors({
 }))
 app.set('json spaces', 2);
 app.use(express.urlencoded({ extended: true}));
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
 
 
 
