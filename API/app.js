@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: true}));
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
-    resave: false,
+    resave: true,
     saveUninitialized: false,
 
 }));

@@ -30,7 +30,9 @@ module.exports = {
 
     getUserByID(req, res) {
         User.findOne({ _id: req.params.id }).then(result => {
-            res.send(result)
+            Picture.find({ _id: { $in: result.Picture } }).then((picture) => {
+                res.send({user:result,picture:picture})
+            })
         })
     },
 
@@ -174,13 +176,10 @@ module.exports = {
             await picture.save()
 
             User.findOneAndUpdate({ Email: req.user.Email },{Picture:picture._id}).then(()=>{
+
                 res.sendStatus(201)
             })
-
-
-
-
-
+            console.log(req.user)
         } else {
             console.log("crotte de chèvre")
         }
@@ -203,6 +202,13 @@ module.exports = {
 
         } catch (err) {
             console.log(err)
+        }
+    },
+    checkUser(req,res,next){
+        if(req.user == undefined){
+            res.sendStatus(401)
+        }else{
+            next()
         }
     }
 }
