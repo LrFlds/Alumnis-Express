@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const userRoute = require('./routes/userRoutes');
+const mailRoute = require('./routes/mailRoutes')
 const passport = require('passport');
 const session = require('express-session');
 const UserController = require('./Controllers/userController');
@@ -52,6 +53,8 @@ app.use('/images', express.static(path.join(__dirname, 'images')))
 //ROUTES
 
 app.use('/user', userRoute);
+app.use('/mail', mailRoute)
+
 
 
 
