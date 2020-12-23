@@ -167,7 +167,7 @@ module.exports = {
 
     },
     async picture(req, res, next) {
-       console.log(req.body.image)
+       console.log(req.file)
         if (req.user != undefined) {
             const result = await cloudinary.uploader.upload(req.file.path)
             let picture = new Picture({
