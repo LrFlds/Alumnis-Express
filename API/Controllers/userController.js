@@ -16,7 +16,7 @@ const cloudinary = require('../Config/cloudinary');
 module.exports = {
     getAllUsers(req, res) {
         User.find().then(result => {
-            res.send({result:result, user:req.user})
+            res.send(result)
             console.log("log du user en cours :"+req.user)
         })
     },
@@ -169,7 +169,7 @@ module.exports = {
     async picture(req, res, next) {
 
         if (req.user != undefined) {
-            const result = await cloudinary.uploader.upload(req.file.path)
+            const result = await cloudinary.uploader.upload(req.body.Picture)
             User.findOneAndUpdate({ Email: req.user.Email },{Picture:result.secure_url, Cloudinary_id: result.public_id}).then(()=>{
                 res.sendStatus(201)
             })
