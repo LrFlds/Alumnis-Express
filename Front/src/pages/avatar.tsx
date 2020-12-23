@@ -27,6 +27,7 @@ fileSelectedHandler = (event: any) => {
 fileUploadHandler = () => {
     const fd = new FormData();
     fd.append('image', this.state.selectedfile);
+    console.log(fd.get('image'))
 fetch("http://api.app.localhost:3001/user/settingUser/",{
     method: "POST",
     body: fd,

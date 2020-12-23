@@ -20,6 +20,7 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
     burger();
     close();
     fetch(`http://api.app.localhost:3001/user/profil/${match.params._id}`,{
+      credentials:'include',
       headers: {
         Cookie: document.cookie,
       }
@@ -27,9 +28,10 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
   .then((response) => {
     return response.json();
   }).then(data => {
-    setUser(data.user)
-    
-   
+    setUser(data)
+    console.log(data)
+
+
   })
   }
   , [match.params._id]);

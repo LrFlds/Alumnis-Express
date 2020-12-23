@@ -17,7 +17,6 @@ module.exports = {
     getAllUsers(req, res) {
         User.find().then(result => {
             res.send(result)
-            console.log("log du user en cours :"+req.user)
         })
     },
     getUser(req, res) {
@@ -29,10 +28,10 @@ module.exports = {
     },
 
     getUserByID(req, res) {
+        console.log(req.user)
         User.findOne({ _id: req.params.id }).then(result => {
-            Picture.find({ _id: { $in: result.Picture } }).then((picture) => {
-                res.send({user:result,picture:picture})
-            })
+           res.send(result)
+           console.log(result)
         })
     },
 
@@ -167,14 +166,15 @@ module.exports = {
 
     },
     async picture(req, res, next) {
-
+       console.log(req.body.image)
         if (req.user != undefined) {
             const result = await cloudinary.uploader.upload(req.body.Picture)
             User.findOneAndUpdate({ Email: req.user.Email },{Picture:result.secure_url, Cloudinary_id: result.public_id}).then(()=>{
                 res.sendStatus(201)
             })
+            console.log(req.user)
         } else {
-            console.log("crotte de chèvre")
+            res.sendStatus(401)
         }
     },
     async UpdateImage(req, res, next) {
@@ -197,8 +197,21 @@ module.exports = {
             console.log(err)
         }
     },
-    connectedUser(req, res, next){
-        res.send(req.user);
+    checkUser(req,res,next){
+       if(passport.authenticate()){
+           console.log("Log du checkUser:" + req.session)
+           next()
+       }else{
+           res.sendStatus(401)
+       }
+    },
+    connectedUser(req,res){
+        if(req.user != undefined){
+            res.send(req.user)
+        }else{
+            res.sendStatus(401)
+        }
+
     }
 }
 
