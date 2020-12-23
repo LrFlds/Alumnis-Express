@@ -197,8 +197,8 @@ module.exports = {
         }
     },
     checkUser(req,res,next){
-       if(passport.authenticate()){
-           console.log("Log du checkUser:" + req.session)
+       if(passport.authenticate('local')){
+           console.log(passport.authenticate('local'))
            next()
        }else{
            res.sendStatus(401)

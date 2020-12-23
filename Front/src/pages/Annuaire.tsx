@@ -26,18 +26,18 @@ const [users, setUser] = useState<User[]>([]);
     }
   })
   .then((response) => {
-    console.log(response.status)
+
     if(response.ok){
 
       return response.json();
 
     }else if(response.status == 401){
+      window.location.href= "/user/redirect"
 
-      
     }
 
   }).then((users) => {
-    console.log(users)
+
     setUser(users)
 
   })
