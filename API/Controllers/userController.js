@@ -16,8 +16,8 @@ const cloudinary = require('../Config/cloudinary');
 module.exports = {
     getAllUsers(req, res) {
         User.find().then(result => {
-            res.send(result)
-            console.log(req.user)
+            res.send({result:result, user:req.user})
+            console.log("log du user en cours :"+req.user)
         })
     },
     getUser(req, res) {
@@ -30,7 +30,9 @@ module.exports = {
 
     getUserByID(req, res) {
         User.findOne({ _id: req.params.id }).then(result => {
-            res.send(result)
+            Picture.find({ _id: { $in: result.Picture } }).then((picture) => {
+                res.send({user:result,picture:picture})
+            })
         })
     },
 
@@ -43,6 +45,7 @@ module.exports = {
                     Email: req.body.Email,
                     Password: req.body.Password,
                     Picture: req.body.Picture,
+                    Cloudinary_id: req.body.Cloudinary_id,
                     Fabric: req.body.Fabric,
                     Year: req.body.Year,
                     TypeFormation: req.body.TypeFormation,
@@ -81,7 +84,7 @@ module.exports = {
         })
     },
     updateUser(req, res) {
-        User.findOne({ Email: req.body.Email }).then(async (user) => {
+        User.findOne({ Email: req.user.Email }).then(async (user) => {
             if (user.Description != req.body.Description && req.body.Description != null) {
                 user.updateOne({ Description: req.body.Description }).then().catch(error => {
                     res.send(error)
@@ -167,19 +170,9 @@ module.exports = {
 
         if (req.user != undefined) {
             const result = await cloudinary.uploader.upload(req.file.path)
-            let picture = new Picture({
-                Picture: result.secure_url,
-                Cloudinary_id: result.public_id
-            });
-            await picture.save().then((picture) => {
-
-                User.update({ Email: req.user.Email },{$set:{Picture:picture._id}})
-                }).then(
-                    User.findOne({Email:req.user.Email}).then(user=>{
-                        console.log(user)
-                        res.send(201,user)
-                    })
-                )
+            User.findOneAndUpdate({ Email: req.user.Email },{Picture:result.secure_url, Cloudinary_id: result.public_id}).then(()=>{
+                res.sendStatus(201)
+            })
         } else {
             console.log("crotte de chèvre")
         }
@@ -203,6 +196,9 @@ module.exports = {
         } catch (err) {
             console.log(err)
         }
+    },
+    connectedUser(req, res, next){
+        res.send(req.user);
     }
 }
 

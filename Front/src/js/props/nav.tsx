@@ -1,10 +1,31 @@
+
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import img from '../../imgs/laura.png';
+import User from '../../models/user';
 
 
 
 function Nav(props: any) {
+  const [user, setUserBis] = useState<User>();
+  useEffect(() => {
+   
+   fetch('http://api.app.localhost:3001/user/connectedUser', {
+     method: "GET",
+     credentials:'include',
+     headers: {
+       Cookie: document.cookie,
+     }
+   })
+   .then((response) => {
+   
+     return response.json();
+   }).then((data) => {
+     setUserBis(data)
+
+
+   })
+   }, []);
     return (
 
 <div>
@@ -17,7 +38,7 @@ function Nav(props: any) {
       <li>
         <div className="user-view row">
           <div className="contener-image">
-          <a className="image-contener-sidebar" href="#user"><img  src={img} /> </a>
+          <a className="image-contener-sidebar" href="#user"><img src={`${props.user.Picture}`} /></a>
               </div>
               <span className="statut"></span>
           <a href="#name"><span className="white-text name col s12">Nom Prénom</span></a>

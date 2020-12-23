@@ -12,7 +12,7 @@ export default class User {
     Company: string;
     Status: boolean;
     IsAdmin: boolean;
-    Picture: string;
+    Picture: Array<string>;
 
      
    
@@ -30,7 +30,7 @@ export default class User {
      Company: string = 'entreprise',
      Status: boolean = false,
      IsAdmin: boolean = false,
-     Picture: string = 'http://...',
+     Picture: Array<string> = ['http://...'],
      
 
     ) {

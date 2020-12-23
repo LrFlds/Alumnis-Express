@@ -2,21 +2,31 @@ import React, { Component, useState, useEffect } from 'react';
 import User from '../models/user';
 import {Link} from 'react-router-dom';
 import UserProfil from '../components/profil';
-import file from '../js/picture.js';
 import NavProf from '../js/props/navProf';
+import file from '../js/picture';
 
-class App extends Component {   
+
+
+class App extends Component {
+
+
+componentDidMount(){
+    file()
+}
+
   state={
-          selectedFile: null
+        selectedfile:null as any
       }
 fileSelectedHandler = (event: any) => {
+
     return this.setState({
         selectedFile: event.target.files[0]
+
     })
 }
 fileUploadHandler = () => {
     const fd = new FormData();
-    fd.append('image', this.state.selectedFile!);
+    fd.append('image', this.state.selectedfile);
 fetch("http://api.app.localhost:3001/user/settingUser/",{
     method: "POST",
     body: fd,
@@ -26,7 +36,9 @@ fetch("http://api.app.localhost:3001/user/settingUser/",{
       }
 })
 .then(res =>{
-    console.log(res);
+    if(res.status == 201){
+        window.location.href= '/user/avatar'
+    }
 });
 }
 render(){
