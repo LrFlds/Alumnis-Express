@@ -170,7 +170,6 @@ module.exports = {
 
         if (req.user != undefined) {
             const result = await cloudinary.uploader.upload(req.file.path)
-<<<<<<< HEAD
             let picture = new Picture({
                 Picture: result.secure_url,
                 Cloudinary_id: result.public_id
@@ -182,11 +181,6 @@ module.exports = {
                 res.sendStatus(201)
             })
             console.log(req.user)
-=======
-            User.findOneAndUpdate({ Email: req.user.Email },{Picture:result.secure_url, Cloudinary_id: result.public_id}).then(()=>{
-                res.sendStatus(201)
-            })
->>>>>>> 42bff7d01f8062f5178840a3973c2b3832d634b3
         } else {
             console.log("crotte de chèvre")
         }
@@ -211,17 +205,12 @@ module.exports = {
             console.log(err)
         }
     },
-<<<<<<< HEAD
     checkUser(req,res,next){
         if(req.user == undefined){
             res.sendStatus(401)
         }else{
             next()
         }
-=======
-    connectedUser(req, res, next){
-        res.send(req.user);
->>>>>>> 42bff7d01f8062f5178840a3973c2b3832d634b3
     }
 }
 
