@@ -5,19 +5,13 @@ import UserProfil from '../components/profil';
 import file from '../js/picture.js';
 import NavProf from '../js/props/navProf';
 
-
 class App extends Component {   
-  
-
- 
   state={
           selectedFile: null
       }
 fileSelectedHandler = (event: any) => {
-    
     return this.setState({
         selectedFile: event.target.files[0]
-       
     })
 }
 fileUploadHandler = () => {
@@ -80,7 +74,6 @@ render(){
                             </div>
                         </div>
                     </div>
-        
       </div>
     </div>
   </div>
