@@ -16,7 +16,7 @@ const cloudinary = require('../Config/cloudinary');
 module.exports = {
     getAllUsers(req, res) {
         User.find().then(result => {
-            res.send({result:result, user:req.user})
+            res.send(result)
             console.log("log du user en cours :"+req.user)
         })
     },
@@ -30,9 +30,7 @@ module.exports = {
 
     getUserByID(req, res) {
         User.findOne({ _id: req.params.id }).then(result => {
-            Picture.find({ _id: { $in: result.Picture } }).then((picture) => {
-                res.send({user:result,picture:picture})
-            })
+           res.send(result)
         })
     },
 
@@ -167,26 +165,12 @@ module.exports = {
 
     },
     async picture(req, res, next) {
-
+        console.log(req.file)
         if (req.user != undefined) {
             const result = await cloudinary.uploader.upload(req.file.path)
-<<<<<<< HEAD
-            let picture = new Picture({
-                Picture: result.secure_url,
-                Cloudinary_id: result.public_id
-            });
-            await picture.save()
-
-            User.findOneAndUpdate({ Email: req.user.Email },{Picture:picture._id}).then(()=>{
-
-                res.sendStatus(201)
-            })
-            console.log(req.user)
-=======
             User.findOneAndUpdate({ Email: req.user.Email },{Picture:result.secure_url, Cloudinary_id: result.public_id}).then(()=>{
                 res.sendStatus(201)
             })
->>>>>>> 42bff7d01f8062f5178840a3973c2b3832d634b3
         } else {
             console.log("crotte de chèvre")
         }
@@ -211,17 +195,14 @@ module.exports = {
             console.log(err)
         }
     },
-<<<<<<< HEAD
     checkUser(req,res,next){
         if(req.user == undefined){
             res.sendStatus(401)
         }else{
             next()
-        }
-=======
+        }},
     connectedUser(req, res, next){
         res.send(req.user);
->>>>>>> 42bff7d01f8062f5178840a3973c2b3832d634b3
     }
 }
 
