@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState, useEffect } from 'react';
 import User from '../models/user';
 import {Link} from 'react-router-dom';
 import UserProfil from '../components/profil';
-import NavProf from '../js/props/navProf';
+import NavProf from '../js/props/navProfFunction';
 
 const UserList: FunctionComponent = () => {
 const [users, setUser] = useState<User[]>([]);
@@ -60,7 +60,7 @@ const [users, setUser] = useState<User[]>([]);
           <input id="pays" type="text" className="validate"></input>
           <label htmlFor="pays">Pays</label>
         </div>
-      </div>  
+      </div>
     </form>
     <form className="droite col s5">
       <div className="row">
@@ -83,7 +83,7 @@ const [users, setUser] = useState<User[]>([]);
           <input id="mdp" type="password" className="validate"></input>
           <label htmlFor="mdp">Mot de passe</label>
         </div>
-      </div>  
+      </div>
       <div className="row">
         <div className="input-field col s12">
         <i className="material-icons prefix">https</i>
@@ -92,8 +92,8 @@ const [users, setUser] = useState<User[]>([]);
         </div>
       </div>
     </form>
-              
-           
+
+
           </div>
           <div className="row">
         <h2>Description</h2>

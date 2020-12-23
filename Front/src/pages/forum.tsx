@@ -3,7 +3,7 @@ import User from '../models/user';
 import {Link} from 'react-router-dom';
 import img from '../imgs/illu-forum.png';
 import imgProf from '../imgs/laura.png';
-import Nav from '../js/props/nav';
+import Nav from '../js/props/navFunction';
 import burger from '../js/burger';
 import close from '../js/close';
 import UserProfil from '../components/profil';
@@ -12,8 +12,8 @@ const UserList: FunctionComponent = () => {
 const [users, setUser] = useState<User[]>([]);
 
   useEffect(() => {
- close();
- burger();
+//  close();
+//  burger();
   }, []);
 
   return (
@@ -32,8 +32,8 @@ const [users, setUser] = useState<User[]>([]);
       </div>
         <div className="contener-carte">
         <div className="row">
-            <h4>Bienvenue sur le <b>forum</b></h4>   
-            <img className="illuForum" src={img} alt=""/> 
+            <h4>Bienvenue sur le <b>forum</b></h4>
+            <img className="illuForum" src={img} alt=""/>
             <div className="carou">
                 <h1>News</h1>
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quaerat suscipit aperiam </p>
@@ -82,7 +82,7 @@ const [users, setUser] = useState<User[]>([]);
                         <p>par <b>Pseudo</b></p>
                     </div>
                 </Link>
-                
+
             </div>
             <div className="row">
                 <div className="ennoncer">
@@ -117,7 +117,7 @@ const [users, setUser] = useState<User[]>([]);
                         <p>par <b>Pseudo</b></p>
                     </div>
                 </div>
-                
+
             </div>
             <div className="row">
                 <div className="ennoncer">
@@ -152,15 +152,15 @@ const [users, setUser] = useState<User[]>([]);
                         <p>par <b>Pseudo</b></p>
                     </div>
                 </div>
-                
+
             </div>
 
 
 
 
-       
-          
- 
+
+
+
         </div>
       </div>
     </div>

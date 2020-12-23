@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from 'react';
 import User from '../models/user';
 import {Link} from 'react-router-dom';
 import UserProfil from '../components/profil';
-import NavProf from '../js/props/navProf';
+import NavProf from '../js/props/navProfFunction';
 import file from '../js/picture';
 
 
@@ -63,7 +63,7 @@ render(){
                                 <h2>Avatar</h2>
                                 <div className="contener-picture">
                                     <div className="contener-image">
-                                    <img id="photo" src="imgs/quentin.png" />
+                                    <img id="photo" src="https://via.placeholder.com/150" />
                                     </div>
                                     <form encType="multipart/form-data" action="#">
                                     <div className="file-field input-field">

@@ -7,25 +7,29 @@ import User from '../../models/user';
 
 
 function Nav(props: any) {
-  // const [user, setUserBis] = useState<User>();
-  // useEffect(() => {
+  const [user, setUserBis] = useState<User>();
 
-  //  fetch('http://api.app.localhost:3001/user/connectedUser', {
-  //    method: "GET",
-  //    credentials:'include',
-  //    headers: {
-  //      Cookie: document.cookie,
-  //    }
-  //  })
-  //  .then((response) => {
+  useEffect(() => {
 
-  //    return response.json();
-  //  }).then((data) => {
-  //    setUserBis(data)
+   fetch('http://api.app.localhost:3001/user/connectedUser', {
+     method: "GET",
+     credentials:'include',
+     headers: {
+       Cookie: document.cookie,
+     }
+   })
+   .then((response) => {
+    return response.json()
+
+   }).then((data) => {
+    setUserBis(data)
 
 
-  //  })
-  //  }, []);
+   })
+   }, []);
+
+
+
     return (
 
 <div>
@@ -38,7 +42,7 @@ function Nav(props: any) {
       <li>
         <div className="user-view row">
           <div className="contener-image">
-          <a className="image-contener-sidebar" href="#user"><img src={""} /></a>
+          <a className="image-contener-sidebar" href="#user"><img src={"`${user.Picture}`"} /></a>
               </div>
               <span className="statut"></span>
           <a href="#name"><span className="white-text name col s12">Nom Prénom</span></a>
@@ -71,5 +75,6 @@ function Nav(props: any) {
 
     );
   }
+
 
   export default Nav;
