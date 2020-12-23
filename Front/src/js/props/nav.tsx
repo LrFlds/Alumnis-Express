@@ -48,13 +48,13 @@ function Nav(props: any) {
       <div className="contener-nav">
         <li  className="nav-gauche tab"><Link to="/user/profil"><i
               className="small material-icons">person_outline</i>Profil</Link></li>
-        <li className="nav-gauche tab"><a href="#!"><i className="small material-icons">chat_bubble_outline</i>Chat</a>
+        <li className="nav-gauche tab"><a href=""><i className="small material-icons">chat_bubble_outline</i>Chat</a>
         </li>
         <li className="nav-gauche tab"><Link to="/user/annuaire" className="active" href="#test2"><i
               className="small material-icons">search</i>Annuaire</Link></li>
         <li className="nav-gauche tab"><Link to="/user/forum"><i className="small material-icons">people_outline</i>Forum</Link></li>
         <br />
-        <li className="nav-gauche tab"><a href="#!"><i className="small material-icons">settings</i>Réglage</a></li>
+        <li className="nav-gauche tab"><a href=""><i className="small material-icons">settings</i>Réglage</a></li>
       </div>
       <Link to="/user/login" href="" className="btn-flat">Déconnexion</Link>
     </ul>

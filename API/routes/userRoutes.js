@@ -7,7 +7,7 @@ const upload = require('../Config/multer');
 router.route('/login').get()
                       .post(userController.checkAuthenticated)
 
-router.route('/annuaire').get(userController.checkUser,userController.getAllUsers)
+router.route('/annuaire').get(userController.getAllUsers)
 
 router.route('/profil/:id').get(userController.checkUser,userController.getUserByID)
 
@@ -20,7 +20,7 @@ router.post('/settingUser', upload.single('image'), userController.picture)
 
 router.route('/updateUser').post(userController.updateUser)
 
-router.route('/connectedUser').get(userController.connectedUser)
+// router.route('/connectedUser').get(userController.connectedUser)
 
 // router.post('/UpdateImage', upload.single('image'), userController.UpdateImage)
 

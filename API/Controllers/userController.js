@@ -29,6 +29,7 @@ module.exports = {
     },
 
     getUserByID(req, res) {
+        console.log(req.user)
         User.findOne({ _id: req.params.id }).then(result => {
            res.send(result)
         })
@@ -172,7 +173,7 @@ module.exports = {
                 res.sendStatus(201)
             })
         } else {
-            console.log("crotte de chèvre")
+            res.sendStatus(401)
         }
     },
     async UpdateImage(req, res, next) {
@@ -196,8 +197,16 @@ module.exports = {
         }
     },
     checkUser(req,res,next){
-        if(req.user == undefined){
-            res.sendStatus(401)
+       if(passport.authenticate()){
+           console.log("Log du checkUser:" + req.session)
+           next()
+       }else{
+           res.sendStatus(401)
+       }
+    },
+    connectedUser(req,res){
+        if(req.user != undefined){
+            res.send(req.user)
         }else{
             next()
         }},

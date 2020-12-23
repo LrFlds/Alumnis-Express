@@ -7,6 +7,8 @@ import techno from './pages/techno';
 import formation from './pages/formation';
 import forum from './pages/forum';
 import Login from './pages/Login';
+import forgot from './pages/forgot';
+import redirect from './pages/redirect';
 import postForum from './pages/postForum';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import './css/styles.css';
@@ -29,6 +31,8 @@ return (
       <Route exact path="/user/formation" component={formation} />
       <Route exact path="/user/forum" component={forum} />
       <Route exact path="/user/postForum" component={postForum} />
+      <Route exact path="/user/forgot" component={forgot} />
+      <Route exact path="/user/redirect" component={redirect} />
     </Switch>
   </div>
 </Router>
