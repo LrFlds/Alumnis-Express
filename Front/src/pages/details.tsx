@@ -5,7 +5,7 @@ import Nav from '../js/props/nav';
 import '../css/styles.css';
 import burger from '../js/burger';
 import close from '../js/close';
-import Picture from '../models/picture'
+
 
 
 
@@ -14,12 +14,13 @@ type Params = { _id: string };
 const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) => {
 
   const [user, setUser] = useState<User|null>(null);
-  const [picture, setPicture] = useState<Picture|null>(null);
+
 
   useEffect(() => {
     burger();
     close();
     fetch(`http://api.app.localhost:3001/user/profil/${match.params._id}`,{
+      credentials:'include',
       headers: {
         Cookie: document.cookie,
       }
@@ -27,9 +28,10 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
   .then((response) => {
     return response.json();
   }).then(data => {
-    setUser(data.user)
-    setPicture(data.picture)
-    console.log(picture)
+    setUser(data)
+    console.log(data)
+
+
   })
   }
   , [match.params._id]);
@@ -62,7 +64,7 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
          <div className="col white s10 test">
 
            <div className="contener-profil">
-             <div className="col s5">
+             <div className="col  m12 l5">
 
              <div className="contener-img">
                  <div className="contener-image">
@@ -80,7 +82,7 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
               <p>{user.Description}</p>
             </div>
             </div>
-            <div className="col s7">
+            <div className="col m12 l7">
              <div className="contener-message">
 
        <li><a href="#!"><i className="small material-icons">chat_bubble_outline</i>Envoyer un message</a></li>
