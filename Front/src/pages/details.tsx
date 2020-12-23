@@ -30,8 +30,6 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
   }).then(data => {
     setUser(data)
     console.log(data)
-
-
   })
   }
   , [match.params._id]);

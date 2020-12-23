@@ -13,9 +13,8 @@ router.route('/profil/:id').get(userController.checkUser,userController.getUserB
 
 router.route('/create').post(userController.checkUser,userController.createUser)
 
-router.route('/getUser').get(userController.getUser)
-
-router.route('/delete').delete(userController.deleteUser)
+router.route('/getUser').get(userController.checkUser,userController.getUser)
+router.route('/delete').delete(userController.checkUser,userController.deleteUser)
 
 router.post('/settingUser', upload.single('image'), userController.picture)
 

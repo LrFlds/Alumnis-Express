@@ -37,6 +37,7 @@ const [users, setUser] = useState<User[]>([]);
     }
 
   }).then((users) => {
+    console.log(users)
     setUser(users)
 
   })

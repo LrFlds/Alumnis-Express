@@ -17,7 +17,7 @@ module.exports = {
     getAllUsers(req, res) {
         User.find().then(result => {
             res.send(result)
-
+            console.log("log du user en cours :"+req.user)
         })
     },
     getUser(req, res) {
@@ -32,7 +32,6 @@ module.exports = {
         console.log(req.user)
         User.findOne({ _id: req.params.id }).then(result => {
            res.send(result)
-           console.log(result)
         })
     },
 
@@ -167,20 +166,12 @@ module.exports = {
 
     },
     async picture(req, res, next) {
-       console.log(req.file)
+        console.log(req.file)
         if (req.user != undefined) {
             const result = await cloudinary.uploader.upload(req.file.path)
-            let picture = new Picture({
-                Picture: result.secure_url,
-                Cloudinary_id: result.public_id
-            });
-            await picture.save()
-
-            User.findOneAndUpdate({ Email: req.user.Email },{Picture:picture._id}).then(()=>{
-
+            User.findOneAndUpdate({ Email: req.user.Email },{Picture:result.secure_url, Cloudinary_id: result.public_id}).then(()=>{
                 res.sendStatus(201)
             })
-            console.log(req.user)
         } else {
             res.sendStatus(401)
         }
@@ -217,9 +208,10 @@ module.exports = {
         if(req.user != undefined){
             res.send(req.user)
         }else{
-            res.sendStatus(401)
-        }
-
+            next()
+        }},
+    connectedUser(req, res, next){
+        res.send(req.user);
     }
 }
 

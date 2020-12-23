@@ -13,28 +13,26 @@ class App extends Component {
 componentDidMount(){
     file()
 }
-
-  state={
-        selectedfile:null as any
-      }
+state={
+    selectedFile: null
+}
 fileSelectedHandler = (event: any) => {
 
-    return this.setState({
-        selectedFile: event.target.files[0]
+return this.setState({
+  selectedFile: event.target.files[0]
 
-    })
+})
 }
 fileUploadHandler = () => {
-    const fd = new FormData();
-    fd.append('image', this.state.selectedfile);
-    console.log(fd.get('image'))
+const fd = new FormData();
+fd.append('image', this.state.selectedFile!);
 fetch("http://api.app.localhost:3001/user/settingUser/",{
-    method: "POST",
-    body: fd,
-    credentials:'include',
-    headers: {
-        Cookie: document.cookie,
-      }
+method: "POST",
+body: fd,
+credentials:'include',
+headers: {
+  Cookie: document.cookie,
+}
 })
 .then(res =>{
     if(res.status == 201){
