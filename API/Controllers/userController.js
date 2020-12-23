@@ -30,7 +30,9 @@ module.exports = {
 
     getUserByID(req, res) {
         User.findOne({ _id: req.params.id }).then(result => {
-            res.send(result)
+            Picture.find({ _id: { $in: result.Picture } }).then((picture) => {
+                res.send({user:result,picture:picture})
+            })
         })
     },
 

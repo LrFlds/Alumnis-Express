@@ -26,12 +26,15 @@ const [users, setUser] = useState<User[]>([]);
     }
   })
   .then((response) => {
-  
-    return response.json();
-  }).then((data) => {
-    setUser(data.result)
-    // console.log(data.user)
-    
+    if(response.ok){
+      return response.json();
+    }else if(response.status == 401){
+       window.location.href = '/user/redirect'
+    }
+
+  }).then((users) => {
+    setUser(users)
+
   })
   }, []);
 
@@ -54,14 +57,14 @@ const [users, setUser] = useState<User[]>([]);
           <div className="row">
             <div id="contenerCarte" className=" contener">
             {users.map( user => (
-              
+
              <UserProfil key={user._id} user={user}  />
-            
+
             ))}
-            
+
             </div>
           </div>
-          
+
         </div>
       </div>
     </div>

@@ -45,7 +45,7 @@ const [users, setUser] = useState<User[]>([]);
                 <label htmlFor="passe">Mot de passe </label>
             </div>
                 <div className="container-oublie">
-                     <a href="">Mot de passe oublié ? </a>
+                     <Link to="/user/forgot">Mot de passe oublié ? </Link>
                  </div>
                 <input id="sub" type="submit" value="connexion"></input>
             </form>

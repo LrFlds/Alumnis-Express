@@ -15,7 +15,7 @@ componentDidMount(){
 }
 
   state={
-          selectedFile: null
+        selectedfile:null as any
       }
 fileSelectedHandler = (event: any) => {
 
@@ -26,7 +26,7 @@ fileSelectedHandler = (event: any) => {
 }
 fileUploadHandler = () => {
     const fd = new FormData();
-    fd.append('image', this.state.selectedFile!);
+    fd.append('image', this.state.selectedfile);
 fetch("http://api.app.localhost:3001/user/settingUser/",{
     method: "POST",
     body: fd,
@@ -86,7 +86,6 @@ render(){
                             </div>
                         </div>
                     </div>
-
       </div>
     </div>
   </div>
