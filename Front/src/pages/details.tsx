@@ -66,7 +66,7 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
 
              <div className="contener-img">
                  <div className="contener-image">
-              <img src="" />
+              <img src={`${user.Picture}`} />
               </div>
               <span className="statut"></span>
               <div className="contener-text">

@@ -16,7 +16,7 @@ const cloudinary = require('../Config/cloudinary');
 module.exports = {
     getAllUsers(req, res) {
         User.find().then(result => {
-            res.send(result)
+            res.send({result:result, user:req.user})
             console.log("log du user en cours :"+req.user)
         })
     },
@@ -45,6 +45,7 @@ module.exports = {
                     Email: req.body.Email,
                     Password: req.body.Password,
                     Picture: req.body.Picture,
+                    Cloudinary_id: req.body.Cloudinary_id,
                     Fabric: req.body.Fabric,
                     Year: req.body.Year,
                     TypeFormation: req.body.TypeFormation,
@@ -83,7 +84,7 @@ module.exports = {
         })
     },
     updateUser(req, res) {
-        User.findOne({ Email: req.body.Email }).then(async (user) => {
+        User.findOne({ Email: req.user.Email }).then(async (user) => {
             if (user.Description != req.body.Description && req.body.Description != null) {
                 user.updateOne({ Description: req.body.Description }).then().catch(error => {
                     res.send(error)
@@ -169,6 +170,7 @@ module.exports = {
 
         if (req.user != undefined) {
             const result = await cloudinary.uploader.upload(req.file.path)
+<<<<<<< HEAD
             let picture = new Picture({
                 Picture: result.secure_url,
                 Cloudinary_id: result.public_id
@@ -180,6 +182,11 @@ module.exports = {
                 res.sendStatus(201)
             })
             console.log(req.user)
+=======
+            User.findOneAndUpdate({ Email: req.user.Email },{Picture:result.secure_url, Cloudinary_id: result.public_id}).then(()=>{
+                res.sendStatus(201)
+            })
+>>>>>>> 42bff7d01f8062f5178840a3973c2b3832d634b3
         } else {
             console.log("crotte de chèvre")
         }
@@ -204,12 +211,17 @@ module.exports = {
             console.log(err)
         }
     },
+<<<<<<< HEAD
     checkUser(req,res,next){
         if(req.user == undefined){
             res.sendStatus(401)
         }else{
             next()
         }
+=======
+    connectedUser(req, res, next){
+        res.send(req.user);
+>>>>>>> 42bff7d01f8062f5178840a3973c2b3832d634b3
     }
 }
 

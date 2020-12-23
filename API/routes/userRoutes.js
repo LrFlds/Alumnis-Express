@@ -13,11 +13,23 @@ router.route('/profil/:id').get(userController.checkUser,userController.getUserB
 
 router.route('/create').post(userController.checkUser,userController.createUser)
 
+<<<<<<< HEAD
 router.route('/getUser').get(userController.checkUser,userController.getUser)
 router.route('/delete').delete(userController.checkUser,userController.deleteUser)
+=======
+router.route('/getUser').get(userController.getUser)
+
+router.route('/delete').delete(userController.deleteUser)
+>>>>>>> 42bff7d01f8062f5178840a3973c2b3832d634b3
 
 router.post('/settingUser', upload.single('image'), userController.picture)
 
+router.route('/updateUser').post(userController.updateUser)
+
+router.route('/connectedUser').get(userController.connectedUser)
+
 // router.post('/UpdateImage', upload.single('image'), userController.UpdateImage)
+
+
 
 module.exports = router

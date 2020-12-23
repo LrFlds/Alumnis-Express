@@ -2,13 +2,17 @@ import React, { Component, useState, useEffect } from 'react';
 import User from '../models/user';
 import {Link} from 'react-router-dom';
 import UserProfil from '../components/profil';
-import file from '../js/picture.js';
 import NavProf from '../js/props/navProf';
+import file from '../js/picture';
+
 
 
 class App extends Component {
 
 
+componentDidMount(){
+    file()
+}
 
   state={
         selectedfile:null as any
