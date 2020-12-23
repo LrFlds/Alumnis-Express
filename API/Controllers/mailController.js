@@ -52,7 +52,8 @@ module.exports = {
             bcrypt.hash(newPassword,10).then(hashPassword => {
                 user.Password = hashPassword
                 user.ResetPass = undefined
-                user.ExpirePass = undefineduser.save().then((savedUser)=>{
+                user.ExpirePass = undefined
+                user.save().then((savedUser)=>{
                     res.json({message:"Mot de passe modifié"})
                 })
             })
