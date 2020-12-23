@@ -1937,6 +1937,7 @@ input.valid[type=text]:not(.browser-default) {
   -webkit-transform: translate(-50%);
           transform: translate(-50%);
   background-color: #CE0030;
+  opacity: 0.8;
   font-size: 20px;
   padding: 15px 30px;
   color: white;
