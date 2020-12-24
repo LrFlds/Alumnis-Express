@@ -42,11 +42,7 @@ function Nav(props: any) {
       <li>
         <div className="user-view row">
           <div className="contener-image">
-<<<<<<< HEAD
-          <a className="image-contener-sidebar" href="#user"><img src={img} /></a>
-=======
           <a className="image-contener-sidebar" href="#user"><img src="" /></a>
->>>>>>> a962b1cd562cb63cb22230313eba192c81a5d401
               </div>
               <span className="statut"></span>
           <a href="#name"><span className="white-text name col s12">Nom Prénom</span></a>

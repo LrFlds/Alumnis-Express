@@ -7,10 +7,7 @@ const upload = require('../Config/multer');
 router.route('/login').get()
                       .post(userController.checkAuthenticated)
 
-<<<<<<< HEAD
 // router.route('/annuaire').get(userController.checkUser,userController.getAllUsers)
-=======
->>>>>>> a962b1cd562cb63cb22230313eba192c81a5d401
 router.route('/annuaire').get(userController.getAllUsers)
 
 // router.route('/profil/:id').get(userController.checkUser,userController.getUserByID)
