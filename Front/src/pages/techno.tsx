@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState, useEffect } from 'react';
 import User from '../models/user';
 import {Link} from 'react-router-dom';
 import UserProfil from '../components/profil';
-import NavProf from '../js/props/navProf';
+import NavProf from '../js/props/navProfFunction';
 
 const UserList: FunctionComponent = () => {
 const [users, setUser] = useState<User[]>([]);
@@ -51,7 +51,7 @@ const [users, setUser] = useState<User[]>([]);
                                 </div>
                             </div>
                         </div>
-          
+
   <div className="row">
       <div className="col s12 end">
       <a href="#!" className="btn-val">Enregistrer les modifications</a>

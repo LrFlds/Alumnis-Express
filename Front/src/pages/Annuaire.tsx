@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import User from '../models/user';
 import UserProfil from '../components/profil';
-import Nav from '../js/props/nav';
+import Nav from '../js/props/navFunction';
 import burger from '../js/burger';
 import close from '../js/close';
 import {Link} from 'react-router-dom';
@@ -16,8 +16,8 @@ const UserList: FunctionComponent = () => {
 const [users, setUser] = useState<User[]>([]);
 
  useEffect(() => {
-   burger();
-   close();
+  //  burger();
+  //  close();
   fetch('http://api.app.localhost:3001/user/annuaire', {
     method: "GET",
     credentials:'include',
@@ -26,17 +26,18 @@ const [users, setUser] = useState<User[]>([]);
     }
   })
   .then((response) => {
-    console.log(response.status)
+
     if(response.ok){
 
       return response.json();
 
     }else if(response.status == 401){
+      window.location.href= "/user/redirect"
 
-      
     }
 
   }).then((users) => {
+
     setUser(users)
 
   })

@@ -1,11 +1,11 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import User from '../models/user';
-import Nav from '../js/props/nav';
+import Nav from '../js/props/navFunction';
 import '../css/styles.css';
 import burger from '../js/burger';
 import close from '../js/close';
-
+import links from '../js/links';
 
 
 
@@ -17,8 +17,9 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
 
 
   useEffect(() => {
-    burger();
-    close();
+    // burger();
+    // close();
+    links()
     fetch(`http://api.app.localhost:3001/user/profil/${match.params._id}`,{
       credentials:'include',
       headers: {
@@ -29,8 +30,6 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
     return response.json();
   }).then(data => {
     setUser(data)
-    console.log(data)
-
 
   })
   }
@@ -103,22 +102,19 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
          <h2 className="titre-techno">Technologies
          </h2>
        <div className="techno">
+       {user.Techno.map(techno=>(
+         <span className="tech"> {techno} </span>
+       ))}
 
-       <span className="tech"> {user.Techno[0]} </span>
-       <span className="tech"> {user.Techno[1]} </span>
-       <span className="tech"> {user.Techno[2]} </span>
-       <span className="tech"> {user.Techno[2]} </span>
-       <span className="tech"> {user.Techno[2]} </span>
-       <span className="tech"> {user.Techno[2]} </span>
 
      </div>
      <div className="col s12"></div>
      <h2>Me suivre
      </h2>
    <div className="social">
-   <a href="#"><i className="fab fa-github"></i> Github</a>
-   <a href="#"><i className="fab fa-linkedin"></i> Linkedin</a>
-   <a href="#"><i className="fas fa-user"></i>Portfolio</a>
+   <a href="" className='links'><i className="fab fa-github"></i> Github</a>
+   <a href=""className='links'><i className="fab fa-linkedin"></i> Linkedin</a>
+   <a href=""className='links'><i className="fas fa-user"></i>Portfolio</a>
  </div>
        </div>
      </div>

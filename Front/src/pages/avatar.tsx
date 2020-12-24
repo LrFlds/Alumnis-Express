@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from 'react';
 import User from '../models/user';
 import {Link} from 'react-router-dom';
 import UserProfil from '../components/profil';
-import NavProf from '../js/props/navProf';
+import NavProf from '../js/props/navProfFunction';
 import file from '../js/picture';
 
 
@@ -13,28 +13,26 @@ class App extends Component {
 componentDidMount(){
     file()
 }
-
-  state={
-        selectedfile:null as any
-      }
+state={
+    selectedFile: null
+}
 fileSelectedHandler = (event: any) => {
 
-    return this.setState({
-        selectedFile: event.target.files[0]
+return this.setState({
+  selectedFile: event.target.files[0]
 
-    })
+})
 }
 fileUploadHandler = () => {
-    const fd = new FormData();
-    fd.append('image', this.state.selectedfile);
-    console.log(fd.get('image'))
+const fd = new FormData();
+fd.append('image', this.state.selectedFile!);
 fetch("http://api.app.localhost:3001/user/settingUser/",{
-    method: "POST",
-    body: fd,
-    credentials:'include',
-    headers: {
-        Cookie: document.cookie,
-      }
+method: "POST",
+body: fd,
+credentials:'include',
+headers: {
+  Cookie: document.cookie,
+}
 })
 .then(res =>{
     if(res.status == 201){
@@ -65,7 +63,7 @@ render(){
                                 <h2>Avatar</h2>
                                 <div className="contener-picture">
                                     <div className="contener-image">
-                                    <img id="photo" src="imgs/quentin.png" />
+                                    <img id="photo" src="https://via.placeholder.com/150" />
                                     </div>
                                     <form encType="multipart/form-data" action="#">
                                     <div className="file-field input-field">

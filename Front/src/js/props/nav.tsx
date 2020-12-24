@@ -8,6 +8,7 @@ import User from '../../models/user';
 
 function Nav(props: any) {
   const [user, setUserBis] = useState<User>();
+
   useEffect(() => {
 
    fetch('http://api.app.localhost:3001/user/connectedUser', {
@@ -18,18 +19,17 @@ function Nav(props: any) {
      }
    })
    .then((response) => {
-     if(response.ok){
-        return response.json();
-     }else{
-      // window.location.href = '/user/redirect'
-     }
+    return response.json()
 
    }).then((data) => {
-     setUserBis(data)
+    setUserBis(data)
 
 
    })
    }, []);
+
+
+
     return (
 
 <div>
@@ -42,7 +42,7 @@ function Nav(props: any) {
       <li>
         <div className="user-view row">
           <div className="contener-image">
-          <a className="image-contener-sidebar" href="#user"><img src="" /></a>
+          <a className="image-contener-sidebar" href="#user"><img src={"`${user.Picture}`"} /></a>
               </div>
               <span className="statut"></span>
           <a href="#name"><span className="white-text name col s12">Nom Prénom</span></a>
@@ -75,5 +75,6 @@ function Nav(props: any) {
 
     );
   }
+
 
   export default Nav;

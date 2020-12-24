@@ -2,25 +2,25 @@ import React, { FunctionComponent, useState, useEffect } from 'react';
 import User from '../models/user';
 import {Link} from 'react-router-dom';
 import modal from '../js/modalFormation.js';
-import NavProf from '../js/props/navProf';
+import NavProf from '../js/props/navProfFunction';
 
 
 
 
 const UserList: FunctionComponent = () => {
-  
-     
+
+
 const [users, setUser] = useState<User[]>([]);
 
     useEffect(() => {
     modal();
-   
+
     }, []);
 
     return (
-        
+
     <div>
-      
+
        <NavProf />
         <div id="test2" className="contener-global">
             <div className="contener-main">
@@ -61,7 +61,7 @@ const [users, setUser] = useState<User[]>([]);
         <div id="modal1" className="modal">
     <div className="modal-content">
       <h4>Ajouter une formation</h4>
-     
+
       <div className="row">
     <div className="col s12">
       <div className="row">
@@ -76,7 +76,7 @@ const [users, setUser] = useState<User[]>([]);
   </div>
         </div>
 
-  
+
     </div>
     );
     }
