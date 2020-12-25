@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import User from '../../models/user'
 import { Link } from 'react-router-dom';
-
+import logout from '../logout'
 
 const Nav: FunctionComponent = () => {
 
@@ -55,7 +55,7 @@ const Nav: FunctionComponent = () => {
                         <br />
                         <li className="nav-gauche tab"><a href=""><i className="small material-icons">settings</i>Réglage</a></li>
                     </div>
-                    <Link to="/user/login" href="" className="btn-flat">Déconnexion</Link>
+                    <button onClick={logout} className="btn-flat">Déconnexion</button>
               </ul>
                     <div className="burger">
                         <span></span>

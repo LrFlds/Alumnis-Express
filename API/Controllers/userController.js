@@ -8,6 +8,7 @@ const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 const cloudinary = require('../Config/cloudinary');
+const { session } = require('passport');
 
 
 
@@ -17,11 +18,11 @@ module.exports = {
     getAllUsers(req, res) {
         User.find().then(result => {
             res.send(result)
-            console.log("req.use de getAllUsers:"+ " "+req.user)
+            console.log("req.session de getAllUsers:"+ " "+req.session)
         })
     },
     getUser(req, res) {
-        console.log("req.use de getUser:"+ " "+req.user)
+
         const id = req.user._id
         User.findOne({ _id: id }).then(result => {
             res.send(result)
@@ -30,7 +31,7 @@ module.exports = {
     },
 
     getUserByID(req, res) {
-        console.log("req.use de getUserByID:"+ " "+req.user)
+
         User.findOne({ _id: req.params.id }).then(result => {
            res.send(result)
         })
@@ -154,7 +155,7 @@ module.exports = {
                 if (!user) {
                     res.send(401, "Ta soeur !!!!")
                 } else {
-                    console.log("req.use de CheckAuthenticated:"+ " "+req.user)
+
                     req.logIn(user, err => {
                         if (err) throw err;
 
@@ -168,7 +169,7 @@ module.exports = {
 
     },
     async picture(req, res, next) {
-        console.log("req.use de picture:"+ " "+req.user)
+
         if (req.user != undefined) {
             const result = await cloudinary.uploader.upload(req.file.path)
             User.findOneAndUpdate({ Email: req.user.Email },{Picture:result.secure_url, Cloudinary_id: result.public_id}).then(()=>{
@@ -200,15 +201,26 @@ module.exports = {
     },
     checkUser(req,res,next){
        if(req.user != undefined){
-        console.log("req.use de CheckUser:"+ " "+req.user)
+
            next()
        }else{
            res.sendStatus(401)
        }
     },
     connectedUser(req, res, next){
-        console.log("req.use de connectedUser:"+ " "+req.user)
-        res.send(req.user);
+
+        if(req.user != undefined){
+            res.send(req.user);
+        }else{
+            res.sendStatus(401)
+        }
+
+    },
+    logout(req,res){
+        req.session.destroy()
+        if(req.session == undefined){
+            res.sendStatus(401)
+        }
     }
 }
 

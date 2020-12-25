@@ -12,6 +12,25 @@ const [users, setUser] = useState<User[]>([]);
   useEffect(() => {
 //   close();
 //   burger();
+fetch('http://api.app.localhost:3001/user/connectedUser', {
+    method: "GET",
+    credentials:'include',
+    headers: {
+      Cookie: document.cookie,
+    }
+  })
+  .then((response) => {
+
+    if(response.ok){
+
+      return response.json();
+
+    }else if(response.status == 401){
+      window.location.href= "/user/redirect"
+
+    }
+
+  })
   }, []);
 
   return (

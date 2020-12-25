@@ -27,7 +27,14 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
       }
     })
   .then((response) => {
-    return response.json();
+    if(response.ok){
+
+      return response.json();
+
+    }else if(response.status == 401){
+      window.location.href= "/user/redirect"
+
+    }
   }).then(data => {
     setUser(data)
 
