@@ -6,7 +6,7 @@ import '../css/styles.css';
 import burger from '../js/burger';
 import close from '../js/close';
 import links from '../js/links';
-
+import placeholder from '../js/placeholder'
 
 
 type Params = { _id: string };
@@ -17,8 +17,7 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
 
 
   useEffect(() => {
-    // burger();
-    // close();
+
     links()
     fetch(`http://api.app.localhost:3001/user/profil/${match.params._id}`,{
       credentials:'include',
@@ -37,7 +36,9 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
     }
   }).then(data => {
     setUser(data)
-
+     burger();
+     close();
+     placeholder()
   })
   }
   , [match.params._id]);
@@ -74,7 +75,7 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
 
              <div className="contener-img">
                  <div className="contener-image">
-              <img src={`${user.Picture}`} />
+              <img id="profilPicture" src={`${user.Picture}`} />
               </div>
               <span className="statut"></span>
               <div className="contener-text">
