@@ -8,7 +8,7 @@ const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 const cloudinary = require('../Config/cloudinary');
-
+const sharp = require('sharp')
 
 
 
@@ -18,10 +18,7 @@ module.exports = {
     getAllUsers(req, res) {
         User.find().then(result => {
             res.send(result)
-<<<<<<< HEAD
-=======
             console.log("req.use de getAllUsers:"+ " "+req.user)
->>>>>>> 45cbdf8df5f6ff287bf39f9334b2358d5fa97c9b
         })
     },
     getUser(req, res) {
@@ -175,6 +172,8 @@ module.exports = {
         console.log("req.use de picture:"+ " "+req.user)
         if (req.user != undefined) {
             console.log("t'es ici petit kiki")
+            await sharp(req.file.buffer)
+            .resize({ width: 550, height: 350 })
             const result = await cloudinary.uploader.upload(req.file.path)
             User.findOneAndUpdate({ Email: req.user.Email },{Picture:result.secure_url, Cloudinary_id: result.public_id}).then(()=>{
                 res.sendStatus(201)
