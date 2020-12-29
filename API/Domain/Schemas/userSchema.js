@@ -20,6 +20,9 @@ const UserSchema = new Schema({
     PostList: [{ type: Schema.Types.ObjectId, ref: 'PostModel' }], // VERIF LIEN
     Status: { type: Boolean },
     IsAdmin: { type: Boolean, default: "false" },
+    Github:{type:String},
+    Linkedin:{type:String},
+    Portefolio:{type:String}
 })
 
 module.exports = UserSchema;

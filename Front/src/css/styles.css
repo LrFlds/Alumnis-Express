@@ -685,7 +685,7 @@ footer .row .container-picto a i {
   border: solid 1px white;
   background-color: transparent !important;
 }
-.sidenav a.btn-flat {
+.sidenav .btn-flat {
   margin: 0 auto;
   color: white !important;
   margin-left: 17%;
@@ -698,7 +698,7 @@ footer .row .container-picto a i {
   border: solid 1px white;
   transition: all 0.5s;
 }
-.sidenav a.btn-flat:hover {
+.sidenav .btn-flat:hover {
   border: none;
   background-color: #dfdbdb;
   color: #CE0033 !important;

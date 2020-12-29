@@ -29,6 +29,7 @@ router.route('/updateUser').post(userController.updateUser)
 
 router.route('/connectedUser').get(userController.connectedUser)
 
+router.route('/logout').get(userController.logout)
 // router.post('/UpdateImage', upload.single('image'), userController.UpdateImage)
 
 

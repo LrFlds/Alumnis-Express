@@ -6,7 +6,8 @@ const links = () => {
         const links = document.getElementsByClassName('links')
 
         for (const link of links) {
-            if (link.getAttribute('href') != "") {
+            console.log(link.getAttribute('href'))
+            if ((link.getAttribute('href') == "") == null || link.getAttribute('href')!=undefined) {
                 link.style.display = 'inline'
             }
         }

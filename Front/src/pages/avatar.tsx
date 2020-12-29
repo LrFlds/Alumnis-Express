@@ -35,9 +35,11 @@ headers: {
 }
 })
 .then(res =>{
+    console.log(res.status)
     if(res.status == 201){
         window.location.href= '/user/avatar'
     }
+
 });
 }
 render(){
@@ -63,7 +65,7 @@ render(){
                                 <h2>Avatar</h2>
                                 <div className="contener-picture">
                                     <div className="contener-image">
-                                    <img id="photo" src="https://via.placeholder.com/150" />
+                                    <img id="photo" src="http://via.placeholder.com/150" />
                                     </div>
                                     <form encType="multipart/form-data" action="#">
                                     <div className="file-field input-field">
