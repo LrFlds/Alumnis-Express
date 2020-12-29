@@ -844,6 +844,7 @@ footer .row .container-picto a i {
   border: none;
   background: none;
   outline: none;
+  cursor: pointer;
 }
 .contener-global .contener-main .contener-nav .col .ret i {
   position: absolute;
