@@ -8,7 +8,7 @@ const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 const cloudinary = require('../Config/cloudinary');
-const { session } = require('passport');
+const sharp = require('sharp')
 
 
 
@@ -170,10 +170,15 @@ module.exports = {
     async picture(req, res, next) {
 
         if (req.user != undefined) {
-            const result = await cloudinary.uploader.upload(req.file.path)
-            User.findOneAndUpdate({ Email: req.user.Email },{Picture:result.secure_url, Cloudinary_id: result.public_id}).then(()=>{
-                res.sendStatus(201)
-            })
+            if(req.file != undefined){
+                console.log("t'es ici petit kiki")
+                const result = await cloudinary.uploader.upload(req.file.path)
+                User.findOneAndUpdate({ Email: req.user.Email },{Picture:result.secure_url, Cloudinary_id: result.public_id}).then(()=>{
+                    res.sendStatus(201)
+                })
+            }else {
+                res.sendStatus(400)
+            }
         } else {
             res.sendStatus(401)
         }
