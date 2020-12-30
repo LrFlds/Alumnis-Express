@@ -810,7 +810,7 @@ footer {
     transform: none !important;
     background-color: #CE0030 !important;
     width: 330px !important;
-    
+
     .closerespo {
         z-index: 8000 !important;
         display: none;
@@ -1039,7 +1039,10 @@ footer {
                     letter-spacing: 0.19em;
                     line-height: 30px;
                     position: relative;
-
+                    border:none;
+                    background: none;
+                    outline: none;
+                    cursor:pointer;
                     i {
                         position: absolute;
                         top: -40px;

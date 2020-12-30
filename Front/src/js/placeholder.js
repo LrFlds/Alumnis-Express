@@ -1,3 +1,4 @@
+
 const placeholder = ()=>{
     const image = document.getElementById('profilPicture')
     let imageSrc = image.getAttribute('src')

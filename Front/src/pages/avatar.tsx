@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import UserProfil from '../components/profil';
 import NavProf from '../js/props/navProfFunction';
 import file from '../js/picture';
+import back from '../js/back'
 
 
 
@@ -53,7 +54,7 @@ render(){
       <div className="contener-main">
       <div className="row contener-nav">
           <div className="col  end">
-     <Link to="/user/annuaire" className="ret">  <i className="small material-icons">arrow_back</i> retour</Link>
+          <button onClick={back} className="ret"> <i className="small material-icons">arrow_back</i> retour</button>
 </div>
 <div className="col s3 end">
       <a href="#!" className="notif"><i className="small material-icons">notifications_none</i></a>

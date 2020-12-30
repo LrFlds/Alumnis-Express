@@ -841,6 +841,10 @@ footer .row .container-picto a i {
   letter-spacing: 0.19em;
   line-height: 30px;
   position: relative;
+  border: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
 }
 .contener-global .contener-main .contener-nav .col .ret i {
   position: absolute;
