@@ -65,6 +65,8 @@ module.exports = {
                     res.sendStatus(201)
                 }
             })
+        }else{
+            res.send("Utilisateur inconnu")
         }
     },
     deleteSujet(req,res){
