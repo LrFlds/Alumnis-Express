@@ -8,7 +8,7 @@ const SujetSchema = new Schema ({
     TitleSujet: { type: String, required: true }, 
     Date: { type: Date, required: true},
     Author: { type: Schema.Types.ObjectId,ref: 'UserModel', required: true},
-    Post: { type: Schema.Types.ObjectId,ref: 'PostModel', required: true}
+    Post: [{ type: Schema.Types.ObjectId,ref: 'PostModel', required: true}]
 }); 
 
 module.exports = SujetSchema;
