@@ -32,14 +32,13 @@ function addSimploniens(element){
 
 // fetch("http://api.app.localhost:3000/user/getUser", option).then(reponse => {
 
-//     console.log(reponse)
 //     if(!reponse.ok){
 
-//         console.log('connection is not good');
+//
 
 //     }else{
-//         console.log(reponse.headers)
-//         return reponse.json()
+//   
+//
 
 //     }
 

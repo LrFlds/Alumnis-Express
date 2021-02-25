@@ -12,12 +12,11 @@ module.exports = {
     resetPassword(req, res){
         crypto.randomBytes(32,(err,buffer)=> {
             if(err){
-                console.log(err)
+                res.status(400).send({Erreur : err})
             }
             const reset = buffer.toString('hex')
             User.findOne({Email:req.body.Email}).then(user => {
                 if(!user){
-                    console.log("la c'est bon !")
                     return res.status(422).json({error:"L'utilisateur n'existe pas avec cet email"})
                 }else{
                 user.ResetPass = reset
@@ -36,9 +35,9 @@ module.exports = {
                     })
                     res.json({message:" Vérifiez vos emails"})
                 })
-            }    
+            }
         })
-            
+
         })
     },
     newPassword(req, res){
@@ -58,7 +57,7 @@ module.exports = {
                 })
             })
         }).catch(err => {
-            console.log(err)
+            res.status(400).send({Erreur:err})
         })
     }
 }

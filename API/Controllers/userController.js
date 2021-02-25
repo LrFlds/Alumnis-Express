@@ -38,14 +38,13 @@ module.exports = {
 
     createUser(req, res) {
         User.findOne({ Email: req.body.Email }).then(result => {
+
             if (result == null) {
                 const newUser = new User({
                     Name: req.body.Name,
                     FirstName: req.body.FirstName,
                     Email: req.body.Email,
                     Password: req.body.Password,
-                    Picture: req.body.Picture,
-                    Cloudinary_id: req.body.Cloudinary_id,
                     Fabric: req.body.Fabric,
                     Year: req.body.Year,
                     TypeFormation: req.body.TypeFormation,
@@ -56,8 +55,10 @@ module.exports = {
                     Status: req.body.Status,
                     IsAdmin: req.body.IsAdmin,
                 })
+
                 newUser.save((err, user) => {
                     if (err) {
+                         res.status(400).send({Erreur:err})
                         res.send(err)
                     } else {
                         res.sendStatus(201)
@@ -171,7 +172,6 @@ module.exports = {
 
         if (req.user != undefined) {
             if(req.file != undefined){
-                console.log("t'es ici petit kiki")
                 const result = await cloudinary.uploader.upload(req.file.path)
                 User.findOneAndUpdate({ Email: req.user.Email },{Picture:result.secure_url, Cloudinary_id: result.public_id}).then(()=>{
                     res.sendStatus(201)
@@ -189,7 +189,7 @@ module.exports = {
 
             // await cloudinary.uploader.destroy(user.Cloudinary_id);
             const result = await cloudinary.uploader.upload(req.file.path);
-            console.log("t'es la ?")
+           
             const data = {
 
                 Picture: result.secure_url || user.Picture,
@@ -200,7 +200,7 @@ module.exports = {
             res.json(user)
 
         } catch (err) {
-            console.log(err)
+             res.status(400).send({Erreur:err})
         }
     },
     checkUser(req,res,next){

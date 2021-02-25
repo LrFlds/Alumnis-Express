@@ -21,7 +21,7 @@ const UserList: FunctionComponent = () => {
           return response.json();
 
         } else if (response.status == 401) {
-          
+
           window.location.href = "/user/redirect"
         }
       }).then(user => {
@@ -33,6 +33,7 @@ const UserList: FunctionComponent = () => {
     <div>
       <NavProf />
       { user ? (
+
         <div id="test2" className="contener-global">
           <div className="contener-main">
             <div className="row contener-nav">
@@ -62,7 +63,7 @@ const UserList: FunctionComponent = () => {
                   <div className="row">
                     <div className="input-field col s6">
                       <input id="annee" type="text" className="validate"></input>
-                      <label htmlFor="annee">{user.Year}</label>
+                      <label htmlFor="annee">{user.Year[0]}</label>
                     </div>
                     <div className="input-field col s6">
                       <input id="lieu" type="text" className="validate"></input>

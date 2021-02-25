@@ -99,7 +99,7 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
                     <div className="row">
                       <div className="col s6">
                         <h2 className="promo">Année de promo</h2>
-                        <p className="annee">{user.Year}</p>
+                        <p className="annee">{user.Year[0]}</p>
 
                       </div>
                       <div className="col s6">

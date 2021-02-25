@@ -28,7 +28,7 @@ btn.addEventListener('click', async (e) =>{
     }
     const res = await fetch("http://api.app.localhost:3001/user/login", option)
     if(res.ok){
-        console.log('tu me soules')
+      
         window.location.href="/user/annuaire"
 
 

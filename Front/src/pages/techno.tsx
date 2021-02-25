@@ -28,7 +28,7 @@ const UserList: FunctionComponent = () => {
         }
 
       }).then(data => {
-        console.log(data)
+       
         setUser(data)
 
       })
