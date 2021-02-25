@@ -38,9 +38,9 @@ const Nav: FunctionComponent = () => {
                <ul className="sidenav">
                <li><div className="user-view row">
                <div className="contener-image">
-                     <a className="image-contener-sidebar" href="#user"><img id="prof"  src={`${user.Picture}`} /> </a>
+                     <Link className="image-contener-sidebar" to={`/user/getUser/${user._id}`}><img id="prof"  src={`${user.Picture}`} /> </Link>
                          </div> <span className="statut"></span>
-                 <a href="#name"><span className="white-text name col s12">{user.Name}  {user.FirstName}</span></a>
+                 <Link to={`/user/getUser/${user._id}`}><span className="white-text name col s12">{user.Name}  {user.FirstName}</span></Link>
                  <a href="#etat"><span className="white-text etat col">en ligne</span></a>
                </div></li>
                <div className="contener-nav">
