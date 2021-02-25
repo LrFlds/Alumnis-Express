@@ -7,6 +7,8 @@ const UserSchema = new Schema({
     FirstName: { type: String, required: true },
     Email: { type: String, required: [true, "Email obligatoire"], unique: [true, "Mail déjà existant ..."], match: /^[a-zA-Z0-9._-][^<§!:/;,\|()"#`~&=+%µ*$£%>]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/ },
     Password: { type: String, match: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,})$/ },
+    ResetPass: { type: String},
+    ExpirePass:{type: Date},
     Picture: { type: String },
     Cloudinary_id:{type: String},
     Fabric: { type: String, enum: ["Calais", "Boulogne-sur-mer","Béthune", "Roubaix"], required: true },
@@ -18,6 +20,9 @@ const UserSchema = new Schema({
     PostList: [{ type: Schema.Types.ObjectId, ref: 'PostModel' }], // VERIF LIEN
     Status: { type: Boolean },
     IsAdmin: { type: Boolean, default: "false" },
+    Github:{type:String},
+    Linkedin:{type:String},
+    Portefolio:{type:String}
 })
 
 module.exports = UserSchema;

@@ -150,7 +150,7 @@ a {
             color: #CE0033 !important;
         }
     }
-    } 
+    }
 }
 
 .row .col.l4 {
@@ -186,7 +186,7 @@ a {
             }
         }
         }
-    
+
 }
 
 
@@ -281,9 +281,9 @@ li {
                     width: 89%;
                     text-transform: uppercase;
                     word-wrap: break-word !important;
-                  
-               
-                 
+
+
+
                 }
 
                 .card-subTitle {
@@ -294,14 +294,14 @@ li {
                     font-family: Montserrat;
                     font-style: normal;
                     font-weight: 500;
-                  
+
                     word-wrap: break-word;
                     font-size: 14px;
                     height: 30px;
-                    
+
                 }
 
-                
+
 
             }
         }
@@ -433,7 +433,7 @@ li {
 
 
             a {
-
+                display: none;
                 padding-right: 40px;
                 font-size: 20px;
                 font-weight: 300;
@@ -513,7 +513,7 @@ li {
 
         .close {
             cursor: pointer;
-           
+
 
             span {
                 width: 15px;
@@ -701,7 +701,7 @@ li {
                         input {
                             width: 80%;
                             display: block;
-                            
+
                             height: 50px;
                             border: none;
                             background-color: #E3E3E3;
@@ -858,7 +858,7 @@ footer {
         }
     }
 
-    a.btn-flat {
+    .btn-flat {
         margin: 0 auto;
         color: white !important;
         margin-left: 17%;
@@ -916,7 +916,7 @@ footer {
 
         }
 
-        
+
     }
     span {
         font-size: 15px !important;
@@ -930,7 +930,7 @@ footer {
             top: 94px;
             left: 154px;
         }
-        
+
         &.name {
             margin-top: 36px !important;
             position: relative;
@@ -1039,7 +1039,10 @@ footer {
                     letter-spacing: 0.19em;
                     line-height: 30px;
                     position: relative;
-
+                    border:none;
+                    background: none;
+                    outline: none;
+                    cursor:pointer;
                     i {
                         position: absolute;
                         top: -40px;
@@ -1063,7 +1066,7 @@ footer {
             padding-bottom: 30px;
             padding-right: 20px;
             .ariane{
-              
+
                 width: 100%;
                 height: 50px;
                 background-color: #CE0033;
@@ -1102,9 +1105,9 @@ footer {
                 height: auto;
                 padding: 20px;
                 margin-bottom: 20px;
-              
+
                 width: 100%;
-              
+
                 .contenue-post{
                     display: flex;
                     flex-wrap: wrap;
@@ -1123,7 +1126,7 @@ footer {
                             font-weight: 700;
                             font-size: 20px;
                             word-wrap: break-word;
-                            
+
 
                         }
                     }
@@ -1132,7 +1135,7 @@ footer {
                         flex-wrap: wrap;
                         width: 33.33%;
                         justify-content: center;
-                       
+
                         .chiffre{
                             width: 75%;
                             display: flex;
@@ -1157,9 +1160,9 @@ footer {
                         .lastRep{
                             text-align: right;
                             width: 100%;
-                            
+
                         }
-                        
+
                     }
 
                 }
@@ -1198,7 +1201,7 @@ footer {
                     transform: translate(-50%);
                     &.un{
                         transform: translate(100%);
-                        
+
                     }
                     &.trois{
                         transform: translate(-200%);
@@ -1531,7 +1534,7 @@ footer {
                 border-radius: 6px;
                 cursor: pointer;
                 transition: all 0.5s;
-               
+
 
                 &:hover {
                     transform: scale(1.03) translate(0px, -10px);
@@ -1553,7 +1556,7 @@ footer {
                         overflow: hidden;
                     }
 
-                    
+
                 }
                 .card-title {
                     color: #CE0033;
@@ -1567,7 +1570,7 @@ footer {
                     font-size: 18px;
                     text-transform: uppercase;
                     word-wrap: break-word;
-                 
+
                 }
 
                 .card-subTitle {
@@ -1575,7 +1578,7 @@ footer {
                     letter-spacing: 1.5px;
                     display: block;
                     padding-left: 33px;
-                  
+
                     text-transform: uppercase;
                     font-family: Montserrat;
                     font-style: normal;
@@ -1583,10 +1586,10 @@ footer {
                     word-wrap: break-word;
                     font-size: 14px;
                     height: 30px;
-                    
+
                 }
                 .card-content {
-                  
+
 
                     p {
                         color: #7A7777 !important;
@@ -1707,7 +1710,7 @@ input.valid[type=text]:not(.browser-default){
 display: flex;
 justify-content: space-between;
 .retour{
-    
+
     background-color: #CE0030;
 }
 }
@@ -1799,7 +1802,7 @@ justify-content: space-between;
 }
 
 .Forgot{
- 
+
     width: 30%;
     height: 200px !important;
     position: absolute;
@@ -1860,7 +1863,7 @@ justify-content: space-between;
 @media screen and (max-width: 1230px){
     .acceuil .row .container .container-illu {
         height: 530px;
-     
+
     }
 }
 @media screen and (max-width: 1200px) {
@@ -1869,24 +1872,24 @@ justify-content: space-between;
     }
     .row .col.l5 {
         width: 100%;
-        
+
     }
     .row .col.l7 {
         width: 100%;
-       
+
     }
     ::-webkit-scrollbar-thumb{
         display: none;
     }
     .test .contener-profil .contener-description{
-        border-right:none; 
+        border-right:none;
         border-bottom: solid 1px black;
         width: 80%;
-             padding: 0px; 
+             padding: 0px;
     margin-left: 70px;
     padding-top: 2px;
-     padding-bottom:40px; 
-    
+     padding-bottom:40px;
+
      margin-bottom: 20px;
 
     }
@@ -1897,9 +1900,9 @@ justify-content: space-between;
         padding-left: 70px;
     }
     .test .contener-profil .contener-img .contener-text .card-title {
-       
+
         width: 100%;
-      
+
     }
     .test .contener-profil{
         height: 700px;
@@ -1910,8 +1913,8 @@ justify-content: space-between;
         top: 100px;
         right: 0px;
     }
-    
-    
+
+
 }
 @media screen and (max-width: 1020px) {
     .acceuil .row .container .container-bienvenue h1{
@@ -1954,7 +1957,7 @@ justify-content: space-between;
         width: 60%;
     }
     .acceuil .row .container .droite form input[type=password] {
-        
+
         margin-bottom: 10px;
     }
     .acceuil .row .container .droite form .box label{
@@ -1967,12 +1970,12 @@ justify-content: space-between;
     .acceuil .row .container .droite form .box input[type=mail]:focus + label, .acceuil .row .container .droite form .box input[type=password]:focus + label{
         padding-left: 0px;
     }
-    
+
 }
 @media screen and (max-width: 900px){
     .row .col.l4 {
         width: 45%;
- 
+
     }
     .burger {
         display: block;
@@ -1981,10 +1984,10 @@ justify-content: space-between;
         left: -500px;
     }
     .contener-global .contener-main {
-       
+
         left: 0px;
         width: 100%;
-        
+
     }
     .sidenav .closerespo{
         display: block;
@@ -1996,11 +1999,11 @@ justify-content: space-between;
         margin-top: 0px;
         position: relative;
         padding-bottom: 90px;
-        padding-right: 0px; 
+        padding-right: 0px;
     }
 }
 
-@media screen and (max-width: 700px){  
+@media screen and (max-width: 700px){
 .acceuil .row .container .container-bienvenue h1 {
     font-size: 50px !important;
     text-align: center;
@@ -2047,23 +2050,23 @@ justify-content: space-between;
 }
 
 @media screen and (max-width: 450px){
-    .contener-global .contener-main .contener-nav .col .filtres { 
+    .contener-global .contener-main .contener-nav .col .filtres {
         padding-left: 68px;
     }
 }
 
 @media screen and (max-width: 400px){
     .acceuil .row .container .droite .suis .container-button .al {
-    
+
         padding: 13px;
         font-size: 17px;
-       
+
     }
     .acceuil .row .container .droite .suis .container-button .re {
-    
+
         padding: 13px;
         font-size: 17px;
-       
+
     }
     .acceuil .row .container .droite form .box label{
         font-size: 18px;
@@ -2074,7 +2077,7 @@ justify-content: space-between;
         text-align: center;
     }
     .contener-global .contener-main .contener-nav .col .recherche {
-      
+
         position: absolute;
         left: 80px;
     }

@@ -17,11 +17,7 @@ const file = () =>{
         }
     })
 
-    save.addEventListener('click', function() {
-        const pic = img.attributes.src.value;
-        document.querySelector('#prof').src = pic;
-      
-    })
+   
 }
 
 export default file;

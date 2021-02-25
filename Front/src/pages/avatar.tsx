@@ -2,8 +2,9 @@ import React, { Component, useState, useEffect } from 'react';
 import User from '../models/user';
 import {Link} from 'react-router-dom';
 import UserProfil from '../components/profil';
-import NavProf from '../js/props/navProf';
+import NavProf from '../js/props/navProfFunction';
 import file from '../js/picture';
+import back from '../js/back'
 
 
 
@@ -13,32 +14,33 @@ class App extends Component {
 componentDidMount(){
     file()
 }
-
-  state={
-        selectedfile:null as any
-      }
+state={
+    selectedFile: null
+}
 fileSelectedHandler = (event: any) => {
 
-    return this.setState({
-        selectedFile: event.target.files[0]
+return this.setState({
+  selectedFile: event.target.files[0]
 
-    })
+})
 }
 fileUploadHandler = () => {
-    const fd = new FormData();
-    fd.append('image', this.state.selectedfile);
+const fd = new FormData();
+fd.append('image', this.state.selectedFile!);
 fetch("http://api.app.localhost:3001/user/settingUser/",{
-    method: "POST",
-    body: fd,
-    credentials:'include',
-    headers: {
-        Cookie: document.cookie,
-      }
+method: "POST",
+body: fd,
+credentials:'include',
+headers: {
+  Cookie: document.cookie,
+}
 })
 .then(res =>{
+    console.log(res.status)
     if(res.status == 201){
         window.location.href= '/user/avatar'
     }
+
 });
 }
 render(){
@@ -52,7 +54,7 @@ render(){
       <div className="contener-main">
       <div className="row contener-nav">
           <div className="col  end">
-     <Link to="/user/annuaire" className="ret">  <i className="small material-icons">arrow_back</i> retour</Link>
+          <button onClick={back} className="ret"> <i className="small material-icons">arrow_back</i> retour</button>
 </div>
 <div className="col s3 end">
       <a href="#!" className="notif"><i className="small material-icons">notifications_none</i></a>
@@ -64,7 +66,7 @@ render(){
                                 <h2>Avatar</h2>
                                 <div className="contener-picture">
                                     <div className="contener-image">
-                                    <img id="photo" src="imgs/quentin.png" />
+                                    <img id="photo" src="http://via.placeholder.com/150" />
                                     </div>
                                     <form encType="multipart/form-data" action="#">
                                     <div className="file-field input-field">

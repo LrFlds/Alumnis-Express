@@ -8,6 +8,7 @@ const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 const cloudinary = require('../Config/cloudinary');
+// const sharp = require('sharp')
 
 
 
@@ -17,10 +18,14 @@ module.exports = {
     getAllUsers(req, res) {
         User.find().then(result => {
             res.send(result)
+<<<<<<< HEAD
             console.log("log du user en cours :"+req.user)
+=======
+>>>>>>> b885d6e2572f430e53f4a50a578ccb6fd04bcac5
         })
     },
     getUser(req, res) {
+
         const id = req.user._id
         User.findOne({ _id: id }).then(result => {
             res.send(result)
@@ -29,10 +34,9 @@ module.exports = {
     },
 
     getUserByID(req, res) {
+
         User.findOne({ _id: req.params.id }).then(result => {
-            Picture.find({ _id: { $in: result.Picture } }).then((picture) => {
-                res.send({user:result,picture:picture})
-            })
+           res.send(result)
         })
     },
 
@@ -154,6 +158,7 @@ module.exports = {
                 if (!user) {
                     res.send(401, "Ta soeur !!!!")
                 } else {
+
                     req.logIn(user, err => {
                         if (err) throw err;
 
@@ -169,12 +174,17 @@ module.exports = {
     async picture(req, res, next) {
 
         if (req.user != undefined) {
-            const result = await cloudinary.uploader.upload(req.file.path)
-            User.findOneAndUpdate({ Email: req.user.Email },{Picture:result.secure_url, Cloudinary_id: result.public_id}).then(()=>{
-                res.sendStatus(201)
-            })
+            if(req.file != undefined){
+                console.log("t'es ici petit kiki")
+                const result = await cloudinary.uploader.upload(req.file.path)
+                User.findOneAndUpdate({ Email: req.user.Email },{Picture:result.secure_url, Cloudinary_id: result.public_id}).then(()=>{
+                    res.sendStatus(201)
+                })
+            }else {
+                res.sendStatus(400)
+            }
         } else {
-            console.log("crotte de chèvre")
+            res.sendStatus(401)
         }
     },
     async UpdateImage(req, res, next) {
@@ -197,7 +207,16 @@ module.exports = {
             console.log(err)
         }
     },
+    checkUser(req,res,next){
+       if(req.user != undefined){
+
+           next()
+       }else{
+           res.sendStatus(401)
+       }
+    },
     connectedUser(req, res, next){
+<<<<<<< HEAD
         res.send(req.user);
     },
     checkUser(req,res,next){
@@ -205,6 +224,20 @@ module.exports = {
            next()  
         }else{
            res.sendStatus(401)
+=======
+
+        if(req.user != undefined){
+            res.send(req.user);
+        }else{
+            res.sendStatus(401)
+        }
+
+    },
+    logout(req,res){
+        req.session.destroy()
+        if(req.session == undefined){
+            res.sendStatus(401)
+>>>>>>> b885d6e2572f430e53f4a50a578ccb6fd04bcac5
         }
     }
 }
