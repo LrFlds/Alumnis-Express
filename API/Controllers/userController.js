@@ -16,7 +16,7 @@ const cloudinary = require('../Config/cloudinary');
 module.exports = {
     getAllUsers(req, res) {
         User.find().then(result => {
-            res.send({result:result, user:req.user})
+            res.send(result)
             console.log("log du user en cours :"+req.user)
         })
     },
@@ -199,6 +199,13 @@ module.exports = {
     },
     connectedUser(req, res, next){
         res.send(req.user);
+    },
+    checkUser(req,res,next){
+        if(passport.authenticate()){
+           next()  
+        }else{
+           res.sendStatus(401)
+        }
     }
 }
 
