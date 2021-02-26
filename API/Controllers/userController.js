@@ -8,7 +8,7 @@ const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 const cloudinary = require('../Config/cloudinary');
-// const sharp = require('sharp')
+
 
 
 

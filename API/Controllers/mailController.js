@@ -7,6 +7,9 @@ const crypto = require('crypto')
 const transporter = require('../Config/resetPassword')
 
 
+/**
+ * Send mail for reset password
+ */
 
 module.exports = {
     resetPassword(req, res){

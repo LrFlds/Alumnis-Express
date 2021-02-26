@@ -22,7 +22,7 @@ module.exports = {
         })
     },
     updtatePost(req,res){
-        Post.findById({_Id:req.body.Id}).then(result=>{
+        Post.findById({_Id:req.body.Id}).then(result => {
             if(!result){
                 res.send('Houston, we have a problem')
             }else{
