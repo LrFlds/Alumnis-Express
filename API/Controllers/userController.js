@@ -153,7 +153,7 @@ module.exports = {
                 throw err;
             } else {
                 if (!user) {
-                    res.send(401, "Ta soeur !!!!")
+                    res.status(401).send({message:"Vous n'êtes pas authorisé à visiter cette page sans vous être connecté"})
                 } else {
 
                     req.logIn(user, err => {
@@ -189,7 +189,7 @@ module.exports = {
 
             // await cloudinary.uploader.destroy(user.Cloudinary_id);
             const result = await cloudinary.uploader.upload(req.file.path);
-           
+
             const data = {
 
                 Picture: result.secure_url || user.Picture,

@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import User from '../models/user';
 import {Link} from 'react-router-dom';
-import modalF from '../js/modalForgot.js';
+import modalF from '../js/modals/modalForgot.js';
 import img from '../imgs/illu-forgot.png';
 
 const UserList: FunctionComponent = () => {

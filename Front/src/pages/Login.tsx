@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import User from '../models/user';
-import Login from '../js/login.js';
+import Login from '../js/fetchs/login.js';
 import img from '../imgs/illu-acceuil.png';
 import {Link} from 'react-router-dom';
 import UserProfil from '../components/profil';

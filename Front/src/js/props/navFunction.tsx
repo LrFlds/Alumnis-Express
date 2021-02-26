@@ -1,29 +1,20 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import User from '../../models/user'
 import { Link } from 'react-router-dom';
-import logout from '../logout'
+import logout from '../fetchs/logout'
+import getConnectedUser from '../fetchs/getConnectedUser';
 
 
 const Nav: FunctionComponent = () => {
 
-    const [user, setUserBis] = useState<User | null>(null);
+    const [user, setUser] = useState<User | null>(null);
     useEffect(() => {
+        async function getUser() {
+            const user =  await getConnectedUser()
+            setUser(user)
+         }
+         getUser();
 
-        fetch('http://api.app.localhost:3001/user/connectedUser', {
-            method: "GET",
-            credentials: 'include',
-            headers: {
-                Cookie: document.cookie,
-            }
-        })
-            .then((response) => {
-                return response.json()
-
-            }).then((data) => {
-                setUserBis(data)
-
-
-            })
     }, []);
 
     return (

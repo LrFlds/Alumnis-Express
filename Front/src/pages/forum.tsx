@@ -4,36 +4,24 @@ import { Link } from 'react-router-dom';
 import img from '../imgs/illu-forum.png';
 import imgProf from '../imgs/laura.png';
 import Nav from '../js/props/navFunction';
-import burger from '../js/burger';
-import close from '../js/close';
+import burger from '../js/modals/burger';
+import close from '../js/modals/close';
 import UserProfil from '../components/profil';
+import getConnectedUser from '../js/fetchs/getConnectedUser';
 
 const UserList: FunctionComponent = () => {
     const [users, setUser] = useState<User[]>([]);
 
     useEffect(() => {
 
-        fetch('http://api.app.localhost:3001/user/connectedUser', {
-            method: "GET",
-            credentials: 'include',
-            headers: {
-                Cookie: document.cookie,
-            }
-        })
-            .then((response) => {
+        async function getUser() {
+            const user = await getConnectedUser()
+            setUser(user);
+            close();
+            burger();
+        }
+        getUser();
 
-                if (response.ok) {
-
-                    return response.json();
-
-                } else if (response.status == 401) {
-                    window.location.href = "/redirect"
-
-                }
-
-                close();
-                burger();
-            })
     }, []);
 
     return (

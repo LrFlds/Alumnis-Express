@@ -1,36 +1,24 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import User from '../models/user';
 import { Link } from 'react-router-dom';
-import burger from '../js/burger';
-import close from '../js/close';
+import burger from '../js/modals/burger';
+import close from '../js/modals/close';
 import Nav from '../js/props/navFunction';
 import UserProfil from '../components/profil';
+import getConnectedUser from '../js/fetchs/getConnectedUser';
 
 const UserList: FunctionComponent = () => {
     const [users, setUser] = useState<User[]>([]);
 
     useEffect(() => {
+        async function getUser() {
+            const user = await getConnectedUser()
+            setUser(user)
+        }
+        getUser();
+        close();
+        burger();
 
-        fetch('http://api.app.localhost:3001/user/connectedUser', {
-            method: "GET",
-            credentials: 'include',
-            headers: {
-                Cookie: document.cookie,
-            }
-        })
-            .then((response) => {
-
-                if (response.ok) {
-
-                    return response.json();
-
-                } else if (response.status == 401) {
-                    window.location.href = "/redirect"
-
-                }
-                close();
-                burger();
-            })
     }, []);
 
     return (
