@@ -1,12 +1,13 @@
 {
-  "name": "react-pok",
+  "name": "alumni-project",
   "version": "1.0.0",
-  "description": "An awesome application to handle some pokemons.",
+  "description": "Alumnis",
   "dependencies": {
     "@types/node": "12.11.1",
     "@types/react": "16.9.9",
     "@types/react-dom": "16.9.2",
     "@types/react-router-dom": "^5.1.2",
+    "dotenv": "^8.2.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-materialize": "^3.9.3",
