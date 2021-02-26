@@ -3,36 +3,24 @@ import User from '../models/user';
 import { Link } from 'react-router-dom';
 import UserProfil from '../components/profil';
 import NavProf from '../js/props/navProfFunction';
-import back from '../js/back'
+import back from '../js/functions/back'
+import getConnectedUser from '../js/fetchs/getConnectedUser';
 const UserList: FunctionComponent = () => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    fetch('http://api.app.localhost:3001/user/connectedUser', {
-      method: "GET",
-      credentials: 'include',
-      headers: {
-        Cookie: document.cookie,
-      }
-    })
-      .then((response) => {
-        if (response.ok) {
-
-          return response.json();
-
-        } else if (response.status == 401) {
-          
-          window.location.href = "/user/redirect"
-        }
-      }).then(user => {
-        setUser(user);
-      })
+    async function getUser() {
+      const user = await getConnectedUser()
+      setUser(user);
+    }
+    getUser();
   }, []);
 
   return (
     <div>
       <NavProf />
       { user ? (
+
         <div id="test2" className="contener-global">
           <div className="contener-main">
             <div className="row contener-nav">
@@ -62,7 +50,7 @@ const UserList: FunctionComponent = () => {
                   <div className="row">
                     <div className="input-field col s6">
                       <input id="annee" type="text" className="validate"></input>
-                      <label htmlFor="annee">{user.Year}</label>
+                      <label htmlFor="annee">{user.Year[0]}</label>
                     </div>
                     <div className="input-field col s6">
                       <input id="lieu" type="text" className="validate"></input>
@@ -130,10 +118,10 @@ const UserList: FunctionComponent = () => {
             </div>
           </div>
         </div>
-        ) : (
+      ) : (
           <h4 className="center">Echec du chargement du profil</h4>
         )}
-  </div>
+    </div>
   );
 }
 

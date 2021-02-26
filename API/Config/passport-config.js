@@ -24,7 +24,7 @@ module.exports = function (passport) {
             });
         });
     }catch(err){
-        console.log(err)
+      return (err)
     }}))
     passport.serializeUser((user, cb)=>{
         cb(null, user.id)

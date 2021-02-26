@@ -8,9 +8,9 @@ const logout = ()=>{
         }
     }).then(response=>{
         if(response.status == 401){
-            window.location.href = "/user/login"
+            window.location.href = "/"
         }else{
-            console.log('lol')
+
         }
 
     })

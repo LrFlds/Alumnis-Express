@@ -1,36 +1,24 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import User from '../models/user';
 import { Link } from 'react-router-dom';
-import burger from '../js/burger';
-import close from '../js/close';
+import burger from '../js/modals/burger';
+import close from '../js/modals/close';
 import Nav from '../js/props/navFunction';
 import UserProfil from '../components/profil';
+import getConnectedUser from '../js/fetchs/getConnectedUser';
 
 const UserList: FunctionComponent = () => {
     const [users, setUser] = useState<User[]>([]);
 
     useEffect(() => {
+        async function getUser() {
+            const user = await getConnectedUser()
+            setUser(user)
+        }
+        getUser();
+        close();
+        burger();
 
-        fetch('http://api.app.localhost:3001/user/connectedUser', {
-            method: "GET",
-            credentials: 'include',
-            headers: {
-                Cookie: document.cookie,
-            }
-        })
-            .then((response) => {
-
-                if (response.ok) {
-
-                    return response.json();
-
-                } else if (response.status == 401) {
-                    window.location.href = "/user/redirect"
-
-                }
-                close();
-                burger();
-            })
     }, []);
 
     return (
@@ -41,7 +29,7 @@ const UserList: FunctionComponent = () => {
                 <div className="contener-main">
                     <div className="row contener-nav">
                         <div className="col  end">
-                            <Link to="/user/profil" className="panneau">Panneau d'aministration</Link>
+                            <Link to="/profil" className="panneau">Panneau d'aministration</Link>
                         </div>
                         <div className="col s3 end">
                             <a href="#!" className="notif"><i className="small material-icons">notifications_none</i></a>
@@ -68,7 +56,7 @@ const UserList: FunctionComponent = () => {
                         </div>
                         <div className="row">
                             <div className="ariane">
-                                <Link to="/user/forum" > <p>Accueil du forum</p> </Link>
+                                <Link to="/forum" > <p>Accueil du forum</p> </Link>
                                 <h1>Titre du topic</h1>
                             </div>
                             <div className="contener-post">

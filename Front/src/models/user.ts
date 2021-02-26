@@ -5,7 +5,7 @@ export default class User {
     Email: string;
     Password: string;
     Fabric: string;
-    Year: number;
+    Year:  Array<number>;
     TypeFormation: Array<string>;
     Techno: Array<string>;
     Description: string;
@@ -23,7 +23,7 @@ export default class User {
      Email: string = 'email',
      Password: string = 'pass',
      Fabric: string = 'calais',
-     Year: number = 2020,
+     Year: Array<number> =[2020],
      TypeFormation: Array<string> =['formation'],
      Techno: Array<string> = ['Javascript'],
      Description: string = 'votre desciption',
@@ -34,7 +34,7 @@ export default class User {
 
 
     ) {
-     // 3. Initialisation des propiétés 
+     // 3. Initialisation des propiétés
      this._id = _id;
     this.Name = Name;
     this.FirstName = FirstName;
