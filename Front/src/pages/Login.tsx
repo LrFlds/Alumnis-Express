@@ -35,17 +35,17 @@ const [users, setUser] = useState<User[]>([]);
             </div>
             <form action="">
                 <div className="box">
-                
+
                 <input id="mail" type="mail" name="mail" required></input>
                 <label htmlFor="mail">Adresse Email</label>
             </div>
             <div className="box">
-                
+
                 <input id="pass" className="pass" type="password" name="passe" required></input>
                 <label htmlFor="passe">Mot de passe </label>
             </div>
                 <div className="container-oublie">
-                     <Link to="/user/forgot">Mot de passe oublié ? </Link>
+                     <Link to="/forgot">Mot de passe oublié ? </Link>
                  </div>
                 <input id="sub" type="submit" value="connexion"></input>
             </form>
@@ -56,7 +56,7 @@ const [users, setUser] = useState<User[]>([]);
 </div>
 
 <footer className="page-footer">
- 
+
       <div className="row">
         <div className="col l4 offset-l2 s6">
           <ul>

@@ -25,7 +25,7 @@ const UserList: FunctionComponent = () => {
                     return response.json();
 
                 } else if (response.status == 401) {
-                    window.location.href = "/user/redirect"
+                    window.location.href = "/redirect"
 
                 }
                 close();
@@ -41,7 +41,7 @@ const UserList: FunctionComponent = () => {
                 <div className="contener-main">
                     <div className="row contener-nav">
                         <div className="col  end">
-                            <Link to="/user/profil" className="panneau">Panneau d'aministration</Link>
+                            <Link to="/profil" className="panneau">Panneau d'aministration</Link>
                         </div>
                         <div className="col s3 end">
                             <a href="#!" className="notif"><i className="small material-icons">notifications_none</i></a>
@@ -68,7 +68,7 @@ const UserList: FunctionComponent = () => {
                         </div>
                         <div className="row">
                             <div className="ariane">
-                                <Link to="/user/forum" > <p>Accueil du forum</p> </Link>
+                                <Link to="/forum" > <p>Accueil du forum</p> </Link>
                                 <h1>Titre du topic</h1>
                             </div>
                             <div className="contener-post">

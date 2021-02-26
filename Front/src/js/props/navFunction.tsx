@@ -38,21 +38,21 @@ const Nav: FunctionComponent = () => {
                         <li>
                             <div className="user-view row">
                                 <div className="contener-image">
-                                <Link to={`/user/getUser/${user._id}`} className="image-contener-sidebar" ><img src={`${user.Picture}`} /></Link>
+                                <Link to={`/getUser/${user._id}`} className="image-contener-sidebar" ><img src={`${user.Picture}`} /></Link>
                                 </div>
                                 <span className="statut"></span>
-                                <Link to={`/user/getUser/${user._id}`}><span className="white-text name col s12">{user.Name}  {user.FirstName}</span></Link>
+                                <Link to={`/getUser/${user._id}`}><span className="white-text name col s12">{user.Name}  {user.FirstName}</span></Link>
                                 <span className="white-text etat col ">en ligne</span>
                             </div>
                         </li>
                         <div className="contener-nav">
-                            <li className="nav-gauche tab"><Link to="/user/profil"><i
+                            <li className="nav-gauche tab"><Link to="/profil"><i
                                 className="small material-icons">person_outline</i>Modifier son Profil</Link></li>
                             <li className="nav-gauche tab"><a href=""><i className="small material-icons">chat_bubble_outline</i>Chat</a>
                             </li>
-                            <li className="nav-gauche tab"><Link to="/user/annuaire" className="active" href="#test2"><i
+                            <li className="nav-gauche tab"><Link to="/annuaire" className="active" href="#test2"><i
                                 className="small material-icons">search</i>Annuaire</Link></li>
-                            <li className="nav-gauche tab"><Link to="/user/forum"><i className="small material-icons">people_outline</i>Forum</Link></li>
+                            <li className="nav-gauche tab"><Link to="/forum"><i className="small material-icons">people_outline</i>Forum</Link></li>
                             <br />
                             <li className="nav-gauche tab"><a href=""><i className="small material-icons">settings</i>Réglage</a></li>
                         </div>

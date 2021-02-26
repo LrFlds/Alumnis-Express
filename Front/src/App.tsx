@@ -22,17 +22,17 @@ return (
 <Router>
   <div>
     <Switch>
-      <Route exact path="/user/login" component={Login} />
-      <Route exact path="/user/Annuaire" component={Annuaire} />
-      <Route path="/user/getUser/:_id" component={UserDetails} />
-      <Route exact path="/user/profil" component={profil} />
-      <Route exact path="/user/avatar" component={avatar} />
-      <Route exact path="/user/techno" component={techno} />
-      <Route exact path="/user/formation" component={formation} />
-      <Route exact path="/user/forum" component={forum} />
-      <Route exact path="/user/postForum" component={postForum} />
-      <Route exact path="/user/forgot" component={forgot} />
-      <Route exact path="/user/redirect" component={redirect} />
+      <Route exact path="/" component={Login} />
+      <Route exact path="/Annuaire" component={Annuaire} />
+      <Route path="/getUser/:_id" component={UserDetails} />
+      <Route exact path="/profil" component={profil} />
+      <Route exact path="/avatar" component={avatar} />
+      <Route exact path="/techno" component={techno} />
+      <Route exact path="/formation" component={formation} />
+      <Route exact path="/forum" component={forum} />
+      <Route exact path="/postForum" component={postForum} />
+      <Route exact path="/forgot" component={forgot} />
+      <Route exact path="/redirect" component={redirect} />
     </Switch>
   </div>
 </Router>

@@ -36,9 +36,9 @@ headers: {
 }
 })
 .then(res =>{
-   
+
     if(res.status == 201){
-        window.location.href= '/user/avatar'
+        window.location.href= '/avatar'
     }
 
 });

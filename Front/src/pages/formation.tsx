@@ -26,7 +26,7 @@ const UserList: FunctionComponent = () => {
           return response.json();
 
         } else if (response.status == 401) {
-          window.location.href = "/user/redirect"
+          window.location.href = "/redirect"
 
         }
 
