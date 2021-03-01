@@ -4,36 +4,24 @@ import { Link } from 'react-router-dom';
 import img from '../imgs/illu-forum.png';
 import imgProf from '../imgs/laura.png';
 import Nav from '../js/props/navFunction';
-import burger from '../js/burger';
-import close from '../js/close';
+import burger from '../js/modals/burger';
+import close from '../js/modals/close';
 import UserProfil from '../components/profil';
+import getConnectedUser from '../js/fetchs/getConnectedUser';
 
 const UserList: FunctionComponent = () => {
     const [users, setUser] = useState<User[]>([]);
 
     useEffect(() => {
 
-        fetch('http://api.app.localhost:3001/user/connectedUser', {
-            method: "GET",
-            credentials: 'include',
-            headers: {
-                Cookie: document.cookie,
-            }
-        })
-            .then((response) => {
+        async function getUser() {
+            const user = await getConnectedUser()
+            setUser(user);
+            close();
+            burger();
+        }
+        getUser();
 
-                if (response.ok) {
-
-                    return response.json();
-
-                } else if (response.status == 401) {
-                    window.location.href = "/user/redirect"
-
-                }
-
-                close();
-                burger();
-            })
     }, []);
 
     return (
@@ -44,7 +32,7 @@ const UserList: FunctionComponent = () => {
                 <div className="contener-main">
                     <div className="row contener-nav">
                         <div className="col  end">
-                            <Link to="/user/profil" className="panneau">Panneau d'aministration</Link>
+                            <Link to="/profil" className="panneau">Panneau d'aministration</Link>
                         </div>
                         <div className="col s3 end">
                             <a href="#!" className="notif"><i className="small material-icons">notifications_none</i></a>
@@ -74,7 +62,7 @@ const UserList: FunctionComponent = () => {
                                 <h1>01</h1>
                                 <p>Annonces &amp; infos</p>
                             </div>
-                            <Link to="/user/postForum" className="contenue-annonce">
+                            <Link to="/postForum" className="contenue-annonce">
                                 <div className="contener-titre">
                                     <h1>TITRE</h1>
                                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid quisquam maiores sint, quasi facilis exercitationem voluptatibus, assumenda quis culpa, dignissimos necessitatibus accusantium earum debitis tempora ex officiis minima voluptatum? Iste!</p>

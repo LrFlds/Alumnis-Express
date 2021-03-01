@@ -3,35 +3,17 @@ import User from '../models/user';
 import {Link} from 'react-router-dom';
 import UserProfil from '../components/profil';
 import NavProf from '../js/props/navProfFunction';
-import back from '../js/back'
+import back from '../js/functions/back'
+import getConnectedUser from '../js/fetchs/getConnectedUser';
 const UserList: FunctionComponent = () => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-
-    fetch('http://api.app.localhost:3001/user/connectedUser', {
-      method: "GET",
-      credentials: 'include',
-      headers: {
-        Cookie: document.cookie,
-      }
-    })
-      .then((response) => {
-
-        if (response.ok) {
-
-          return response.json();
-
-        } else if (response.status == 401) {
-          window.location.href = "/user/redirect"
-
-        }
-
-      }).then(data => {
-        console.log(data)
-        setUser(data)
-
-      })
+    async function getUser() {
+      const user =  await getConnectedUser()
+      setUser(user);
+   }
+   getUser();
 
   }, []);
   return (

@@ -19,7 +19,7 @@ const [users, setUser] = useState<User[]>([]);
 
   return (
   <div>
-      
+
 
 <div className="redirect">
 <img className='nuage1'  src={Nuage} />
@@ -33,8 +33,8 @@ const [users, setUser] = useState<User[]>([]);
 <img className='pierre1'  src={pierre} />
     <img  src={img} />
     <p>Hop Hop Hop t'as pas le droit d'être là !</p>
-    <Link to="/user/login"  className=" redirectBtn" type="submit">Va t'en chez vous ! </Link>
-    
+    <Link to="/"  className=" redirectBtn" type="submit">Va t'en chez vous ! </Link>
+
     </div>
 
 </div>

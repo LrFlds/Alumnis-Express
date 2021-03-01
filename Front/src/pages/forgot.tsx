@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import User from '../models/user';
 import {Link} from 'react-router-dom';
-import modalF from '../js/modalForgot.js';
+import modalF from '../js/modals/modalForgot.js';
 import img from '../imgs/illu-forgot.png';
 
 const UserList: FunctionComponent = () => {
@@ -19,9 +19,9 @@ const [users, setUser] = useState<User[]>([]);
   <div className="englo">
     <div className="row">
   <div className="illus col s6 l6 m6">
-  
+
   <img  src={img} />
-  
+
   </div>
    <div className="contener-new">
     <form className="droites col s12">
@@ -33,8 +33,8 @@ const [users, setUser] = useState<User[]>([]);
           <label htmlFor="mail">Adresse email</label>
         </div>
       </div>
-      
-       
+
+
       <div className="row">
         <div className="input-field col s8">
         <i className="material-icons prefix">https</i>
@@ -48,14 +48,14 @@ const [users, setUser] = useState<User[]>([]);
           <input id="mdp" type="password" className="validate"></input>
           <label htmlFor="mdp">Confirmez le nouveau mot de passe</label>
         </div>
-      </div> 
+      </div>
       <div className="contener-btn col s8">
-            <Link to="/user/login" className="btn retour modal-trigger" type="submit">Retour </Link>
-      <Link to="/user/login"  className="trigger btn newMdp modal-trigger" type="submit">Enregistrer mon nouveau mot de passe </Link>
+            <Link to="/" className="btn retour modal-trigger" type="submit">Retour </Link>
+      <Link to="/"  className="trigger btn newMdp modal-trigger" type="submit">Enregistrer mon nouveau mot de passe </Link>
       </div>
     </form>
     </div>
-           
+
 </div>
 </div>
 

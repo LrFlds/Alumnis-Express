@@ -3,11 +3,12 @@ import { RouteComponentProps, Link } from 'react-router-dom';
 import User from '../models/user';
 import Nav from '../js/props/navFunction';
 import '../css/styles.css';
-import burger from '../js/burger';
-import close from '../js/close';
-import links from '../js/links';
-import placeholder from '../js/placeholder'
-import back from '../js/back'
+import burger from '../js/modals/burger';
+import close from '../js/modals/close';
+import links from '../js/functions/links';
+import placeholder from '../js/functions/placeholder'
+import back from '../js/functions/back'
+import getUserByID from '../js/fetchs/getUserById';
 
 type Params = { _id: string };
 
@@ -19,26 +20,20 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
   useEffect(() => {
 
     links()
-    fetch(`http://api.app.localhost:3001/user/profil/${match.params._id}`, {
-      credentials: 'include',
-      headers: {
-        Cookie: document.cookie,
-      }
-    })
-      .then((response) => {
-        if (response.ok) {
+    async function getUser() {
+      const user = await getUserByID(match.params._id)
+      setUser(user);
+      burger();
+      close();
+      placeholder();
+    }
+    getUser();
 
-          return response.json();
 
-        } else if (response.status == 401) {
-          window.location.href = "/user/redirect"
 
-        }
-      }).then(data => {
-        setUser(data)
-        placeholder()
-      })
+
   }
+
     , [match.params._id]);
 
   return (
@@ -55,7 +50,7 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
           <div className="contener-main">
             <div className="row contener-nav">
               <div className="col  end">
-              <button onClick={back} className="ret"> <i className="small material-icons">arrow_back</i> retour</button>
+                <button onClick={back} className="ret"> <i className="small material-icons">arrow_back</i> retour</button>
               </div>
               <div className="col s3 end">
                 <a href="#!" className="notif"><i className="small material-icons">notifications_none</i></a>
@@ -97,7 +92,7 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
                     <div className="row">
                       <div className="col s6">
                         <h2 className="promo">Année de promo</h2>
-                        <p className="annee">{user.Year}</p>
+                        <p className="annee">{user.Year[0]}</p>
 
                       </div>
                       <div className="col s6">
