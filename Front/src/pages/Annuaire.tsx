@@ -20,8 +20,6 @@ const UserList: FunctionComponent = () => {
     async function getUsers() {
       const user = await getAllUsers()
       setUsers(user)
-      burger();
-      close();
     }
     getUsers();
 

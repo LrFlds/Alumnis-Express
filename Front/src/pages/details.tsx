@@ -23,8 +23,6 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
     async function getUser() {
       const user = await getUserByID(match.params._id)
       setUser(user);
-      burger();
-      close();
       placeholder();
     }
     getUser();

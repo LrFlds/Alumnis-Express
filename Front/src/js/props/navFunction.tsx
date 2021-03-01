@@ -3,7 +3,7 @@ import User from '../../models/user'
 import { Link } from 'react-router-dom';
 import logout from '../fetchs/logout'
 import getConnectedUser from '../fetchs/getConnectedUser';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Avatar, Breadcrumb } from 'antd';
 import {
   DesktopOutlined,
   PieChartOutlined,
