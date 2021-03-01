@@ -3,7 +3,9 @@ import User from '../models/user';
 import {Link} from 'react-router-dom';
 import UserProfil from '../components/profil';
 import NavProf from '../js/props/navProfFunction';
-import back from '../js/back'
+import back from '../js/back';
+
+
 const UserList: FunctionComponent = () => {
 const [users, setUser] = useState<User[]>([]);
 
@@ -25,6 +27,7 @@ const [users, setUser] = useState<User[]>([]);
       window.location.href= "/user/redirect"
 
     }
+    
 
   })
   }, []);
@@ -33,6 +36,8 @@ const [users, setUser] = useState<User[]>([]);
   <div>
     <NavProf />
 
+
+    { user ? (
     <div id="test2" className="contener-global">
       <div className="contener-main">
       <div className="row contener-nav">
@@ -51,7 +56,7 @@ const [users, setUser] = useState<User[]>([]);
     <form className="col s5 gauche">
       <div className="row">
         <div className="input-field col s6">
-          <input id="nom" type="text" className="validate"></input>
+          <input id="nom" type="text"  placeholder={`${user.FirstName}`} className="validate"></input>
           <label htmlFor="nom">Nom</label>
         </div>
         <div className="input-field col s6">
@@ -130,6 +135,9 @@ const [users, setUser] = useState<User[]>([]);
         </div>
       </div>
     </div>
+    ) : (
+      <h4 className="center">Aucun profil à afficher !</h4>
+    )}
   </div>
   );
   }

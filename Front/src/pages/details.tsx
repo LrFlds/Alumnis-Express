@@ -36,8 +36,6 @@ const UserDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) =
         }
       }).then(data => {
         setUser(data)
-        burger();
-        close();
         placeholder()
       })
   }

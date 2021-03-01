@@ -59,12 +59,44 @@ const UserList: FunctionComponent = () => {
                                 <a href="#!" className="recherche modal-trigger"><i className="small material-icons">search</i></a>
                                     <div className="row">
                                       {user.Techno.map(techno=>(
-                                         <div className="col s4">
+                                         <div className="col">
                                     <div className='tech'>
                                         <p>{techno}</p>
                                     </div>
                                     </div>
+                                    
                                        ) )}
+                                       <div className="col">
+                                    <div className='tech'>
+                                        <p>PHP</p>
+                                    </div>
+                                    </div>
+                                    <div className="col">
+                                    <div className='tech'>
+                                        <p>JavaScript</p>
+                                    </div>
+                                    </div>
+                                    <div className="col">
+                                    <div className='tech'>
+                                        <p>Angular</p>
+                                    </div>
+                                    </div>
+                                    <div className="col">
+                                    <div className='tech'>
+                                        <p>Angular</p>
+                                    </div>
+                                    </div>
+                                    <div className="col">
+                                    <div className='tech'>
+                                        <p>Angular</p>
+                                    </div>
+                                    </div>
+                                    
+                                    <div className="col">
+                                    <div className='tech'>
+                                        <p>Angular</p>
+                                    </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>

@@ -3,9 +3,9 @@ import User from '../models/user';
 import UserProfil from '../components/profil';
 import Nav from '../js/props/navFunction';
 import burger from '../js/burger';
-import close from '../js/close';
 import {Link} from 'react-router-dom';
 import img from '../imgs/laura.png';
+import {Layout, Avatar, Menu, Breadcrumb} from 'antd';
 
 
 
@@ -33,14 +33,13 @@ const [users, setUser] = useState<User[]>([]);
     }
   }).then((users) => {
     setUser(users)
-      burger();
-      close();
+
   })
   }, []);
 
   return (
   <div>
-   <Nav />
+  <Nav />
 
     <div id="test2" className="contener-global">
       <div className="contener-main">

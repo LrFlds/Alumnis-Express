@@ -1,9 +1,20 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import User from '../../models/user'
 import { Link } from 'react-router-dom';
-import logout from '../logout'
+import logout from '../logout';
+import { Layout, Menu, Breadcrumb } from 'antd';
+import { Avatar } from 'antd';
 
+import {
+  DesktopOutlined,
+  PieChartOutlined,
+  FileOutlined,
+  TeamOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 
+const { Header, Content, Footer, Sider } = Layout;
+const { SubMenu } = Menu;
 const Nav: FunctionComponent = () => {
 
     const [user, setUserBis] = useState<User | null>(null);
@@ -30,34 +41,30 @@ const Nav: FunctionComponent = () => {
         <div>
             {user ? (
                 <div>
-                    <ul className="sidenav">
-                        <div id="ferme" className="closerespo">
-                            <span></span>
-                            <span></span>
-                        </div>
-                        <li>
-                            <div className="user-view row">
-                                <div className="contener-image">
-                                <Link to={`/user/getUser/${user._id}`} className="image-contener-sidebar" ><img src={`${user.Picture}`} /></Link>
-                                </div>
-                                <span className="statut"></span>
-                                <Link to={`/user/getUser/${user._id}`}><span className="white-text name col s12">{user.Name}  {user.FirstName}</span></Link>
-                                <span className="white-text etat col ">en ligne</span>
-                            </div>
-                        </li>
-                        <div className="contener-nav">
-                            <li className="nav-gauche tab"><Link to="/user/profil"><i
-                                className="small material-icons">person_outline</i>Modifier son Profil</Link></li>
-                            <li className="nav-gauche tab"><a href=""><i className="small material-icons">chat_bubble_outline</i>Chat</a>
-                            </li>
-                            <li className="nav-gauche tab"><Link to="/user/annuaire" className="active" href="#test2"><i
-                                className="small material-icons">search</i>Annuaire</Link></li>
-                            <li className="nav-gauche tab"><Link to="/user/forum"><i className="small material-icons">people_outline</i>Forum</Link></li>
-                            <br />
-                            <li className="nav-gauche tab"><a href=""><i className="small material-icons">settings</i>Réglage</a></li>
-                        </div>
-                        <button onClick={logout} className="btn-flat">Déconnexion</button>
-                    </ul>
+                      <Sider collapsible style={{position:'absolute', background:'#dd2656', height: '100vh', }}>
+                      <Avatar style={{padding: '10px', }} size={64} src={`${user.Picture}`} />
+          <div className="logo" />
+          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+            <Menu.Item key="1" icon={<PieChartOutlined />}>
+              Option 1
+            </Menu.Item>
+            <Menu.Item key="2" icon={<DesktopOutlined />}>
+              Option 2
+            </Menu.Item>
+            <SubMenu key="sub1" icon={<UserOutlined />} title="User">
+              <Menu.Item key="3">Tom</Menu.Item>
+              <Menu.Item key="4">Bill</Menu.Item>
+              <Menu.Item key="5">Alex</Menu.Item>
+            </SubMenu>
+            <SubMenu key="sub2" icon={<TeamOutlined />} title="Team">
+              <Menu.Item key="6">Team 1</Menu.Item>
+              <Menu.Item key="8">Team 2</Menu.Item>
+            </SubMenu>
+            <Menu.Item key="9" icon={<FileOutlined />}>
+              Files
+            </Menu.Item>
+          </Menu>
+        </Sider>
                     <div className="burger">
                         <span></span>
                         <span></span>

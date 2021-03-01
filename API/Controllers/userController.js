@@ -18,10 +18,6 @@ module.exports = {
     getAllUsers(req, res) {
         User.find().then(result => {
             res.send(result)
-<<<<<<< HEAD
-            console.log("log du user en cours :"+req.user)
-=======
->>>>>>> b885d6e2572f430e53f4a50a578ccb6fd04bcac5
         })
     },
     getUser(req, res) {
@@ -216,7 +212,6 @@ module.exports = {
        }
     },
     connectedUser(req, res, next){
-<<<<<<< HEAD
         res.send(req.user);
     },
     checkUser(req,res,next){
@@ -224,20 +219,12 @@ module.exports = {
            next()  
         }else{
            res.sendStatus(401)
-=======
-
-        if(req.user != undefined){
-            res.send(req.user);
-        }else{
-            res.sendStatus(401)
         }
-
     },
     logout(req,res){
         req.session.destroy()
         if(req.session == undefined){
             res.sendStatus(401)
->>>>>>> b885d6e2572f430e53f4a50a578ccb6fd04bcac5
         }
     }
 }
