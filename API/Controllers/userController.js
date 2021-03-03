@@ -85,7 +85,7 @@ module.exports = {
         })
     },
     updateUser(req, res) {
-        User.findOne({ Email: req.user.Email }).then(async (user) => {
+        User.findOne({ Email: req.user.Email }).then( async (user) => {
             if (user.Description != req.body.Description && req.body.Description != null) {
                 user.updateOne({ Description: req.body.Description }).then().catch(error => {
                     res.send(error)
