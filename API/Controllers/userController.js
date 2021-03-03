@@ -84,51 +84,41 @@ module.exports = {
             }
         })
     },
-    updateUser(req, res) {
-        User.findOne({ Email: req.user.Email }).then(async (user) => {
-            if (user.Description != req.body.Description && req.body.Description != null) {
-                user.updateOne({ Description: req.body.Description }).then().catch(error => {
-                    res.send(error)
-                });
-            } if (user.Company != req.body.Company && req.body.Company != null) {
-                user.updateOne({ Company: req.body.Company }).then().catch(error => {
-                    res.send(error)
-                });
-            } if (user.Techno != req.body.Techno && req.body.Techno != null) {
-                user.updateOne({ Techno: req.body.Techno }).then().catch(error => {
-                    res.send(error)
-                })
-            } if (req.body.Password != null && req.body.newPassword != null && req.body.Password != req.body.newPassword) {
-                bcrypt.compare(req.body.Password, user.Password, (err, match) => {
-                    if (err) {
-                        res.send(err)
+    updatePasswordUser(req, res) {
+        const user = await User.findById(req.user._id)
+        console.log("je vais niquer ta mère")
+        if (req.body.NewPass != null && req.body.NewPass != undefined) {
+            if (req.body.Password != null && req.body.NewPass != req.body.Password) {
+                await bcrypt.compare(req.body.Password, client.Password, async (err, same) => {
+                  if (err) {
+                    res.status(500).send({ message: "Une erreur est survenue lors de la vérification de votre mot de passe" })
+                  } else if (!same) {
+                    res.status(400).send({ message: "Une erreur est survenue lors de la comparaison des mots de passe. Avez vous bien entré votre mot de passe actuel?" })
+                  } else {
+                    if (req.body.NewPass) {
+                      const salt = await bcrypt.genSalt(10);
+                      const hash = await bcrypt.hash(req.body.NewPass, salt);
+                      await user.set("Password", hash)
+                      client.save((err, user) => {
+                        if (err) {
+                          res.status(500).send({ message: 'Une erreur est survenue lors de la mise à jour.' })
+                        } else {
+                          res.status(200).send({ message: "Votre mot de passe a bien été mis à jour" })
+                        }
+                      })
                     } else {
-                        bcrypt.hashPassword(req.body.Password, 10, (err, hash) => {
-                            if (err) {
-                                res.send(err)
-                            } else {
-                                user.updateOne({ Password: hash }).then().catch(error => {
-                                    res.send(error)
-                                })
-                            }
-                        })
+                      res.status(400).send({ message: 'Le mot de passe doit contenir 8 charactères, une majuscule, un chiffre et un caractère spécial' })
                     }
+                  }
                 })
-            } if (req.body.Email != null && req.body.newEmail != null && req.body.Email != req.body.newEmail) {
-                await bcrypt.compare(req.body.Password, user.Password, (err, match) => {
-                    if (err) {
-                        res.send(err)
-                    } else {
-                        user.updateOne({ Email: req.body.newMail }).then(result => {
-                            res.sendStatus(200)
-                        }).catch(error => {
-                            res.send(error)
-                        })
-                    }
-                })
+              } else {
+                res.status(400).send({ message: "Veuillez entrer votre mot de passe actuel" })
+              }
+            } else {
+              res.status(400).send({ message: "Un nouveau mot de passe est requis pour la mise à jour!" })
             }
-        })
     },
+
     updateUserAdmin(req, res) {
         User.findOne({ Email: req.body.Email }).then(user => {
             if (req.body.Name != null && req.body.Name != user.Name) {
