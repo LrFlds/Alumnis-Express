@@ -9,6 +9,7 @@ module.exports = {
             res.send(result)
         })
     },
+    
     async getAllSujetByCategory(req,res){
         let tableSujets = []
         const category = await Category.findById(req.params.id)
@@ -21,12 +22,12 @@ module.exports = {
     },
     createCategory(req,res){
         if(req.user.IsAdmin == true) {
-            const NewCategorie = new Category({
+            const NewCategory = new Category({
                 Title: req.body.Title, 
                 Sujet: req.body.Sujet,
                 Description: req.body.Description
             })
-            NewCategorie.save((err, cate)=>{
+            NewCategory.save((err, cate)=>{
                 if(err){
                     res.send(err)
                 } else {
@@ -65,6 +66,8 @@ module.exports = {
                     res.sendStatus(201)
                 }
             })
+        }else{
+            res.send("Utilisateur inconnu")
         }
     },
     deleteSujet(req,res){
