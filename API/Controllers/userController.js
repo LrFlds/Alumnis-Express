@@ -53,19 +53,19 @@ module.exports = {
                     Company: req.body.Company,
                     PostList: req.body.PostList,
                     Status: req.body.Status,
-                    IsAdmin: req.body.IsAdmin,
+                    IsAdmin: req.body.IsAdmin
                 })
 
                 newUser.save((err, user) => {
                     if (err) {
                          res.status(400).send({Erreur:err})
-                        res.send(err)
+
                     } else {
                         res.sendStatus(201)
                     }
                 })
             } else {
-                res.send('Utilisateur déjà connu')
+                res.statut(400).send({message:'Utilisateur déjà connu'})
             }
         })
     },
@@ -76,7 +76,7 @@ module.exports = {
             } else {
                 result.remove((err, user) => {
                     if (err) {
-                        res.send(err);
+                        res.status(400).send({Erreur:err});
                     } else {
                         res.sendStatus(200)
                     }
@@ -93,7 +93,7 @@ module.exports = {
                     if (err) {
                         errors.push(err)
                     } else {
-                        acceptMaj.push(desc)      
+                        acceptMaj.push(desc)
                     }
                 });
             } if (user.Company != req.body.Company && req.body.Company != null) {
@@ -101,10 +101,10 @@ module.exports = {
                     const company = { Company: req.body.Company }
                     if (err) {
                         errors.push(err)
-                         
+
                     } else {
                         acceptMaj.push(company)
-                            
+
                     }
                 })
             } if (user.Techno != req.body.Techno && req.body.Techno != null) {
@@ -112,10 +112,10 @@ module.exports = {
                     const techno = { Techno: req.body.Techno }
                     if (err) {
                         errors.push(err)
-                            
+
                     } else {
                         acceptMaj.push(techno)
-                            
+
                     }
                 })
             } if (req.body.Password != null && req.body.newPassword != null && req.body.Password != req.body.newPassword) {
@@ -131,10 +131,10 @@ module.exports = {
                                     const pass = "Mot de passe"
                                     if (err) {
                                         errors.push(err)
-                                            
+
                                     } else {
                                         acceptMaj.push(pass)
-                                          
+
                                     }
                                 })
                             }
@@ -150,10 +150,10 @@ module.exports = {
                             const mail = "Email"
                             if (err) {
                                 errors.push(err)
-                                    
+
                             } else {
                                 acceptMaj.push(mail)
-                                   
+
                             }
                         })
                     }
@@ -162,15 +162,15 @@ module.exports = {
         })
        switch(true){
             case acceptMaj.length == 0 && errors.length == 0 : res.status(400).send({message : "Aucune mise à jour n'a été effectuée "});
-            
+
             case acceptMaj.length != 0 && errors.length == 0 : res.status(200).send({message:"Les mises à jour ont été effectuées avec succés "});
-            
+
             case acceptMaj.length == 0 && errors.length != 0 : res.status(400).send({message:"Une ou plusieurs erreurs sont survenues"});
             break;
             default : res.status(400).send({message:"Certaine des mises à jour n'ont pu être effectuées"});
-       } 
-           
-       
+       }
+
+
     },
     updateUserAdmin(req, res) {
         User.findOne({ Email: req.body.Email }).then(user => {
@@ -202,7 +202,7 @@ module.exports = {
                     req.logIn(user, err => {
                         if (err) throw err;
 
-                        res.send(201, user)
+                        res.send(200, user)
 
                     })
                 }
