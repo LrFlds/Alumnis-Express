@@ -3,10 +3,11 @@ const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const userRoute = require('./routes/userRoutes');
-const mailRoute = require('./routes/mailRoutes')
+const mailRoute = require('./routes/mailRoutes');
+const postRoute = require('./routes/postRoutes');
+const forumRoute = require('./routes/forumRoutes')
 const passport = require('passport');
 const session = require('express-session');
-const UserController = require('./Controllers/userController');
 const localStrategy = require('passport-local').Strategy;
 const cors = require('cors');
 const cookieParser= require('cookie-parser');
@@ -48,8 +49,9 @@ app.use('/images', express.static(path.join(__dirname, 'images')))
 //ROUTES
 
 app.use('/user', userRoute);
-app.use('/mail', mailRoute)
-
+app.use('/mail', mailRoute);
+app.use('/post', postRoute);
+app.use('/forum', forumRoute);
 
 
 

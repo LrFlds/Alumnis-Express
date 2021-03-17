@@ -1,30 +1,46 @@
 const User = require('../Domain/Domain_services/Models/userModel');
 const Sujet = require('../Domain/Domain_services/Models/sujetModel');
 const Category = require('../Domain/Domain_services/Models/categoryModel');
-
+const Post = require('../Domain/Domain_services/Models/postModel');
 module.exports = {
 
+
+    // Categories
     getAllCategories(req, res){
         Category.find().then(result => {
             res.send(result)
         })
     },
-    
+
+    async getCategoryById(req,res){
+       const category = await Category.findById(req.params.id);
+       if(category != null){
+         category.populate({path:"Sujet",model:Sujet},(err,doc)=>{
+             if(err){
+                 res.status(500).send({message:"Une erreur est survenue lors de la recherche des sujets"})
+             }else{
+                 res.status(200).send({message:doc});
+             }
+         });
+
+
+       }else{
+           res.status(400).send({message:"Aucune catégorie trouvée"})
+       }
+    },
     async getAllSujetByCategory(req,res){
-        let tableSujets = []
-        const category = await Category.findById(req.params.id)
-        for(const sujetId of category.Sujet){
-            const sujet = Sujet.findById(sujetId)
-            tableSujets.push(sujet)
-        }
-        res.send(tableSujets)
-        
+       const category = await Category.findById(req.params.id);
+       const sujets = await Sujet.find({_id:{$in:category.Sujet}});
+       if(sujets.length != 0){
+           res.status(200).send({message: sujets})
+       }else{
+           res.status(400).send({message:"Pas de sujet"})
+       }
     },
     createCategory(req,res){
-        if(req.user.IsAdmin == true) {
+
             const NewCategory = new Category({
-                Title: req.body.Title, 
-                Sujet: req.body.Sujet,
+                Title: req.body.Title,
                 Description: req.body.Description
             })
             NewCategory.save((err, cate)=>{
@@ -34,14 +50,11 @@ module.exports = {
                     res.sendStatus(201)
                 }
             })
-        } else {
-            res.send("Vous n'avez pas les droits ! ah ah ah ")
-        }
+
     },
     deleteCategory(req,res){
-        if(req.user.IsAdmin != true) {
-            res.send("Vous n'avez pas les droits")
-        }else {
+
+
             Category.findOne({_id: req.params.id}).remove((err, cate)=>{
                 if(err){
                     res.send(err)
@@ -49,31 +62,63 @@ module.exports = {
                     res.sendStatus(200)
                 }
             })
-        }
+
     },
-    createSujet(req,res){
+
+    //Sujets
+    async createSujet(req,res){
         if(req.user != undefined){
+            const date = Date.now();
+            const today = new Date(date);
             const NewSujet = new Sujet({
-                TitleSujet: req.body.TitleSujet, 
-                Date: req.body.Date,
-                Author: req.body.user,
-                Post: req.body.Post
+                TitleSujet: req.body.TitleSujet,
+                Date: today.toUTCString(),
+                Author: req.user
             })
-            NewSujet.save((err, sujet)=> {
+            NewSujet.save(async(err, sujet)=> {
                 if(err){
                     res.send(err)
                 } else {
-                    res.sendStatus(201)
+                    const category = await Category.findById(req.params.id);
+                    category.Sujet.push(NewSujet._id);
+                    category.save((err,category)=>{
+                        if(err){
+                            res.send(err)
+                        }else{
+                            res.sendStatus(201)
+                        }
+                    })
+
                 }
             })
         }else{
             res.send("Utilisateur inconnu")
         }
     },
+   async getSujetById(req,res){
+        const sujet = await Sujet.findById(req.params.id);
+        if(sujet != null){
+          sujet.populate({path:"Post",model:Post},(err,doc)=>{
+              if(err){
+                  res.status(500).send({message:"Une erreur est survenue"})
+              }else{
+                    console.log(doc.Post)
+                   doc.populate({path:"Author", model:User, select:'-Password' },(err,doc2)=>{
+                    if(err){
+                        res.status(500).send({message:"Une erreur est survenue"})
+                    }else{
+                        res.status(200).send({ message: doc2 })
+                    }
+                })
+              }
+          });
+
+        }else{
+            res.status(400).send({message:"Aucune catégorie trouvée"})
+        }
+    },
     deleteSujet(req,res){
-        if(req.user.IsAdmin != true) {
-            res.send("Vous n'avez pas les droits")
-        }else {
+
             Sujet.findOne({_id: req.params.id}).remove((err, sujet)=>{
                 if(err){
                     res.send(err)
@@ -81,7 +126,7 @@ module.exports = {
                     res.sendStatus(200)
                 }
             })
-        }
+
     }
 
 
