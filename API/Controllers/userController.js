@@ -85,21 +85,41 @@ module.exports = {
         })
     },
     updateUser(req, res) {
+        const acceptMaj = [];
+        const errors =[];
         User.findOne({ Email: req.user.Email }).then( async (user) => {
             if (user.Description != req.body.Description && req.body.Description != null) {
-                user.updateOne({ Description: req.body.Description }).then().catch(error => {
-                    res.send(error)
+                user.updateOne({ Description: req.body.Description },(err, user) => {
+                    if (err) {
+                        errors.push(err)
+                    } else {
+                        acceptMaj.push(desc)      
+                    }
                 });
             } if (user.Company != req.body.Company && req.body.Company != null) {
-                user.updateOne({ Company: req.body.Company }).then().catch(error => {
-                    res.send(error)
-                });
+                user.updateOne({ Company: req.body.Company },(err, user) => {
+                    const company = { Company: req.body.Company }
+                    if (err) {
+                        errors.push(err)
+                         
+                    } else {
+                        acceptMaj.push(company)
+                            
+                    }
+                })
             } if (user.Techno != req.body.Techno && req.body.Techno != null) {
-                user.updateOne({ Techno: req.body.Techno }).then().catch(error => {
-                    res.send(error)
+                user.updateOne({ Techno: req.body.Techno },(err, user) => {
+                    const techno = { Techno: req.body.Techno }
+                    if (err) {
+                        errors.push(err)
+                            
+                    } else {
+                        acceptMaj.push(techno)
+                            
+                    }
                 })
             } if (req.body.Password != null && req.body.newPassword != null && req.body.Password != req.body.newPassword) {
-                bcrypt.compare(req.body.Password, user.Password, (err, match) => {
+                await bcrypt.compare(req.body.Password, user.Password, (err, match) => {
                     if (err) {
                         res.send(err)
                     } else {
@@ -107,8 +127,15 @@ module.exports = {
                             if (err) {
                                 res.send(err)
                             } else {
-                                user.updateOne({ Password: hash }).then().catch(error => {
-                                    res.send(error)
+                                user.updateOne({ Password: hash },(err, user) => {
+                                    const pass = "Mot de passe"
+                                    if (err) {
+                                        errors.push(err)
+                                            
+                                    } else {
+                                        acceptMaj.push(pass)
+                                          
+                                    }
                                 })
                             }
                         })
@@ -119,15 +146,31 @@ module.exports = {
                     if (err) {
                         res.send(err)
                     } else {
-                        user.updateOne({ Email: req.body.newMail }).then(result => {
-                            res.sendStatus(200)
-                        }).catch(error => {
-                            res.send(error)
+                        user.updateOne({ Email: req.body.newMail },(err, user) => {
+                            const mail = "Email"
+                            if (err) {
+                                errors.push(err)
+                                    
+                            } else {
+                                acceptMaj.push(mail)
+                                   
+                            }
                         })
                     }
                 })
             }
         })
+       switch(true){
+            case acceptMaj.length == 0 && errors.length == 0 : res.status(400).send({message : "Aucune mise à jour n'a été effectuée "});
+            
+            case acceptMaj.length != 0 && errors.length == 0 : res.status(200).send({message:"Les mises à jour ont été effectuées avec succés "});
+            
+            case acceptMaj.length == 0 && errors.length != 0 : res.status(400).send({message:"Une ou plusieurs erreurs sont survenues"});
+            break;
+            default : res.status(400).send({message:"Certaine des mises à jour n'ont pu être effectuées"});
+       } 
+           
+       
     },
     updateUserAdmin(req, res) {
         User.findOne({ Email: req.body.Email }).then(user => {

@@ -20,7 +20,7 @@ router.route('/delete').delete(userController.checkUser,userController.deleteUse
 
 router.post('/settingUser', upload.single('image'), userController.picture)
 
-router.route('/updateUser').post(userController.updateUser)
+router.route('/updateUser').post(userController.checkUser,userController.updateUser)
 
 router.route('/connectedUser').get(userController.connectedUser)
 

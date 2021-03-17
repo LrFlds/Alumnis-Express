@@ -26,7 +26,7 @@ module.exports = {
                 user.ExpirePass = Date.now() + 3600000
                 user.save().then(result => {
                     transporter.sendMail({
-                        to:'magniez.justine.pro@gmail.com',
+                        to:'laura.fialdes@gmail.com',
                         from:"no-reply@alumnis.simplon.com",
                         subject:'Réïnitialisation du mot de passe',
                         html:`
