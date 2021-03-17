@@ -1,7 +1,4 @@
 import React, { Component, useState, useEffect } from 'react';
-import User from '../models/user';
-import {Link} from 'react-router-dom';
-import UserProfil from '../components/profil';
 import NavProf from '../js/props/navProfFunction';
 import file from '../js/functions/picture';
 import back from '../js/functions/back'
@@ -12,7 +9,7 @@ class App extends Component {
 
 
 componentDidMount(){
-    
+
     file()
 }
 state={

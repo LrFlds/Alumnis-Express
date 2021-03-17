@@ -30,7 +30,7 @@ return (
       <Route exact path="/techno" component={techno} />
       <Route exact path="/formation" component={formation} />
       <Route exact path="/forum" component={forum} />
-      <Route exact path="/postForum" component={postForum} />
+      <Route exact path="/postForum/:id" component={postForum} />
       <Route exact path="/forgot" component={forgot} />
       <Route exact path="/redirect" component={redirect} />
     </Switch>

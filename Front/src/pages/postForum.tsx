@@ -1,24 +1,36 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import User from '../models/user';
-import { Link } from 'react-router-dom';
+import { RouteComponentProps,Link } from 'react-router-dom';
 import burger from '../js/modals/burger';
 import close from '../js/modals/close';
 import Nav from '../js/props/navFunction';
-import UserProfil from '../components/profil';
 import getConnectedUser from '../js/fetchs/getConnectedUser';
+import Categorie from '../models/categorie';
+import getCategoryByID from '../js/fetchs/getCategorieSubject';
 
-const UserList: FunctionComponent = () => {
+type Params = { _id: string };
+
+const UserList: FunctionComponent<RouteComponentProps<Params>> = ({ match }) => {
     const [users, setUser] = useState<User[]>([]);
-
+    const [sujets,setSujets] = useState([]);
+    const [category,setCategory] = useState<Categorie>();
     useEffect(() => {
         async function getUser() {
             const user = await getConnectedUser()
             setUser(user)
         }
+        async function getSujetByCategoryId(){
+            const thePath = window.location.href;
+            const lastItem = thePath.substring(thePath.lastIndexOf('/') + 1)
+            const categorie = await getCategoryByID(lastItem);
+            setCategory(categorie);
+            setSujets(categorie.Sujet);
+        }
         getUser();
-        close();
-        burger();
+        // close();
+        // burger();
 
+        getSujetByCategoryId();
     }, []);
 
     return (

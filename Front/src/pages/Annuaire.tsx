@@ -4,7 +4,6 @@ import UserProfil from '../components/profil';
 import Nav from '../js/props/navFunction';
 import burger from '../js/modals/burger';
 import close from '../js/modals/close';
-import { Link } from 'react-router-dom';
 import getAllUsers from '../js/fetchs/getAllUsers';
 import search from '../js/functions/search';
 

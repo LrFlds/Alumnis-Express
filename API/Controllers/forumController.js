@@ -19,6 +19,7 @@ module.exports = {
              if(err){
                  res.status(500).send({message:"Une erreur est survenue lors de la recherche des sujets"})
              }else{
+                 console.log(doc)
                  res.status(200).send({message:doc});
              }
          });
