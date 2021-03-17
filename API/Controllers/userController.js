@@ -103,7 +103,7 @@ module.exports = {
                     if (err) {
                         res.send(err)
                     } else {
-                        bcrypt.hashPassword(req.body.Password, 10, (err, hash) => {
+                        bcrypt.hashPassword(req.body.newPassword, 10, (err, hash) => {
                             if (err) {
                                 res.send(err)
                             } else {
