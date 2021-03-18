@@ -26,6 +26,7 @@ const UserList: FunctionComponent = () => {
         getUser();
         async function getCategories() {
             const categories = await getAllCategories()
+            console.log(categories)
             setCategories(categories);
         };
         getCategories();
@@ -65,9 +66,9 @@ const UserList: FunctionComponent = () => {
                             </div>
                         </div>
 
-                        {categories.map(categorie => (
+                        {categories.map((categorie, index) => (
 
-                            <CategoryCard key={categorie._id} categorie={categorie}/>
+                            <CategoryCard key={categorie._id} categorie={categorie} index={index} />
                         ))
 
                         }
