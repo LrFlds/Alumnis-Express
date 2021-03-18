@@ -1,19 +1,21 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import User from '../models/user';
+import Categorie from '../models/categorie';
+import Sujet from '../models/sujet';
 import { RouteComponentProps,Link } from 'react-router-dom';
 import burger from '../js/modals/burger';
 import close from '../js/modals/close';
 import Nav from '../js/props/navFunction';
 import getConnectedUser from '../js/fetchs/getConnectedUser';
-import Categorie from '../models/categorie';
 import getCategoryByID from '../js/fetchs/getCategorieSubject';
+import SujetCard from '../components/sujet';
 
 type Params = { _id: string };
 
 const UserList: FunctionComponent<RouteComponentProps<Params>> = ({ match }) => {
     const [users, setUser] = useState<User[]>([]);
-    const [sujets,setSujets] = useState([]);
-    const [category,setCategory] = useState<Categorie>();
+    const [sujets,setSujets] = useState<Sujet[]>([]);
+    const [category,setCategory] = useState<Categorie|undefined>();
     useEffect(() => {
         async function getUser() {
             const user = await getConnectedUser()
@@ -23,8 +25,8 @@ const UserList: FunctionComponent<RouteComponentProps<Params>> = ({ match }) => 
             const thePath = window.location.href;
             const lastItem = thePath.substring(thePath.lastIndexOf('/') + 1)
             const categorie = await getCategoryByID(lastItem);
-            setCategory(categorie);
-            setSujets(categorie.Sujet);
+            setCategory(categorie.message);
+            setSujets(categorie.message.Sujet);
         }
         getUser();
         // close();
@@ -69,201 +71,12 @@ const UserList: FunctionComponent<RouteComponentProps<Params>> = ({ match }) => 
                         <div className="row">
                             <div className="ariane">
                                 <Link to="/forum" > <p>Accueil du forum</p> </Link>
-                                <h1>Titre du topic</h1>
+                                <h1>{category? category.Title : "Le titre du topic"}</h1>
                             </div>
                             <div className="contener-post">
-                                <div className="contenue-post">
-                                    <div className="contener-titre">
-                                        <h1>Martine à glisser sur une banane</h1>
-                                    </div>
-                                    <div className="contener-stats">
-                                        <div className="chiffre">
-                                            <p> <b>10</b> Réponses</p>
-                                            <p><b>100</b> Vues</p>
-                                        </div>
-                                        <div className="createur">
-                                            <p>Crée par <b>Speudo</b> </p>
-                                        </div>
-                                    </div>
-                                    <div className="contener-stats">
-                                        <div className="datePost">
-                                            <p>Aujourd'hui à 10h15</p>
-
-                                        </div>
-                                        <div className="lastRep">
-                                            <p>Posté par <b>Speudo</b> </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div className="contenue-post">
-                                    <div className="contener-titre">
-                                        <h1>Martine à glisser sur une banane</h1>
-                                    </div>
-                                    <div className="contener-stats">
-                                        <div className="chiffre">
-                                            <p> <b>10</b> Réponses</p>
-                                            <p><b>100</b> Vues</p>
-                                        </div>
-                                        <div className="createur">
-                                            <p>Crée par <b>Speudo</b> </p>
-                                        </div>
-                                    </div>
-                                    <div className="contener-stats">
-                                        <div className="datePost">
-                                            <p>Aujourd'hui à 10h15</p>
-
-                                        </div>
-                                        <div className="lastRep">
-                                            <p>Posté par <b>Speudo</b> </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div className="contenue-post">
-                                    <div className="contener-titre">
-                                        <h1>Martine à glisser sur une banane</h1>
-                                    </div>
-                                    <div className="contener-stats">
-                                        <div className="chiffre">
-                                            <p> <b>10</b> Réponses</p>
-                                            <p><b>100</b> Vues</p>
-                                        </div>
-                                        <div className="createur">
-                                            <p>Crée par <b>Speudo</b> </p>
-                                        </div>
-                                    </div>
-                                    <div className="contener-stats">
-                                        <div className="datePost">
-                                            <p>Aujourd'hui à 10h15</p>
-
-                                        </div>
-                                        <div className="lastRep">
-                                            <p>Posté par <b>Speudo</b> </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div className="contenue-post">
-                                    <div className="contener-titre">
-                                        <h1>Martine à glisser sur une banane</h1>
-                                    </div>
-                                    <div className="contener-stats">
-                                        <div className="chiffre">
-                                            <p> <b>10</b> Réponses</p>
-                                            <p><b>100</b> Vues</p>
-                                        </div>
-                                        <div className="createur">
-                                            <p>Crée par <b>Speudo</b> </p>
-                                        </div>
-                                    </div>
-                                    <div className="contener-stats">
-                                        <div className="datePost">
-                                            <p>Aujourd'hui à 10h15</p>
-
-                                        </div>
-                                        <div className="lastRep">
-                                            <p>Posté par <b>Speudo</b> </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div className="contenue-post">
-                                    <div className="contener-titre">
-                                        <h1>Martine à glisser sur une banane</h1>
-                                    </div>
-                                    <div className="contener-stats">
-                                        <div className="chiffre">
-                                            <p> <b>10</b> Réponses</p>
-                                            <p><b>100</b> Vues</p>
-                                        </div>
-                                        <div className="createur">
-                                            <p>Crée par <b>Speudo</b> </p>
-                                        </div>
-                                    </div>
-                                    <div className="contener-stats">
-                                        <div className="datePost">
-                                            <p>Aujourd'hui à 10h15</p>
-
-                                        </div>
-                                        <div className="lastRep">
-                                            <p>Posté par <b>Speudo</b> </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div className="contenue-post">
-                                    <div className="contener-titre">
-                                        <h1>Martine à glisser sur une banane</h1>
-                                    </div>
-                                    <div className="contener-stats">
-                                        <div className="chiffre">
-                                            <p> <b>10</b> Réponses</p>
-                                            <p><b>100</b> Vues</p>
-                                        </div>
-                                        <div className="createur">
-                                            <p>Crée par <b>Speudo</b> </p>
-                                        </div>
-                                    </div>
-                                    <div className="contener-stats">
-                                        <div className="datePost">
-                                            <p>Aujourd'hui à 10h15</p>
-
-                                        </div>
-                                        <div className="lastRep">
-                                            <p>Posté par <b>Speudo</b> </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div className="contenue-post">
-                                    <div className="contener-titre">
-                                        <h1>Martine à glisser sur une banane</h1>
-                                    </div>
-                                    <div className="contener-stats">
-                                        <div className="chiffre">
-                                            <p> <b>10</b> Réponses</p>
-                                            <p><b>100</b> Vues</p>
-                                        </div>
-                                        <div className="createur">
-                                            <p>Crée par <b>Speudo</b> </p>
-                                        </div>
-                                    </div>
-                                    <div className="contener-stats">
-                                        <div className="datePost">
-                                            <p>Aujourd'hui à 10h15</p>
-
-                                        </div>
-                                        <div className="lastRep">
-                                            <p>Posté par <b>Speudo</b> </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div className="contenue-post">
-                                    <div className="contener-titre">
-                                        <h1>Martine à glisser sur une banane</h1>
-                                    </div>
-                                    <div className="contener-stats">
-                                        <div className="chiffre">
-                                            <p> <b>10</b> Réponses</p>
-                                            <p><b>100</b> Vues</p>
-                                        </div>
-                                        <div className="createur">
-                                            <p>Crée par <b>Speudo</b> </p>
-                                        </div>
-                                    </div>
-                                    <div className="contener-stats">
-                                        <div className="datePost">
-                                            <p>Aujourd'hui à 10h15</p>
-
-                                        </div>
-                                        <div className="lastRep">
-                                            <p>Posté par <b>Speudo</b> </p>
-                                        </div>
-                                    </div>
-
-                                </div>
+                            {sujets.length >0 ? sujets.map((sujet,index) =>(
+                                   <SujetCard sujet={sujet} index={index}/>
+                               )):<h1>Pas de sujet dans cette catégorie</h1>}
                             </div>
 
                         </div>

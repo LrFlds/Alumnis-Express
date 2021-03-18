@@ -2,7 +2,6 @@ const User = require('../Domain/Domain_services/Models/userModel');
 const Sujet = require('../Domain/Domain_services/Models/sujetModel');
 const Category = require('../Domain/Domain_services/Models/categoryModel');
 const Post = require('../Domain/Domain_services/Models/postModel');
-const SujetModel = require('../Domain/Domain_services/Models/sujetModel');
 module.exports = {
 
 
@@ -11,7 +10,7 @@ module.exports = {
         const categories = await Category.find();
         const categoriesWithLastSubjectAndNumberOfPosts = [];
         for (let categorie of categories) {
-            const subjects = await SujetModel.find({ _id: { $in: categorie.Sujet } });
+            const subjects = await Sujet.find({ _id: { $in: categorie.Sujet } });
             if (subjects.length != 0) {
               const lastSubject = await subjects.reverse()[0].populate({ path: "Author", model: User, select: '-Password' }).execPopulate()
               let numberOfPost = 0;
@@ -46,15 +45,15 @@ module.exports = {
     async getCategoryById(req, res) {
         const category = await Category.findById(req.params.id);
         if (category != null) {
-            category.populate({ path: "Sujet", model: Sujet }, (err, doc) => {
-                if (err) {
-                    res.status(500).send({ message: "Une erreur est survenue lors de la recherche des sujets" })
-                } else {
-                    console.log(doc)
-                    res.status(200).send({ message: doc });
-                }
-            });
-
+           const categoryWithSubject= await category.populate({ path: "Sujet", model: Sujet }).execPopulate();
+           for(let subject of categoryWithSubject.Sujet){
+              await subject.populate({path:"Author",model:User,select:"-Password"}).execPopulate();
+              const subjectWithPosts = await subject.populate({path:"Post", model:Post}).execPopulate();
+              for(let post of subjectWithPosts.Post){
+                  await post.populate({path:"Author",model:User,select:"-Password"}).execPopulate();
+              }
+           }
+            res.status(200).send({message :category})
 
         } else {
             res.status(400).send({ message: "Aucune catégorie trouvée" })

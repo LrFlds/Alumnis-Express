@@ -11,7 +11,7 @@ const CategoryCard: FunctionComponent<Props> = ({ categorie, index }) => {
         <div className="row">
             <div className="ennoncer">
                 <h1>0{index +1}</h1>
-                <p>Annonces &amp; infos</p>
+                <p>Salon</p>
             </div>
             <Link to={`/postForum/${categorie.categorie._id}`} className="contenue-annonce">
                 <div className="contener-titre">
