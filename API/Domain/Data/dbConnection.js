@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const dotenvExpand = require('dotenv-expand');
-
 const myEnv = dotenv.config();
 dotenvExpand(myEnv);
+
+mongoose.Promise = global.Promise;
 mongoose.set('useFindAndModify', false);
 mongoose.connect(`${process.env.CONNECTION_STRING}`, { useNewUrlParser: true, useUnifiedTopology: true});
 

@@ -13,7 +13,7 @@ router.route('/annuaire').get(userController.checkUser,userController.getAllUser
 
 router.route('/profil/:id').get(userController.checkUser,userController.getUserByID)
 
-router.route('/create').post(userController.createUser)
+router.route('/create').post(userController.checkUser,userController.createUser)
 
 router.route('/delete').delete(userController.checkUser,userController.deleteUser)
 
@@ -21,7 +21,7 @@ router.post('/settingUser', upload.single('image'), userController.picture)
 
 router.route('/updateUser').post(userController.checkUser,userController.updateUser)
 
-router.route('/connectedUser').get(userController.connectedUser)
+router.route('/connectedUser').get(userController.checkUser,userController.connectedUser)
 
 router.route('/logout').get(userController.logout)
 

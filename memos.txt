@@ -1,14 +1,14 @@
 create
 {
                     "Name": "test",
-                    "FirstName": "test,
+                    "FirstName": "test",
                     "Email": "test@test.com",
-                    "Password": "Jesuisuntest1234!,
+                    "Password": "Jesuisuntest1234!",
                     "Fabric": "Calais",
                     "Year": 2020,
                     "TypeFormation": ["Développeur web et web mobile"],
                     "Techno": ["nodeJS"],
                     "Description": "je suis un test ",
-                    "Company": "company test",
-                    
+                    "Company": "company test"
+
 }

@@ -6,7 +6,7 @@ const UserSchema = new Schema({
     Name: { type: String, required: true },
     FirstName: { type: String, required: true },
     Email: { type: String, required: [true, "Email obligatoire"], unique: [true, "Mail déjà existant ..."], match: /^[a-zA-Z0-9._-][^<§!:/;,\|()"#`~&=+%µ*$£%>]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/ },
-    Password: { type: String },
+    Password: { type: String , required:true},
     ResetPass: { type: String},
     ExpirePass:{type: Date},
     Picture: { type: String },

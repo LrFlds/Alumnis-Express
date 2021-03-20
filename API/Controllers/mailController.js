@@ -1,5 +1,5 @@
-const nodemailer= require('nodemailer')
-const dotenv= require('dotenv').config()
+const nodemailer = require('nodemailer')
+const dotenv = require('dotenv').config()
 const User = require('../Domain/Domain_services/Models/userModel');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
@@ -37,24 +37,25 @@ module.exports = {
 
         
     },
-    newPassword(req, res){
+
+    newPassword(req, res) {
         const newPassword = req.body.newPassword
         const sentToken = req.params.id
-        User.findOne({ResetPass:sentToken, expirePass:{$gt:Date.now()}})
-        .then(user => {
-            if(!user){
-                return res.status(422).json({error: "try again session expired"})
-            }
-            bcrypt.hash(newPassword,10).then(hashPassword => {
-                user.Password = hashPassword
-                user.ResetPass = undefined
-                user.ExpirePass = undefined
-                user.save().then((savedUser)=>{
-                    res.json({message:"Mot de passe modifié"})
+        User.findOne({ ResetPass: sentToken, expirePass: { $gt: Date.now() } })
+            .then(user => {
+                if (!user) {
+                    return res.status(422).json({ error: "try again session expired" })
+                }
+                bcrypt.hash(newPassword, 10).then(hashPassword => {
+                    user.Password = hashPassword
+                    user.ResetPass = undefined
+                    user.ExpirePass = undefined
+                    user.save().then((savedUser) => {
+                        res.json({ message: "Mot de passe modifié" })
+                    })
                 })
+            }).catch(err => {
+                res.status(400).send({ Erreur: err })
             })
-        }).catch(err => {
-            res.status(400).send({Erreur:err})
-        })
     }
 }
