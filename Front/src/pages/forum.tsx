@@ -20,8 +20,7 @@ const UserList: FunctionComponent = () => {
         async function getUser() {
             const user = await getConnectedUser()
             setUser(user);
-            close();
-            burger();
+
         }
         getUser();
         async function getCategories() {

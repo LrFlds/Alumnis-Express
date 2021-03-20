@@ -13,7 +13,7 @@ const regexPass = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}
 const mailController = require('../Controllers/mailController');
 const { resetPassword } = require('../Controllers/mailController');
 const Constantes = require("../Config/variables")
-const { subjectActivate, messageActivate, subjectMdp, messageMdp } = require('../Config/variables');
+const { subjectActivate, messageActivate, subjectMdp, messageMdp, internalError, loginError, okResponse } = require('../Config/variables');
 
 
 
@@ -68,7 +68,7 @@ module.exports = {
                         res.status(400).send({ Erreur: err })
 
                     } else {
-
+                        resetPassword(req,res,subjectActivate,messageActivate);
                         res.status(200).send({message: "L'utilisateur a été créé "})
 
                     }
@@ -82,13 +82,13 @@ module.exports = {
     deleteUser(req, res) {
         User.findOne({ Email: req.body.Email }).then(result => {
             if (result == null) {
-                res.sendStatus(204)
+                res.status(204).send({message: "Aucun utilisateur trouvé"});
             } else {
                 result.remove((err, user) => {
                     if (err) {
                         res.status(400).send({ Erreur: err });
                     } else {
-                        res.sendStatus(200)
+                        res.status(200).send({message: okResponse});
                     }
                 })
             }
@@ -139,7 +139,7 @@ module.exports = {
                     if (status != 400) {
                         User.update({ _id: req.user._id }, { $set: updates }, (err, success) => {
                             if (err) {
-                                res.status(500).send({ message: "Une erreur est survenue lors de la mise à jour" });
+                                res.status(500).send({ message: internalError });
                             } else {
                                 res.status(status).send({ message: "Mise à jour réussie" });
                             }
@@ -161,15 +161,15 @@ module.exports = {
         User.findOne({ Email: req.body.Email }).then(user => {
             if (req.body.Name != null && req.body.Name != user.Name) {
                 user.updateOne({ Name: req.body.Name })
-                res.sendStatus(200)
+                res.status(200).send({message: okResponse});
             }
             if (req.body.FirstName != null && req.body.FirstName != user.FirstName) {
                 user.updateOne({ FirstName: req.body.FirstName })
-                res.sendStatus(200)
+                res.status(200).send({message: okResponse});
             }
 
         }).catch(err => {
-            res.send(err);
+            res.status(400).send({message:err});
         })
     },
 
@@ -187,7 +187,7 @@ module.exports = {
                     req.logIn(user, err => {
                         if (err) throw err;
 
-                        res.send(200, user)
+                        res.status(200).send({message:user})
 
                     })
                 }
@@ -197,61 +197,38 @@ module.exports = {
 
     },
     async picture(req, res, next) {
-
         if (req.user != undefined) {
             if (req.file != undefined) {
                 const result = await cloudinary.uploader.upload(req.file.path)
                 User.findOneAndUpdate({ Email: req.user.Email }, { Picture: result.secure_url, Cloudinary_id: result.public_id }).then(() => {
-                    res.sendStatus(201)
+                    res.status(201).send({message: "Avatar mis à jour"});
                 })
             } else {
-                res.sendStatus(400)
+                res.status(400).send({message: "Aucun fichier à mettre à jour"});
             }
         } else {
-            res.sendStatus(401)
-        }
-    },
-    async UpdateImage(req, res, next) {
-        try {
-            let user = await User.findOne({ Email: req.user.Email });
-
-            // await cloudinary.uploader.destroy(user.Cloudinary_id);
-            const result = await cloudinary.uploader.upload(req.file.path);
-
-            const data = {
-
-                Picture: result.secure_url || user.Picture,
-
-                Cloudinary_id: result.public_id || user.Picture
-            };
-            user = await User.findOneAndUpdate(req.user.Email, data, { new: true })
-            res.json(user)
-
-        } catch (err) {
-            res.status(400).send({ Erreur: err })
+            res.status(401).send({message:loginError});
         }
     },
     checkUser(req, res, next) {
         if (req.user != undefined) {
-
             next()
         } else {
-            res.sendStatus(401)
+            res.status(401).send({message:loginError});
         }
     },
     connectedUser(req, res, next) {
-
         if (req.user != undefined) {
             res.send(req.user);
         } else {
-            res.sendStatus(401)
+            res.status(401).send({message:loginError});
         }
 
     },
     logout(req, res) {
         req.session.destroy()
         if (req.session == undefined) {
-            res.sendStatus(401)
+            res.status(401).send({message:loginError});
         }
     }
 }
