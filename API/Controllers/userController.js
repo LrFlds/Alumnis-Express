@@ -1,14 +1,15 @@
 
 const User = require('../Domain/Domain_services/Models/userModel');
 const Post = require('../Domain/Domain_services/Models/postModel');
-const Picture = require('../Domain/Domain_services/Models/pictureModel')
+const Picture = require('../Domain/Domain_services/Models/pictureModel');
 const bcrypt = require('bcrypt');
 const BDD = require('../Domain/Data/dbConnection');
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 const cloudinary = require('../Config/cloudinary');
-
+const regexMail = /^[a-zA-Z0-9._-][^<§!:/;,\|()"#`~&=+%µ*$£%>]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
+const regexPass = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
 
 
@@ -32,7 +33,7 @@ module.exports = {
     getUserByID(req, res) {
 
         User.findOne({ _id: req.params.id }).then(result => {
-           res.send(result)
+            res.send(result)
         })
     },
 
@@ -58,14 +59,14 @@ module.exports = {
 
                 newUser.save((err, user) => {
                     if (err) {
-                         res.status(400).send({Erreur:err})
+                        res.status(400).send({ Erreur: err })
 
                     } else {
                         res.sendStatus(201)
                     }
                 })
             } else {
-                res.statut(400).send({message:'Utilisateur déjà connu'})
+                res.statut(400).send({ message: 'Utilisateur déjà connu' })
             }
         })
     },
@@ -76,7 +77,7 @@ module.exports = {
             } else {
                 result.remove((err, user) => {
                     if (err) {
-                        res.status(400).send({Erreur:err});
+                        res.status(400).send({ Erreur: err });
                     } else {
                         res.sendStatus(200)
                     }
@@ -84,93 +85,68 @@ module.exports = {
             }
         })
     },
-    updateUser(req, res) {
-        const acceptMaj = [];
-        const errors =[];
-        User.findOne({ Email: req.user.Email }).then( async (user) => {
-            if (user.Description != req.body.Description && req.body.Description != null) {
-                user.updateOne({ Description: req.body.Description },(err, user) => {
-                    if (err) {
-                        errors.push(err)
-                    } else {
-                        acceptMaj.push(desc)
-                    }
-                });
-            } if (user.Company != req.body.Company && req.body.Company != null) {
-                user.updateOne({ Company: req.body.Company },(err, user) => {
-                    const company = { Company: req.body.Company }
-                    if (err) {
-                        errors.push(err)
-
-                    } else {
-                        acceptMaj.push(company)
-
-                    }
-                })
-            } if (user.Techno != req.body.Techno && req.body.Techno != null) {
-                user.updateOne({ Techno: req.body.Techno },(err, user) => {
-                    const techno = { Techno: req.body.Techno }
-                    if (err) {
-                        errors.push(err)
-
-                    } else {
-                        acceptMaj.push(techno)
-
-                    }
-                })
-            } if (req.body.Password != null && req.body.newPassword != null && req.body.Password != req.body.newPassword) {
-                await bcrypt.compare(req.body.Password, user.Password, (err, match) => {
-                    if (err) {
-                        res.send(err)
-                    } else {
-                        bcrypt.hashPassword(req.body.newPassword, 10, (err, hash) => {
-                            if (err) {
-                                res.send(err)
-                            } else {
-                                user.updateOne({ Password: hash },(err, user) => {
-                                    const pass = "Mot de passe"
-                                    if (err) {
-                                        errors.push(err)
-
+    async updateUser(req, res) {
+        if (req.user) {
+            if (req.user.Email == req.body.Email && req.body.Password.replace(/\s/g, "").length > 0) {
+                const same = await bcrypt.compare(req.body.Password, req.user.Password);
+                if (same) {
+                    const entries = Object.keys(req.body);
+                    let updates = {};
+                    let message = "OK";
+                    let status = 200;
+                    for (let i = 0; i < entries.length; i++) {
+                        const totalCaracter = Object.values(req.body)[i].replace(/\s/g, "").length;
+                        if (totalCaracter > 0) {
+                            if (entries[i] == "newEmail") {
+                                if (regexMail.test(Object.values(req.body)[i])) {
+                                    const user = await User.findOne({ Email: Object.values(req.body)[i] });
+                                    if (!user) {
+                                        updates["Email"] = Object.values(req.body)[i];
                                     } else {
-                                        acceptMaj.push(pass)
-
+                                        message = "Email déjà utilisé";
+                                        status = 400;
+                                        break;
                                     }
-                                })
-                            }
-                        })
-                    }
-                })
-            } if (req.body.Email != null && req.body.newEmail != null && req.body.Email != req.body.newEmail) {
-                await bcrypt.compare(req.body.Password, user.Password, (err, match) => {
-                    if (err) {
-                        res.send(err)
-                    } else {
-                        user.updateOne({ Email: req.body.newMail },(err, user) => {
-                            const mail = "Email"
-                            if (err) {
-                                errors.push(err)
-
+                                } else {
+                                    message = "Ceci n'est pas une adresse mail valide";
+                                    status = 400;
+                                    break;
+                                }
+                            } else if (entries[i] == "newPassword") {
+                                if (regexPass.test(Object.values(req.body)[i])) {
+                                    const salt = await bcrypt.genSalt(10);
+                                    const hash = await bcrypt.hash(Object.values(req.body)[i], salt);
+                                    updates["Password"] = hash;
+                                } else {
+                                    message = "Ceci n'est pas un mot de passe valide";
+                                    status = 400;
+                                    break;
+                                }
                             } else {
-                                acceptMaj.push(mail)
-
+                                updates[entries[i]] = Object.values(req.body)[i];
+                            }
+                        }
+                    }
+                    if (status != 400) {
+                        User.update({ _id: req.user._id }, { $set: updates }, (err, success) => {
+                            if (err) {
+                                res.status(500).send({ message: "Une erreur est survenue lors de la mise à jour" });
+                            } else {
+                                res.status(status).send({ message: "Mise à jour réussie" });
                             }
                         })
+                    } else {
+                        res.status(status).send({ message: message });
                     }
-                })
+                } else {
+                    res.status(400).send({ message: "Mot de passe erroné" })
+                }
+            } else {
+                res.status(400).send({ message: "Des informations sont requises ou incorrectes" })
             }
-        })
-       switch(true){
-            case acceptMaj.length == 0 && errors.length == 0 : res.status(400).send({message : "Aucune mise à jour n'a été effectuée "});
-
-            case acceptMaj.length != 0 && errors.length == 0 : res.status(200).send({message:"Les mises à jour ont été effectuées avec succés "});
-
-            case acceptMaj.length == 0 && errors.length != 0 : res.status(400).send({message:"Une ou plusieurs erreurs sont survenues"});
-            break;
-            default : res.status(400).send({message:"Certaine des mises à jour n'ont pu être effectuées"});
-       }
-
-
+        } else {
+            res.status(401).send({ message: "Vous devez être connecté" })
+        }
     },
     updateUserAdmin(req, res) {
         User.findOne({ Email: req.body.Email }).then(user => {
@@ -196,7 +172,7 @@ module.exports = {
                 throw err;
             } else {
                 if (!user) {
-                    res.status(401).send({message:"Vous n'êtes pas authorisé à visiter cette page sans vous être connecté"})
+                    res.status(401).send({ message: "Vous n'êtes pas authorisé à visiter cette page sans vous être connecté" })
                 } else {
 
                     req.logIn(user, err => {
@@ -214,12 +190,12 @@ module.exports = {
     async picture(req, res, next) {
 
         if (req.user != undefined) {
-            if(req.file != undefined){
+            if (req.file != undefined) {
                 const result = await cloudinary.uploader.upload(req.file.path)
-                User.findOneAndUpdate({ Email: req.user.Email },{Picture:result.secure_url, Cloudinary_id: result.public_id}).then(()=>{
+                User.findOneAndUpdate({ Email: req.user.Email }, { Picture: result.secure_url, Cloudinary_id: result.public_id }).then(() => {
                     res.sendStatus(201)
                 })
-            }else {
+            } else {
                 res.sendStatus(400)
             }
         } else {
@@ -243,29 +219,29 @@ module.exports = {
             res.json(user)
 
         } catch (err) {
-             res.status(400).send({Erreur:err})
+            res.status(400).send({ Erreur: err })
         }
     },
-    checkUser(req,res,next){
-       if(req.user != undefined){
+    checkUser(req, res, next) {
+        if (req.user != undefined) {
 
-           next()
-       }else{
-           res.sendStatus(401)
-       }
+            next()
+        } else {
+            res.sendStatus(401)
+        }
     },
-    connectedUser(req, res, next){
+    connectedUser(req, res, next) {
 
-        if(req.user != undefined){
+        if (req.user != undefined) {
             res.send(req.user);
-        }else{
+        } else {
             res.sendStatus(401)
         }
 
     },
-    logout(req,res){
+    logout(req, res) {
         req.session.destroy()
-        if(req.session == undefined){
+        if (req.session == undefined) {
             res.sendStatus(401)
         }
     }

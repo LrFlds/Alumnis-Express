@@ -15,4 +15,13 @@ router.route('/sujet/:id').get(userController.checkUser,forumController.getSujet
 
 router.route('/sujet/byCategory/:id').get(userController.checkUser,forumController.getAllSujetByCategory);
 
+
+router.route('/post').get(userController.checkUser,forumController.getAllPost)
+
+
+router.route('/post/:id').get(userController.checkUser,forumController.getPostById)
+                    .post(userController.checkUser,forumController.addPost)
+                    .delete(userController.checkUser,forumController.deletePost)
+                    .patch(userController.checkUser,forumController.updtatePost);
+
 module.exports = router;
