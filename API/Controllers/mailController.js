@@ -4,8 +4,11 @@ const User = require('../Domain/Domain_services/Models/userModel');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
+const key = crypto.randomBytes(32);
 const transporter = require('../Config/resetPassword');
 const constantes = require('../Config/variables')
+const jwt = require('jsonwebtoken')
+
 
 
 /**
@@ -13,17 +16,11 @@ const constantes = require('../Config/variables')
  */
 
 module.exports = {
-    resetPassword(req, res, subject, message){
-        crypto.randomBytes(32,(err,buffer)=> {
-            if(err){
-                res.status(400).send({Erreur : err})
-            }
-            const reset = buffer.toString('hex')
-            User.findOne({Email:req.body.Email}).then(user => {
-                if(!user){
-                    return res.status(422).json({error:"L'utilisateur n'existe pas avec cet email"})
-                }else{
-                user.ResetPass = reset
+    resetPassword(req, res, subject, message, user){
+        User.find().then( result => {
+
+            const reset = jwt.sign(key, process.env.SECRET_TOKEN_ACCESS);
+            user.ResetPass.push(reset);
                 user.ExpirePass = Date.now() + 3600000
                 user.save().then(result => {
                     transporter.sendMail({
@@ -32,12 +29,13 @@ module.exports = {
                         subject: subject,
                         html: message
                     })
-                    res.json({message:" Vérifiez vos emails"})
+                    return true;
                 })
-            }
         })
+            //TO DO : NE PAS OUBLIER DE METTRE URL AVEC LE TOKEN DANS LE MESSAGE VARIABLES.JS
+        
 
-        })
+        
     },
     newPassword(req, res){
         const newPassword = req.body.newPassword

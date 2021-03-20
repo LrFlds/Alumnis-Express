@@ -12,6 +12,8 @@ const mailController = require('../Controllers/mailController');
 const { resetPassword } = require('../Controllers/mailController');
 const Constantes = require("../Config/variables")
 const { subjectActivate, messageActivate, subjectMdp, messageMdp } = require('../Config/variables');
+const crypto= require('crypto')
+const key = crypto.randomBytes(32)
 
 
 
@@ -49,7 +51,7 @@ module.exports = {
                     Name: req.body.Name,
                     FirstName: req.body.FirstName,
                     Email: req.body.Email,
-                    Password: req.body.Password,
+                    Password: key,
                     Fabric: req.body.Fabric,
                     Year: req.body.Year,
                     TypeFormation: req.body.TypeFormation,
@@ -59,14 +61,13 @@ module.exports = {
                     PostList: req.body.PostList,
                     Status: req.body.Status,
                     IsAdmin: req.body.IsAdmin
-                })
-                
+                }) 
                 newUser.save((err, user) => {
                     if (err) {
                          res.status(400).send({Erreur:err})
 
                     } else {
-                      
+                        resetPassword(req,res,subjectActivate,messageActivate)
                         res.status(200).send({message: "L'utilisateur a été créé "})
                         
                     }
