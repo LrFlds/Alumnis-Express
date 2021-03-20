@@ -3,8 +3,9 @@ const dotenv= require('dotenv').config()
 const User = require('../Domain/Domain_services/Models/userModel');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
-const crypto = require('crypto')
-const transporter = require('../Config/resetPassword')
+const crypto = require('crypto');
+const transporter = require('../Config/resetPassword');
+const constantes = require('../Config/variables')
 
 
 /**
@@ -12,7 +13,7 @@ const transporter = require('../Config/resetPassword')
  */
 
 module.exports = {
-    resetPassword(req, res){
+    resetPassword(req, res, subject, message){
         crypto.randomBytes(32,(err,buffer)=> {
             if(err){
                 res.status(400).send({Erreur : err})
@@ -28,13 +29,8 @@ module.exports = {
                     transporter.sendMail({
                         to: user.Email,
                         from:"no-reply@alumnis.simplon.com",
-                        subject:'Réïnitialisation du mot de passe',
-                        html:`
-                        <p>Vous souhaitez réïnitialiser votre mot de passe</p>
-                        <h5>Cliquez <a href="http://localhost:3000/mail/reset/${reset}">içi</a> pour réïnitialiser votre mot de passe</h5>
-
-                        <p>L'équipe Alumnis Simplon</p>
-                        `
+                        subject: subject,
+                        html: message
                     })
                     res.json({message:" Vérifiez vos emails"})
                 })
@@ -45,7 +41,7 @@ module.exports = {
     },
     newPassword(req, res){
         const newPassword = req.body.newPassword
-        const sentToken = req.body.reset
+        const sentToken = req.params.id
         User.findOne({ResetPass:sentToken, expirePass:{$gt:Date.now()}})
         .then(user => {
             if(!user){

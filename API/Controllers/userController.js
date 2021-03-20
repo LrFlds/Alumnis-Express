@@ -10,6 +10,11 @@ const dotenv = require('dotenv');
 const cloudinary = require('../Config/cloudinary');
 const regexMail = /^[a-zA-Z0-9._-][^<§!:/;,\|()"#`~&=+%µ*$£%>]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
 const regexPass = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+const mailController = require('../Controllers/mailController');
+const { resetPassword } = require('../Controllers/mailController');
+const Constantes = require("../Config/variables")
+const { subjectActivate, messageActivate, subjectMdp, messageMdp } = require('../Config/variables');
+
 
 
 
@@ -37,6 +42,7 @@ module.exports = {
         })
     },
 
+
     createUser(req, res) {
         User.findOne({ Email: req.body.Email }).then(result => {
 
@@ -62,11 +68,14 @@ module.exports = {
                         res.status(400).send({ Erreur: err })
 
                     } else {
-                        res.sendStatus(201)
+
+                        res.status(200).send({message: "L'utilisateur a été créé "})
+
                     }
                 })
             } else {
-                res.statut(400).send({ message: 'Utilisateur déjà connu' })
+
+                res.status(400).send({message:'Utilisateur déjà connu'})
             }
         })
     },
