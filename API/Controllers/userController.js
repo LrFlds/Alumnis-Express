@@ -8,6 +8,10 @@ const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 const cloudinary = require('../Config/cloudinary');
+const mailController = require('../Controllers/mailController');
+const { resetPassword } = require('../Controllers/mailController');
+const Constantes = require("../Config/variables")
+const { subjectActivate, messageActivate, subjectMdp, messageMdp } = require('../Config/variables');
 
 
 
@@ -36,6 +40,7 @@ module.exports = {
         })
     },
 
+
     createUser(req, res) {
         User.findOne({ Email: req.body.Email }).then(result => {
 
@@ -55,17 +60,20 @@ module.exports = {
                     Status: req.body.Status,
                     IsAdmin: req.body.IsAdmin
                 })
-
+                
                 newUser.save((err, user) => {
                     if (err) {
                          res.status(400).send({Erreur:err})
 
                     } else {
-                        res.sendStatus(201)
+                      
+                        res.status(200).send({message: "L'utilisateur a été créé "})
+                        
                     }
                 })
             } else {
-                res.statut(400).send({message:'Utilisateur déjà connu'})
+                
+                res.status(400).send({message:'Utilisateur déjà connu'})
             }
         })
     },

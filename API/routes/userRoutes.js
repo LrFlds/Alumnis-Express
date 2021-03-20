@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../Controllers/userController');
 const upload = require('../Config/multer');
+const mailController = require('../Controllers/mailController');
+const { subjectActivate, messageActivate } = require('../Config/variables');
 
 
 router.route('/login').get()
