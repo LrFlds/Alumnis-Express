@@ -72,16 +72,16 @@ module.exports = {
         }
     },
     createCategory(req, res) {
-        if(req.user && req.user.isAdmin){
-            const NewCategory = new Category({
+        if(req.user && req.user.IsAdmin){
+            const newCategory = new Category({
             Title: req.body.Title,
             Description: req.body.Description
         })
-        NewCategory.save((err, cate) => {
+        newCategory.save((err, cate) => {
             if (err) {
-                res.send(err)
+                res.status(500).send({message:internalError});
             } else {
-                res.sendStatus(201)
+                res.status(201).send({message:okResponse});
             }
         })
         }else{
@@ -91,12 +91,12 @@ module.exports = {
 
     },
     deleteCategory(req, res) {
-        if (req.user && req.user.isAdmin) {
+        if (req.user && req.user.IsAdmin) {
             Category.findOne({ _id: req.params.id }).remove((err, cate) => {
                 if (err) {
-                    res.send(err);
+                    res.status(500).send({message:internalError});
                 } else {
-                    res.sendStatus(200);
+                    res.status(200).send({message:okResponse});
                 }
             })
         } else {
@@ -104,7 +104,7 @@ module.exports = {
         }
     },
     updtateCategory(req,res){
-        if(req.user && req.user.isAdmin){
+        if(req.user && req.user.IsAdmin){
             const entries = Object.keys(req.body);
             let updates = {};
             for(let i = 0;i<entries.length;i++){
@@ -142,21 +142,21 @@ module.exports = {
             })
             NewSujet.save(async (err, sujet) => {
                 if (err) {
-                    res.send(err)
+                    res.status(500).send({message:internalError});
                 } else {
                     const category = await Category.findById(req.params.id);
                     category.Sujet.push(NewSujet._id);
                     category.save((err, category) => {
                         if (err) {
-                            res.send(err)
+                            res.status(500).send({message:internalError});
                         } else {
-                            res.sendStatus(201)
+                            res.status(201).send({message:"Sujet créé"});
                         }
                     })
                 }
             })
         } else {
-            res.send("Utilisateur inconnu")
+            res.status(401).send({message:loginError});
         }
     },
     async getSujetById(req, res) {
@@ -213,9 +213,9 @@ module.exports = {
                     result.Content = req.body.Content;
                     result.save((err, okPost) => {
                         if (err) {
-                            res.send(err)
+                            res.status(500).send({ message: "Une erreur est survenue" });
                         } else {
-                            res.send('Ok' + okPost)
+                            res.status(200).send({message:okResponse})
                         }
                     })
                 }
@@ -236,7 +236,7 @@ module.exports = {
             })
             newPost.save(async (err, newPost) => {
                 if (err) {
-                    res.send(err)
+                    res.status(500).send({ message: "Une erreur est survenue" })
                 } else {
                     const sujet = await Sujet.findById(req.params.id);
                     sujet.Post.push(newPost._id);
@@ -260,14 +260,14 @@ module.exports = {
                 res.send('Houston, we have a problem')
             } else {
                 if (result.Author.toString() != req.body.user._id) {
-                    res.sendStatus(403)
+                    res.status(403).send({ message: adminError })
                 } else {
                     result.Content = req.body.Content;
                     result.save((err, okPost) => {
                         if (err) {
-                            res.send(err)
+                            res.status(500).send({ message: "Une erreur est survenue" })
                         } else {
-                            res.send('Ok' + okPost)
+                            res.status(200).send({ message: okResponse })
                         }
                     })
                 }
@@ -278,10 +278,7 @@ module.exports = {
     async deletePost(req, res) {
         if (req.user) {
             const post = await Post.findById(req.params.id);
-            if (req.user._id == post.Author.toString() || req.user.isAdmin) {
-                const sujet = Sujet.findById(post.SujetTitle);
-                if (sujet) {
-                    sujet.SujetTitle.splice(sujet.SujetTitle.indexOf(req.params.id), 1);
+            if (req.user._id == post.Author.toString() || req.user.IsAdmin) {
                     post.remove((err, doc) => {
                         if (err) {
                             res.status(500).send({ message: "Une erreur est survenue lors de la supression du post" })
@@ -289,10 +286,6 @@ module.exports = {
                             res.status(200).send({ message: "Post supprimé avec succès." })
                         }
                     })
-                } else {
-                    res.status(400).send({ message: internalError })
-                }
-
             } else {
                 res.status(403).send({ message: "Seul l'auteur du post peut le supprimer" });
             }

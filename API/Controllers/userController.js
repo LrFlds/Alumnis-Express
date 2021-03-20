@@ -1,7 +1,6 @@
 
 const User = require('../Domain/Domain_services/Models/userModel');
 const Post = require('../Domain/Domain_services/Models/postModel');
-const Picture = require('../Domain/Domain_services/Models/pictureModel');
 const bcrypt = require('bcrypt');
 const BDD = require('../Domain/Data/dbConnection');
 const passport = require('passport');
@@ -68,31 +67,36 @@ module.exports = {
                         res.status(400).send({ Erreur: err })
 
                     } else {
-                        resetPassword(req,res,subjectActivate,messageActivate);
-                        res.status(200).send({message: "L'utilisateur a été créé "})
+                        resetPassword(req, res, subjectActivate, messageActivate);
+                        res.status(200).send({ message: "L'utilisateur a été créé " })
 
                     }
                 })
             } else {
 
-                res.status(400).send({message:'Utilisateur déjà connu'})
+                res.status(400).send({ message: 'Utilisateur déjà connu' })
             }
         })
     },
     deleteUser(req, res) {
-        User.findOne({ Email: req.body.Email }).then(result => {
-            if (result == null) {
-                res.status(204).send({message: "Aucun utilisateur trouvé"});
-            } else {
-                result.remove((err, user) => {
-                    if (err) {
-                        res.status(400).send({ Erreur: err });
-                    } else {
-                        res.status(200).send({message: okResponse});
-                    }
-                })
-            }
-        })
+        if (res.user.Email == req.body.Email || req.user.IsAdmin) {
+            User.findOne({ Email: req.body.Email }).then(result => {
+                if (result == null) {
+                    res.status(204).send({ message: "Aucun utilisateur trouvé" });
+                } else {
+                    result.remove((err, user) => {
+                        if (err) {
+                            res.status(400).send({ Erreur: err });
+                        } else {
+                            res.status(200).send({ message: okResponse });
+                        }
+                    })
+                }
+            })
+        }else{
+            res.status(401).send({message:'Vous devez être le propriétaire du compte ou un administrateur pour supprimer ce compte'})
+        }
+
     },
     async updateUser(req, res) {
         if (req.user) {
@@ -161,15 +165,15 @@ module.exports = {
         User.findOne({ Email: req.body.Email }).then(user => {
             if (req.body.Name != null && req.body.Name != user.Name) {
                 user.updateOne({ Name: req.body.Name })
-                res.status(200).send({message: okResponse});
+                res.status(200).send({ message: okResponse });
             }
             if (req.body.FirstName != null && req.body.FirstName != user.FirstName) {
                 user.updateOne({ FirstName: req.body.FirstName })
-                res.status(200).send({message: okResponse});
+                res.status(200).send({ message: okResponse });
             }
 
         }).catch(err => {
-            res.status(400).send({message:err});
+            res.status(400).send({ message: err });
         })
     },
 
@@ -187,7 +191,7 @@ module.exports = {
                     req.logIn(user, err => {
                         if (err) throw err;
 
-                        res.status(200).send({message:user})
+                        res.status(200).send({ message: user })
 
                     })
                 }
@@ -201,34 +205,34 @@ module.exports = {
             if (req.file != undefined) {
                 const result = await cloudinary.uploader.upload(req.file.path)
                 User.findOneAndUpdate({ Email: req.user.Email }, { Picture: result.secure_url, Cloudinary_id: result.public_id }).then(() => {
-                    res.status(201).send({message: "Avatar mis à jour"});
+                    res.status(201).send({ message: "Avatar mis à jour" });
                 })
             } else {
-                res.status(400).send({message: "Aucun fichier à mettre à jour"});
+                res.status(400).send({ message: "Aucun fichier à mettre à jour" });
             }
         } else {
-            res.status(401).send({message:loginError});
+            res.status(401).send({ message: loginError });
         }
     },
     checkUser(req, res, next) {
         if (req.user != undefined) {
             next()
         } else {
-            res.status(401).send({message:loginError});
+            res.status(401).send({ message: loginError });
         }
     },
     connectedUser(req, res, next) {
         if (req.user != undefined) {
             res.send(req.user);
         } else {
-            res.status(401).send({message:loginError});
+            res.status(401).send({ message: loginError });
         }
 
     },
     logout(req, res) {
         req.session.destroy()
         if (req.session == undefined) {
-            res.status(401).send({message:loginError});
+            res.status(401).send({ message: loginError });
         }
     }
 }
