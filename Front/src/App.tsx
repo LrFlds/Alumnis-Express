@@ -10,9 +10,11 @@ import Login from './pages/Login';
 import forgot from './pages/forgot';
 import redirect from './pages/redirect';
 import postForum from './pages/postForum';
+import chat from './pages/chat';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import './css/styles.css';
 import './css/reset.css';
+import './css/ant.css';
 
 
 
@@ -33,6 +35,7 @@ return (
       <Route exact path="/postForum" component={postForum} />
       <Route exact path="/forgot" component={forgot} />
       <Route exact path="/redirect" component={redirect} />
+      <Route exact path="/chat" component={chat} />
     </Switch>
   </div>
 </Router>

@@ -1,5 +1,5 @@
 
-function search(data,callback,temp){
+function search(callback,temp){
     const search = document.getElementById('search')
     const value = search.value.toLowerCase().replace(/\s/g, "")
     let filteredData = temp.filter((element)=>{

@@ -10,6 +10,11 @@ import {
   FileOutlined,
   TeamOutlined,
   UserOutlined,
+  InsertRowBelowOutlined,
+  WhatsAppOutlined,
+  ContactsOutlined,
+  BankOutlined,
+  DashboardOutlined,
 } from '@ant-design/icons';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -30,27 +35,28 @@ const Nav: FunctionComponent = () => {
         <div>
             {user ? (
                 <div>
-                      <Sider collapsible style={{position:'absolute', background:'#dd2656', height: '100vh', }}>
-                      <Avatar style={{padding: '10px', }} size={64} src={`${user.Picture}`} />
+                      <Sider collapsible style={{position:'fixed', background:'#CE0033', height: '100vh', }}>
+                          <div className="container-texte">
+                      <Avatar style={{padding: '10px', marginTop: '0px', marginLeft: '0px', }} size={74} src={`${user.Picture}`} />
+                      <h1>{user.Name}</h1>
+                      <p> {user.FirstName}</p>
+                      </div>
           <div className="logo" />
-          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-            <Menu.Item key="1" icon={<PieChartOutlined />}>
-              Option 1
+          <Menu style={{background:'#CE0033', color: 'white', marginTop: '100px', width: '100%', border: 'none',}} defaultSelectedKeys={['3']} mode="inline">
+            <Menu.Item style={{marginTop: '20px', marginBottom: '20px'}} key="1" icon={<InsertRowBelowOutlined />}>
+            <Link  style={{ color: 'white'}} to="/profil">Profil</Link>
             </Menu.Item>
-            <Menu.Item key="2" icon={<DesktopOutlined />}>
-              Option 2
+            <Menu.Item style={{marginTop: '20px', marginBottom: '20px'}} key="2" icon={<WhatsAppOutlined />}>
+            <Link style={{ color: 'white'}} to="/chat">Chat</Link>
             </Menu.Item>
-            <SubMenu key="sub1" icon={<UserOutlined />} title="User">
-              <Menu.Item key="3">Tom</Menu.Item>
-              <Menu.Item key="4">Bill</Menu.Item>
-              <Menu.Item key="5">Alex</Menu.Item>
-            </SubMenu>
-            <SubMenu key="sub2" icon={<TeamOutlined />} title="Team">
-              <Menu.Item key="6">Team 1</Menu.Item>
-              <Menu.Item key="8">Team 2</Menu.Item>
-            </SubMenu>
-            <Menu.Item key="9" icon={<FileOutlined />}>
-              Files
+            <Menu.Item style={{marginTop: '20px', marginBottom: '20px'}} key="3" icon={<ContactsOutlined />}>
+            <Link  to="/Annuaire">Annuaire</Link>
+            </Menu.Item>
+            <Menu.Item style={{marginTop: '20px', marginBottom: '20px', color: 'white'}} key="4" icon={<BankOutlined />}>
+            <Link style={{ color: 'white'}} to="/forum">Forum</Link>
+            </Menu.Item>
+            <Menu.Item style={{marginTop: '20px', marginBottom: '20px'}} key="5" icon={<DashboardOutlined />}>
+            <Link style={{ color: 'white'}} to="/profil">Réglages</Link>
             </Menu.Item>
           </Menu>
         </Sider>

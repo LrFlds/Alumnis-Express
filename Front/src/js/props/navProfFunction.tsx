@@ -38,7 +38,7 @@ const Nav: FunctionComponent = () => {
                     <button onClick={logout} className="btn-flat">Déconnexion</button>
                 </ul>
             ) : (
-                    <h4 className="center">Aucun profil à afficher !</h4>
+                    <h4 className="center">Aucun profil à afficher !</h4> 
                 )}
         </div>
     )

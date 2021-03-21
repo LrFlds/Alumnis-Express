@@ -17,7 +17,6 @@ const UserList: FunctionComponent = () => {
         async function getUser() {
             const user = await getConnectedUser()
             setUser(user);
-            close();
             burger();
         }
         getUser();
@@ -28,7 +27,7 @@ const UserList: FunctionComponent = () => {
         <div>
             <Nav />
 
-            <div id="test2" className="contener-global">
+            <div id="test2" style={{overflowY: 'scroll'}} className="contener-global">
                 <div className="contener-main">
                     <div className="row contener-nav">
                         <div className="col  end">

@@ -1,7 +1,4 @@
 
-
-
-
 //-----LESS:    width: ~"calc(50% - 20px)";
 //-----CSS:    width: calc(50% - 20px);
 
@@ -503,10 +500,10 @@ li {
 
 .pop-up-filtre {
     position: absolute;
-    height: 700px;
+    height: 630px;
     right: -800px;
     z-index: 999;
-    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .12), inset 0 -1px 0 0 #dadce0;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .30), inset 0 -1px 0 0 #dadce0;
     top: 20px;
     width: 370px;
     background-color: #fff;
@@ -515,12 +512,13 @@ li {
     .contener-haut {
         position: relative;
         padding-bottom: 30px;
+        padding-top: 30px;
 
         h1 {
             font-size: 20px;
             padding-left: 10px;
             position: absolute;
-            top: -30px;
+            top: 10px;
         }
 
         .close {
@@ -531,7 +529,7 @@ li {
                 width: 15px;
                 height: 2px;
                 transform: rotate(-45deg) !important;
-                background-color:white;
+                background-color:black;
                 position: absolute;
                 right: 10px;
                 top: 20px;
@@ -969,7 +967,7 @@ footer {
 
     .contener-main {
         position: absolute;
-        left: 340px;
+        left: 350px;
         width: 82%;
         margin: 0 auto;
         display: flex;
@@ -1548,6 +1546,7 @@ footer {
                 border-radius: 6px;
                 cursor: pointer;
                 transition: all 0.5s;
+                overflow: hidden;
 
 
                 &:hover {
@@ -1603,20 +1602,25 @@ footer {
 
                 }
                 .card-content {
-
-
                     p {
                         color: #7A7777 !important;
                         padding-left: 10px;
                         width: 98%;
                         text-overflow: ellipsis;
                         word-wrap: break-word;
+                        height: 150px;
+                    overflow: hidden;
+                    position: relative;
+                    padding-right: 10px;
+                    
                     }
                 }
             }
         }
     }
 }
+
+
 .chips.focus{
     border-bottom: 1px solid #CE0030;
     box-shadow: 0 1px 0 0 #CE0030;
@@ -1661,6 +1665,87 @@ input.valid[type=text]:not(.browser-default){
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+.container-search {
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+    position: absolute;
+    
+
+
+	.searchbox {
+		position: relative;
+		display: block;
+		width: 100%;
+        height: 30px;
+		max-width: 30px;
+		transition: 0.4s linear;
+        left: -100px;
+	
+
+		.searchbox__input {
+			display: block;
+			appearance: none;
+			width: 100%;
+            height: 30px;
+			border: none;
+			outline: none;
+			border-radius: 30px;
+			background-color: #CE0033;
+			padding: 15px;
+			color: #CE0033;
+			font-size: 20px;
+			cursor: pointer;
+			transition: 0.4s linear;
+
+			&::placeholder {
+				color: #CE0033;
+			}
+		}
+
+		.searchbox__icon {
+			position: absolute;
+			right: calc(53px / 2);
+			top: 50%;
+            transform: translate(170%, 20%) scale(1.2);
+			width: 20px;
+			height: 20px;
+
+			pointer-events: none;
+
+			path {
+				fill: #fff;
+				transition: 0.4s linear;
+			}
+		}
+
+		&:focus-within {
+			max-width: 300px;
+            transition: all 0.5s;
+          
+           
+			.searchbox__input {
+				background-color: #FFF;
+				padding-right: 50px;
+                border-bottom: none;
+                box-shadow:none;
+                border-radius: 0px;
+                transform: translate(25%);
+            
+               
+			}
+
+			.searchbox__icon {
+                transform: translate(760%, 20%) scale(1.2);
+                transition: all 0.5s;
+				path {
+					fill: #000;
+				}
+			}
+		}
+	}
 }
 .plonplon{
     font-size: 80px;
@@ -1834,7 +1919,27 @@ justify-content: space-between;
     }
 }
 
-
+.container-texte{
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    h1{
+        position: absolute;
+        top:15px;
+        font-size: 18px;
+        left: 80px;
+        color:white;
+    }
+    p{
+        position: absolute;
+        top:30px;
+        font-size: 18px;
+        font-weight: 500;
+        left: 80px;
+        color:white;
+    }
+   
+}
 
 /* ------------------------ MEDIA QUERIES 960px ---- */
 @media screen and (max-width: 1850px) {
