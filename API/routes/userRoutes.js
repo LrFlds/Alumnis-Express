@@ -13,7 +13,7 @@ router.route('/annuaire').get(userController.checkUser,userController.getAllUser
 
 router.route('/profil/:id').get(userController.checkUser,userController.getUserByID)
 
-router.route('/create').post(userController.checkUser,userController.createUser)
+router.route('/create').post(userController.createUser)
 
 router.route('/delete').delete(userController.checkUser,userController.deleteUser)
 

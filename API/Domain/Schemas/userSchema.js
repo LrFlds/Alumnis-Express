@@ -11,10 +11,10 @@ const UserSchema = new Schema({
     ExpirePass:{type: Date},
     Picture: { type: String },
     Cloudinary_id:{type: String},
-    Fabric: { type: String, enum: ["Calais", "Boulogne-sur-mer","Béthune", "Roubaix"], required: true },
-    Year: [{ type: Number, required: true }],// VOIR AVEC FRONT POUR MENU DEROULANT
-    TypeFormation: [{ type: String, enum: ["Analyste cybersécurité", "Coder et déployer une application web simple","Concepteur développeur d'applications","Développeur web et web mobile","Développeur data","Objets connectés","Référent digital","Spécialisation DevOps - Administrer avec la méthode DevOps","Spécialisation DevOps - Développer avec la méthode DevOps","Spécialisation DevOps - La méthode","Technicien d’assistance en informatique","Technicien supérieur systèmes et réseaux","Artis - Culture et techniques du numérique","Cléa numérique - Les bases","Compétences numériques fondamentales","Hackeuses - Culture et techniques du numérique","Méthodes agiles de gestion et amorçage de projet","Parcours Welcode","Refugeeks","Réaliser un site internet à partir de WordPress"], required: true }],
-    Techno: [{ type: String, required: true }],
+    Fabric: { type: String, enum: ["Calais", "Boulogne-sur-mer","Béthune", "Roubaix","Grenoble"]},
+    Year: [{ type: Number }],// VOIR AVEC FRONT POUR MENU DEROULANT
+    TypeFormation: [{ type: String, enum: ["Analyste cybersécurité", "Coder et déployer une application web simple","Concepteur développeur d'applications","Développeur web et web mobile","Développeur data","Objets connectés","Référent digital","Spécialisation DevOps - Administrer avec la méthode DevOps","Spécialisation DevOps - Développer avec la méthode DevOps","Spécialisation DevOps - La méthode","Technicien d’assistance en informatique","Technicien supérieur systèmes et réseaux","Artis - Culture et techniques du numérique","Cléa numérique - Les bases","Compétences numériques fondamentales","Hackeuses - Culture et techniques du numérique","Méthodes agiles de gestion et amorçage de projet","Parcours Welcode","Refugeeks","Réaliser un site internet à partir de WordPress"] }],
+    Techno: [{ type: String}],
     Description: { type: String },
     Company: { type: String },
     PostList: [{ type: Schema.Types.ObjectId, ref: 'PostModel' }], // VERIF LIEN

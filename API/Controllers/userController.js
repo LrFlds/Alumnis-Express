@@ -14,7 +14,9 @@ const { resetPassword } = require('../Controllers/mailController');
 const Constantes = require("../Config/variables")
 const { subjectActivate, messageActivate, subjectMdp, messageMdp } = require('../Config/variables');
 const crypto= require('crypto')
-const key = crypto.randomBytes(32)
+const key = crypto.randomBytes(32);
+const jwt = require('jsonwebtoken')
+const transporter = require('../Config/resetPassword');
 
 
 
@@ -68,7 +70,26 @@ module.exports = {
                         res.status(400).send({ Erreur: err })
 
                     } else {
-                        resetPassword(req,res,subjectActivate,messageActivate)
+                        const reset = jwt.sign(key, process.env.SECRET_TOKEN_ACCESS);
+                        user.ResetPass= reset
+                        user.ExpirePass = Date.now() + 3600000
+                        user.save().then(result => {
+                            transporter.sendMail({
+                            to: user.Email,
+                            from:"no-reply@alumnis.simplon.com",
+                            subject: "Activation de votre profil Alumnis",
+                            html: `
+                            <p> Bonjour ${user.FirstName},</p>
+
+                            <p>Bienvenue sur notre site réservé exclusivement aux apprenants et alumnis de Simplon.</p>
+                            <p> Votre profil a été préalablement créé, vous devrez le complêter des votre première connexion. Il vous suffit de l'activer en cliquant <a href="http://localhost:3000/mail/reset/${reset}">içi</a>, vous serez redirigé vers la page de réinitialisation de mot de passe.</p>
+                            <p>Nous comptons sur vous pour faire vivre ce site, mais aussi pour être cordiaux.</p>
+                            <p>Des modérateurs seront à votre disposition en cas de problèmes.</p>
+                            <p> à bientôt sur Alumnis</p>
+                            <p> L'équipe d'ALUMNIS, Matieu, Quentin et Laura.</p>`
+                    })
+                    return true;
+                })
                         res.status(200).send({message: "L'utilisateur a été créé "})
                         
                     }
@@ -219,7 +240,7 @@ module.exports = {
         if (req.user != undefined) {
             next()
         } else {
-            res.status(401).send({ message: loginError });
+            res.status(401).send({ message: 'a refaire cause conflict' });
         }
     },
     connectedUser(req, res, next) {
