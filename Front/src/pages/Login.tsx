@@ -2,6 +2,7 @@ import React, { FunctionComponent, useState, useEffect } from 'react';
 import User from '../models/user';
 import Login from '../js/fetchs/login.js';
 import img from '../imgs/illu-acceuil.png';
+import Modal from '../js/modals/modalmdp';
 import {Link} from 'react-router-dom';
 import UserProfil from '../components/profil';
 
@@ -10,6 +11,7 @@ const [users, setUser] = useState<User[]>([]);
 
   useEffect(() => {
   Login();
+  Modal();
   }, []);
 
   return (
@@ -45,7 +47,8 @@ const [users, setUser] = useState<User[]>([]);
                 <label htmlFor="passe">Mot de passe </label>
             </div>
                 <div className="container-oublie">
-                     <Link to="/forgot">Mot de passe oublié ? </Link>
+                  <a className="modal-trigger" href="#modal1">Mot de passe oublié ?</a>
+                    
                  </div>
                 <input id="sub" type="submit" value="connexion"></input>
             </form>
@@ -80,6 +83,23 @@ const [users, setUser] = useState<User[]>([]);
       </div>
       </div>
   </footer>
+
+   <div id="modal1" className="modal">
+    <div className="modal-content">
+      <h4>Veuillez entrée votre adresse Email</h4>
+      <form action="">
+      <div className="row">
+        <div className="input-field col s12">
+          <input id="email" type="email" className="validate"/>
+          <label htmlFor="email">Email</label>
+        </div>
+      </div>
+      </form>
+    </div>
+    <div className="modal-footer">
+      <a href="#!" className="modal-close waves-effect waves-green btn-flat">Envoyer</a>
+    </div>
+  </div>
   </div>
   );
   }

@@ -144,26 +144,6 @@ const UserList: FunctionComponent = () => {
           </div>
         </div>
       </div>
-      <div className="pop-up-filtre">
-        <div className="contener-haut">
-          <h1>blabla</h1>
-          <div className="close">
-            <span></span>
-            <span></span>
-          </div>
-          <form action="">
-            <h2>bleu bleu</h2>
-            <div className="lieux">
-              <p>ga,koogaeo <label htmlFor="">azaz</label> </p>
-              
-            </div>
-            <div className="tech">
-              <p>ga,koogaeo <label htmlFor="">azaz</label> </p>
-              
-            </div>
-          </form>
-        </div>
-      </div>
     </div>
   );
 }

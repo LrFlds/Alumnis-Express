@@ -50,7 +50,6 @@ body {
   width: 100%;
   display: block;
   font-family: 'Roboto', sans-serif;
-  overflow: hidden;
 }
 
 img,
@@ -466,19 +465,20 @@ li {
 }
 
 .open {
-  right: 30px !important;
+  top: 20px !important;
   -webkit-transition: all 1s !important;
   transition: all 1s !important;
 }
 
 .pop-up-filtre {
+  display: block;
   position: absolute;
+  right: 30px !important;
   height: 630px;
-  right: -800px;
+  top: -1000px;
   z-index: 999;
   -webkit-box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3), inset 0 -1px 0 0 #dadce0;
           box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3), inset 0 -1px 0 0 #dadce0;
-  top: 20px;
   width: 370px;
   background-color: #fff;
   -webkit-transition: all 1s !important;
@@ -966,7 +966,7 @@ footer .row .container-picto a i {
 .contener-global .contener-main {
   position: absolute;
   left: 350px;
-  width: 82%;
+  width: 81%;
   margin: 0 auto;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -979,6 +979,11 @@ footer .row .container-picto a i {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.contener-global .contener-main .forum {
+  left: 290px !important;
+  overflow-y: scroll;
 }
 
 .contener-global .contener-main .contener-nav {
@@ -1076,10 +1081,10 @@ footer .row .container-picto a i {
 .contener-global .contener-main .contener-carte {
   width: 90%;
   overflow-y: scroll;
-  height: auto;
+  height: 800px;
   margin-top: 0px;
   position: relative;
-  padding-bottom: 30px;
+  padding-bottom: 10px;
   padding-right: 20px;
 }
 

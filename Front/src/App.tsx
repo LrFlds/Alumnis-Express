@@ -11,6 +11,7 @@ import forgot from './pages/forgot';
 import redirect from './pages/redirect';
 import postForum from './pages/postForum';
 import chat from './pages/chat';
+import post from './pages/post';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import './css/styles.css';
 import './css/reset.css';
@@ -36,6 +37,7 @@ return (
       <Route exact path="/forgot" component={forgot} />
       <Route exact path="/redirect" component={redirect} />
       <Route exact path="/chat" component={chat} />
+      <Route exact path="/post" component={post} />
     </Switch>
   </div>
 </Router>

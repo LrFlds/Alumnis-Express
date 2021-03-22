@@ -5,7 +5,6 @@ import img from '../imgs/illu-forum.png';
 import imgProf from '../imgs/laura.png';
 import Nav from '../js/props/navFunction';
 import burger from '../js/modals/burger';
-import close from '../js/modals/close';
 import UserProfil from '../components/profil';
 import getConnectedUser from '../js/fetchs/getConnectedUser';
 
@@ -27,8 +26,8 @@ const UserList: FunctionComponent = () => {
         <div>
             <Nav />
 
-            <div id="test2" style={{overflowY: 'scroll'}} className="contener-global">
-                <div className="contener-main">
+            <div id="test2" className="contener-global">
+                <div className="contener-main forum">
                     <div className="row contener-nav">
                         <div className="col  end">
                             <Link to="/profil" className="panneau">Panneau d'aministration</Link>
