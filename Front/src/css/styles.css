@@ -2326,6 +2326,34 @@ input.valid[type=text]:not(.browser-default) {
   }
 }
 
+.cookie-box {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  padding: 1rem 2rem;
+  background: white;
+  -webkit-transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.cookie-box.hide {
+  opacity: 0;
+  bottom: -100%;
+}
+
+.cookie-button {
+  display: inline-block;
+  cursor: pointer;
+  padding: 0.65rem 0.85rem;
+  margin-left: 0.45rem;
+  color: white;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  background-color: #ce0033;
+}
+
 @media screen and (max-width: 1020px) {
   .acceuil .row .container .container-bienvenue h1 {
     font-size: 40px !important;

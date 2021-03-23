@@ -29,6 +29,11 @@ const handleCancel = () => {
 
   return (
   <div>
+ <div id="js-cookie-box" className="cookie-box cookie-box--hide">
+      En poursuivant votre navigation sur ce site, vous acceptez l'utilisation de cookies 🍪 ! <span id="js-cookie-button" class="cookie-button">Allez pourquoi pas</span>
+    </div>
+
+
         <div className="acceuil">
     <div className="row">
         <div className="container">
