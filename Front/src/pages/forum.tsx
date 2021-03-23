@@ -6,7 +6,7 @@ import img from '../imgs/illu-forum.png';
 import imgProf from '../imgs/laura.png';
 import Nav from '../js/props/navFunction';
 import burger from '../js/modals/burger';
-import close from '../js/modals/close';
+import UserProfil from '../components/profil';
 import CategoryCard from '../components/categorie'
 import getConnectedUser from '../js/fetchs/getConnectedUser';
 import getAllCategories from '../js/fetchs/getAllCategories';
@@ -20,7 +20,6 @@ const UserList: FunctionComponent = () => {
         async function getUser() {
             const user = await getConnectedUser()
             setUser(user);
-
         }
         getUser();
         async function getCategories() {
@@ -36,7 +35,7 @@ const UserList: FunctionComponent = () => {
             <Nav />
 
             <div id="test2" className="contener-global">
-                <div className="contener-main">
+                <div className="contener-main forum">
                     <div className="row contener-nav">
                         <div className="col  end">
                             <Link to="/profil" className="panneau">Panneau d'aministration</Link>

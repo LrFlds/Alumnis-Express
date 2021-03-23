@@ -1,19 +1,39 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
+import { Modal, Button } from 'antd';
 import User from '../models/user';
 import Login from '../js/fetchs/login.js';
 import img from '../imgs/illu-acceuil.png';
-import {Link} from 'react-router-dom';
-import UserProfil from '../components/profil';
+
+
+
+
 
 const UserList: FunctionComponent = () => {
 const [users, setUser] = useState<User[]>([]);
+const [isModalVisible, setIsModalVisible] = useState(false);
 
+const showModal = () => {
+  setIsModalVisible(true);
+};
+
+const handleOk = () => {
+  setIsModalVisible(false);
+};
+
+const handleCancel = () => {
+  setIsModalVisible(false);
+};
   useEffect(() => {
   Login();
   }, []);
 
   return (
   <div>
+ <div id="js-cookie-box" className="cookie-box cookie-box--hide">
+      En poursuivant votre navigation sur ce site, vous acceptez l'utilisation de cookies 🍪 ! <span id="js-cookie-button" class="cookie-button">Allez pourquoi pas</span>
+    </div>
+
+
         <div className="acceuil">
     <div className="row">
         <div className="container">
@@ -45,7 +65,10 @@ const [users, setUser] = useState<User[]>([]);
                 <label htmlFor="passe">Mot de passe </label>
             </div>
                 <div className="container-oublie">
-                     <Link to="/forgot">Mot de passe oublié ? </Link>
+                <a type="primary" onClick={showModal}>
+                Mot de passe oublié ?
+      </a>
+                
                  </div>
                 <input id="sub" type="submit" value="connexion"></input>
             </form>
@@ -80,8 +103,21 @@ const [users, setUser] = useState<User[]>([]);
       </div>
       </div>
   </footer>
+
+  
+  <Modal title="Votre Email" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+  <form action="">
+      <div className="row">
+        <div className="input-field col s12">
+          <input id="email" type="email" className="validate"/>
+          <label htmlFor="email">Email</label>
+        </div>
+      </div>
+      </form>
+      </Modal>
   </div>
   );
-  }
+
+}
 
   export default UserList;

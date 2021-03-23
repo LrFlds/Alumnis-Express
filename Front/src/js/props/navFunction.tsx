@@ -3,8 +3,23 @@ import User from '../../models/user'
 import { Link } from 'react-router-dom';
 import logout from '../fetchs/logout'
 import getConnectedUser from '../fetchs/getConnectedUser';
+import { Layout, Menu, Avatar, Breadcrumb } from 'antd';
+import {
+  DesktopOutlined,
+  PieChartOutlined,
+  FileOutlined,
+  TeamOutlined,
+  UserOutlined,
+  InsertRowBelowOutlined,
+  WhatsAppOutlined,
+  ContactsOutlined,
+  BankOutlined,
+  DashboardOutlined,
+  ExportOutlined,
+} from '@ant-design/icons';
 
-
+const { Header, Content, Footer, Sider } = Layout;
+const { SubMenu } = Menu;
 const Nav: FunctionComponent = () => {
 
     const [user, setUser] = useState<User | null>(null);
@@ -21,34 +36,37 @@ const Nav: FunctionComponent = () => {
         <div>
             {user ? (
                 <div>
-                    <ul className="sidenav">
-                        <div id="ferme" className="closerespo">
-                            <span></span>
-                            <span></span>
-                        </div>
-                        <li>
-                            <div className="user-view row">
-                                <div className="contener-image">
-                                <Link to={`/getUser/${user._id}`} className="image-contener-sidebar" ><img src={`${user.Picture}`} /></Link>
-                                </div>
-                                <span className="statut"></span>
-                                <Link to={`/getUser/${user._id}`}><span className="white-text name col s12">{user.Name}  {user.FirstName}</span></Link>
-                                <span className="white-text etat col ">en ligne</span>
-                            </div>
-                        </li>
-                        <div className="contener-nav">
-                            <li className="nav-gauche tab"><Link to="/profil"><i
-                                className="small material-icons">person_outline</i>Modifier son Profil</Link></li>
-                            <li className="nav-gauche tab"><a href=""><i className="small material-icons">chat_bubble_outline</i>Chat</a>
-                            </li>
-                            <li className="nav-gauche tab"><Link to="/annuaire" className="active" href="#test2"><i
-                                className="small material-icons">search</i>Annuaire</Link></li>
-                            <li className="nav-gauche tab"><Link to="/forum"><i className="small material-icons">people_outline</i>Forum</Link></li>
-                            <br />
-                            <li className="nav-gauche tab"><a href=""><i className="small material-icons">settings</i>Réglage</a></li>
-                        </div>
-                        <button onClick={logout} className="btn-flat">Déconnexion</button>
-                    </ul>
+                      <Sider collapsible style={{position:'fixed', background:'#CE0033', height: '100vh', }}>
+                          <div className="container-texte">
+                      <Avatar style={{padding: '10px', marginTop: '0px', marginLeft: '0px', }} size={74} src={`${user.Picture}`} />
+                      <h1>{user.Name}</h1>
+                      <p> {user.FirstName}</p>
+                      </div>
+          <div className="logo" />
+          <Menu style={{background:'#CE0033', color: 'white', marginTop: '100px', width: '100%', border: 'none',}}  mode="inline">
+            <Menu.Item style={{marginTop: '20px', marginBottom: '20px'}} key="1" icon={<InsertRowBelowOutlined />}>
+            <Link  style={{ color: 'white'}} to="/profil">Profil</Link>
+            </Menu.Item>
+            <Menu.Item style={{marginTop: '20px', marginBottom: '20px'}} key="2" icon={<WhatsAppOutlined />}>
+            <Link style={{ color: 'white'}} to="/chat">Chat</Link>
+            </Menu.Item>
+            <Menu.Item style={{marginTop: '20px', marginBottom: '20px'}} key="3" icon={<ContactsOutlined />}>
+            <Link style={{ color: 'white'}} to="/Annuaire">Annuaire</Link>
+            </Menu.Item>
+            <Menu.Item style={{marginTop: '20px', marginBottom: '20px', color: 'white'}} key="4" icon={<BankOutlined />}>
+            <Link style={{ color: 'white'}} to="/forum">Forum</Link>
+            </Menu.Item>
+            <Menu.Item style={{marginTop: '20px', marginBottom: '20px'}} key="5" icon={<DashboardOutlined />}>
+            <Link style={{ color: 'white'}} to="/avatar">Réglages</Link>
+            </Menu.Item>
+            <Menu.Item style={{marginTop: '20px', marginBottom: '20px', color: 'white'}} key="4" icon={<UserOutlined />}  >
+            <a style={{ color: 'white'}} href="https://simplon.co/contact.html" target="_blank">Contact</a>
+            </Menu.Item>
+            <Menu.Item style={{background: "white", color: "#ce0033", width: "100%", marginTop: '60px', marginBottom: '20px'}} key="5" icon={<ExportOutlined />}>
+            <Link onClick={logout} style={{ color: '#ce0033'}} to="/profil">Déconnexion</Link>
+            </Menu.Item>
+          </Menu>
+        </Sider>
                     <div className="burger">
                         <span></span>
                         <span></span>

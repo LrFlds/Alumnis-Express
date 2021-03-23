@@ -1,5 +1,8 @@
 import React, { Component, useState, useEffect } from 'react';
-import NavProf from '../js/props/navProfFunction';
+import User from '../models/user';
+import {Link} from 'react-router-dom';
+import UserProfil from '../components/profil';
+import Nav from '../js/props/navFunction';
 import file from '../js/functions/picture';
 import back from '../js/functions/back'
 
@@ -46,7 +49,7 @@ render(){
 
   return (
   <div>
-     <NavProf />
+     <Nav />
 
     <div id="test2" className="contener-global">
       <div className="contener-main">

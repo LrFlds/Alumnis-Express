@@ -17,6 +17,11 @@
     "static/media/redirect-illu.9885e183.png": "/static/media/redirect-illu.9885e183.png"
   },
   "entrypoints": [
+    "static/js/runtime-main.dfad8435.js",
+    "static/css/2.494909d2.chunk.css",
+    "static/js/2.28581384.chunk.js",
+    "static/css/main.0bc35d33.chunk.css",
+    "static/js/main.d8376eaa.chunk.js",
     "static/js/runtime-main.8c9601b1.js",
     "static/js/2.f05bf08f.chunk.js",
     "static/css/main.66c510cb.chunk.css",

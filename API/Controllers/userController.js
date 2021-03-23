@@ -12,8 +12,8 @@ const regexPass = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}
 const mailController = require('../Controllers/mailController');
 const { resetPassword } = require('../Controllers/mailController');
 const Constantes = require("../Config/variables")
-const { subjectActivate, messageActivate, subjectMdp, messageMdp, loginError} = require('../Config/variables');
-const crypto= require('crypto')
+const { subjectActivate, messageActivate, subjectMdp, messageMdp, loginError } = require('../Config/variables');
+const crypto = require('crypto')
 const key = crypto.randomBytes(32);
 const jwt = require('jsonwebtoken')
 const transporter = require('../Config/resetPassword');
@@ -25,16 +25,16 @@ const transporter = require('../Config/resetPassword');
 
 module.exports = {
     async getAllUsers(req, res) {
-        if(req.user){
+        if (req.user) {
             const user = await User.find({});
-            if(user){
-                const randomUsers  = user.sort((a,b)=>0.5 - Math.random());
-                res.status(200).send({message:randomUsers});
-            }else{
-                res.status(400).send({message:"Aucun utilisateur trouvé"});
+            if (user) {
+                const randomUsers = user.sort((a, b) => 0.5 - Math.random());
+                res.status(200).send({ message: randomUsers });
+            } else {
+                res.status(400).send({ message: "Aucun utilisateur trouvé" });
             }
-        }else{
-            res.status(401).send({message:loginError});
+        } else {
+            res.status(401).send({ message: loginError });
         }
     },
     getUser(req, res) {
@@ -81,9 +81,9 @@ module.exports = {
                         res.status(400).send({ Erreur: err })
 
                     } else {
-                            transporter.sendMail({
+                        transporter.sendMail({
                             to: user.Email,
-                            from:"no-reply@alumnis.simplon.com",
+                            from: "no-reply@alumnis.simplon.com",
                             subject: "Activation de votre profil Alumnis",
                             html: `
                             <p> Bonjour ${user.FirstName},</p>
@@ -94,8 +94,8 @@ module.exports = {
                             <p>Des modérateurs seront à votre disposition en cas de problèmes.</p>
                             <p> à bientôt sur Alumnis</p>
                             <p> L'équipe d'ALUMNIS, Mathieu, Quentin et Laura.</p>`
-                    })
-                        res.status(200).send({message: "L'utilisateur a été créé "})
+                        })
+                        res.status(200).send({ message: "L'utilisateur a été créé " })
                     }
                 })
             } else {
@@ -119,8 +119,8 @@ module.exports = {
                     })
                 }
             })
-        }else{
-            res.status(401).send({message:'Vous devez être le propriétaire du compte ou un administrateur pour supprimer ce compte'})
+        } else {
+            res.status(401).send({ message: 'Vous devez être le propriétaire du compte ou un administrateur pour supprimer ce compte' })
         }
 
     },
@@ -247,13 +247,13 @@ module.exports = {
             res.status(401).send({ message: 'a refaire cause conflict' });
         }
     },
+
     connectedUser(req, res, next) {
         if (req.user != undefined) {
             res.send(req.user);
         } else {
             res.status(401).send({ message: loginError });
         }
-
     },
     logout(req, res) {
         req.session.destroy()
