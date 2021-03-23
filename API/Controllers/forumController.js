@@ -133,11 +133,10 @@ module.exports = {
 
     async createSujet(req, res) {
         if (req.user != undefined) {
-            const date = Date.now();
-            const today = new Date(date);
+            const today = new Date().toLocaleString();
             const NewSujet = new Sujet({
                 TitleSujet: req.body.TitleSujet,
-                Date: today.toUTCString(),
+                Date: today,
                 Author: req.user
             })
             NewSujet.save(async (err, sujet) => {
@@ -226,11 +225,10 @@ module.exports = {
     //Post
     async addPost(req, res) {
         if (req.user) {
-            const date = Date.now();
-            const today = new Date(date);
+            const today = new Date().toLocaleString();
             const newPost = new Post({
                 SujetTitle: req.params.id,
-                Date: today.toUTCString(),
+                Date: today,
                 Author: req.user, //utilisateur connecté
                 Content: req.body.Content
             })
