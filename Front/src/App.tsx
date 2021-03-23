@@ -3,8 +3,6 @@ import Annuaire from './pages/Annuaire';
 import UserDetails from './pages/details';
 import profil from './pages/profil';
 import avatar from './pages/avatar';
-import techno from './pages/techno';
-import formation from './pages/formation';
 import forum from './pages/forum';
 import Login from './pages/Login';
 import forgot from './pages/forgot';
@@ -30,8 +28,6 @@ return (
       <Route path="/getUser/:_id" component={UserDetails} />
       <Route exact path="/profil" component={profil} />
       <Route exact path="/avatar" component={avatar} />
-      <Route exact path="/techno" component={techno} />
-      <Route exact path="/formation" component={formation} />
       <Route exact path="/forum" component={forum} />
       <Route exact path="/postForum" component={postForum} />
       <Route exact path="/forgot" component={forgot} />

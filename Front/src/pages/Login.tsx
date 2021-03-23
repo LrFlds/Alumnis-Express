@@ -23,8 +23,6 @@ const handleOk = () => {
 const handleCancel = () => {
   setIsModalVisible(false);
 };
-
-
   useEffect(() => {
   Login();
   }, []);

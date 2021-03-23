@@ -21,7 +21,7 @@ M.Chips.init(tags,{
  autocompleteOptions:{
      data:{
      'Calais': null,
-     'Roubaix': null
+     'Roubaix': null,
     },
     limit:Infinity,
     minlength: 2

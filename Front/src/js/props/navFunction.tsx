@@ -15,6 +15,7 @@ import {
   ContactsOutlined,
   BankOutlined,
   DashboardOutlined,
+  ExportOutlined,
 } from '@ant-design/icons';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -42,7 +43,7 @@ const Nav: FunctionComponent = () => {
                       <p> {user.FirstName}</p>
                       </div>
           <div className="logo" />
-          <Menu style={{background:'#CE0033', color: 'white', marginTop: '100px', width: '100%', border: 'none',}} defaultSelectedKeys={['3']} mode="inline">
+          <Menu style={{background:'#CE0033', color: 'white', marginTop: '100px', width: '100%', border: 'none',}}  mode="inline">
             <Menu.Item style={{marginTop: '20px', marginBottom: '20px'}} key="1" icon={<InsertRowBelowOutlined />}>
             <Link  style={{ color: 'white'}} to="/profil">Profil</Link>
             </Menu.Item>
@@ -50,13 +51,19 @@ const Nav: FunctionComponent = () => {
             <Link style={{ color: 'white'}} to="/chat">Chat</Link>
             </Menu.Item>
             <Menu.Item style={{marginTop: '20px', marginBottom: '20px'}} key="3" icon={<ContactsOutlined />}>
-            <Link  to="/Annuaire">Annuaire</Link>
+            <Link style={{ color: 'white'}} to="/Annuaire">Annuaire</Link>
             </Menu.Item>
             <Menu.Item style={{marginTop: '20px', marginBottom: '20px', color: 'white'}} key="4" icon={<BankOutlined />}>
             <Link style={{ color: 'white'}} to="/forum">Forum</Link>
             </Menu.Item>
             <Menu.Item style={{marginTop: '20px', marginBottom: '20px'}} key="5" icon={<DashboardOutlined />}>
-            <Link style={{ color: 'white'}} to="/profil">Réglages</Link>
+            <Link style={{ color: 'white'}} to="/avatar">Réglages</Link>
+            </Menu.Item>
+            <Menu.Item style={{marginTop: '20px', marginBottom: '20px', color: 'white'}} key="4" icon={<UserOutlined />}  >
+            <a style={{ color: 'white'}} href="https://simplon.co/contact.html" target="_blank">Contact</a>
+            </Menu.Item>
+            <Menu.Item style={{background: "white", color: "#ce0033", width: "100%", marginTop: '60px', marginBottom: '20px'}} key="5" icon={<ExportOutlined />}>
+            <Link onClick={logout} style={{ color: '#ce0033'}} to="/profil">Déconnexion</Link>
             </Menu.Item>
           </Menu>
         </Sider>
