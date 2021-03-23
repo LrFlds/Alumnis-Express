@@ -12,7 +12,7 @@ const regexPass = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}
 const mailController = require('../Controllers/mailController');
 const { resetPassword } = require('../Controllers/mailController');
 const Constantes = require("../Config/variables")
-const { subjectActivate, messageActivate, subjectMdp, messageMdp } = require('../Config/variables');
+const { subjectActivate, messageActivate, subjectMdp, messageMdp, loginError} = require('../Config/variables');
 const crypto= require('crypto')
 const key = crypto.randomBytes(32);
 const jwt = require('jsonwebtoken')
@@ -50,6 +50,7 @@ module.exports = {
         User.findOne({ Email: req.body.Email }).then(result => {
 
             if (result == null) {
+                const reset = jwt.sign(key, process.env.SECRET_TOKEN_ACCESS);
                 const newUser = new User({
                     Name: req.body.Name,
                     FirstName: req.body.FirstName,
@@ -63,17 +64,15 @@ module.exports = {
                     Company: req.body.Company,
                     PostList: req.body.PostList,
                     Status: req.body.Status,
-                    IsAdmin: req.body.IsAdmin
+                    IsAdmin: req.body.IsAdmin,
+                    ResetPass: reset,
+                    ExpirePass: Date.now() + 3600000
                 }) 
                 newUser.save((err, user) => {
                     if (err) {
                         res.status(400).send({ Erreur: err })
 
                     } else {
-                        const reset = jwt.sign(key, process.env.SECRET_TOKEN_ACCESS);
-                        user.ResetPass= reset
-                        user.ExpirePass = Date.now() + 3600000
-                        user.save().then(result => {
                             transporter.sendMail({
                             to: user.Email,
                             from:"no-reply@alumnis.simplon.com",
@@ -88,18 +87,15 @@ module.exports = {
                             <p> à bientôt sur Alumnis</p>
                             <p> L'équipe d'ALUMNIS, Matieu, Quentin et Laura.</p>`
                     })
-                    return true;
-                })
                         res.status(200).send({message: "L'utilisateur a été créé "})
-                        
                     }
                 })
             } else {
-
                 res.status(400).send({ message: 'Utilisateur déjà connu' })
             }
         })
     },
+
     deleteUser(req, res) {
         if (res.user.Email == req.body.Email || req.user.IsAdmin) {
             User.findOne({ Email: req.body.Email }).then(result => {
@@ -163,7 +159,7 @@ module.exports = {
                         }
                     }
                     if (status != 400) {
-                        User.update({ _id: req.user._id }, { $set: updates }, (err, success) => {
+                        User.updateOne({ _id: req.user._id }, { $set: updates }, (err, success) => {
                             if (err) {
                                 res.status(500).send({ message: internalError });
                             } else {
