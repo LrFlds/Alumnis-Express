@@ -1,2 +1,4 @@
-node_modules/
+Front/node_modules/
+API/node_modules/
 .env
+Front/.eslintcache
