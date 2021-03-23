@@ -1,63 +1,78 @@
-const nodemailer= require('nodemailer')
-const dotenv= require('dotenv').config()
+const nodemailer = require('nodemailer')
+const dotenv = require('dotenv').config()
 const User = require('../Domain/Domain_services/Models/userModel');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
-const crypto = require('crypto')
-const transporter = require('../Config/resetPassword')
+const crypto = require('crypto');
+const key = crypto.randomBytes(32);
+const transporter = require('../Config/resetPassword');
+const constantes = require('../Config/variables')
+const jwt = require('jsonwebtoken')
 
 
+
+/**
+ * Send mail for reset password
+ */
 
 module.exports = {
     resetPassword(req, res){
-        crypto.randomBytes(32,(err,buffer)=> {
-            if(err){
-                res.status(400).send({Erreur : err})
-            }
-            const reset = buffer.toString('hex')
-            User.findOne({Email:req.body.Email}).then(user => {
-                if(!user){
-                    return res.status(422).json({error:"L'utilisateur n'existe pas avec cet email"})
-                }else{
-                user.ResetPass = reset
-                user.ExpirePass = Date.now() + 3600000
-                user.save().then(result => {
-                    transporter.sendMail({
-                        to:'magniez.justine.pro@gmail.com',
-                        from:"no-reply@alumnis.simplon.com",
-                        subject:'Réïnitialisation du mot de passe',
-                        html:`
-                        <p>Vous souhaitez réïnitialiser votre mot de passe</p>
-                        <h5>Cliquez <a href="http://localhost:3000/mail/reset/${reset}">içi</a> pour réïnitialiser votre mot de passe</h5>
 
-                        <p>L'équipe Alumnis Simplon</p>
-                        `
-                    })
-                    res.json({message:" Vérifiez vos emails"})
-                })
-            }
-        })
+         User.findOne(req.body.email).then( (user) => {
+         if(!user){
+           logError("Mauvaise adresse mail lors du reset de mot de passe",req)
+           res.status(400).send({ message: "Le mail renseigné est incorrecte. Si votre mail est perdu, utilisez la fonction 'Mot de passe oublié'." })
+         } else {
+   
+           const token = jwt.sign(key, process.env.SECRET_TOKEN_ACCESS);
+           ResetPass= token;
+           let mailOptions = {
+             from:"no-reply@alumnis.simplon.com",
+             to: req.body.Email,
+             subject: "Réinitialisation de mot de passe",
+             html:
+             `Bonjour ${user.FirstName}, <br/>
+             <p>Veuillez trouver ci joint le lien afin de vous créer un nouveau mot de passe : <a href="http://localhost:3000/mail/reset/${token}">içi</a></p>
+             <p> à bientôt sur Alumnis</p>
+             <p> L'équipe d'ALUMNIS, Matieu, Quentin et Laura.</p>`
+           }
+           
+           user.save().then( result => {
+             transporter.sendMail(mailOptions, (err, info) => {
+               if(err){
+                 console.log(err);
+                 res.status(500).send({message: err});
+               } else {
+                 res.stauts(200).send({message: "Email envoyé"})
+               }
+             })
+             res.status(200).send({message: "Vérifier vos mails"})
+             
+           })
+           
+         }
+       })
+       
+     },
 
-        })
-    },
-    newPassword(req, res){
+    newPassword(req, res) {
         const newPassword = req.body.newPassword
-        const sentToken = req.body.reset
-        User.findOne({ResetPass:sentToken, expirePass:{$gt:Date.now()}})
-        .then(user => {
-            if(!user){
-                return res.status(422).json({error: "try again session expired"})
-            }
-            bcrypt.hash(newPassword,10).then(hashPassword => {
-                user.Password = hashPassword
-                user.ResetPass = undefined
-                user.ExpirePass = undefined
-                user.save().then((savedUser)=>{
-                    res.json({message:"Mot de passe modifié"})
+        const sentToken = req.params.id
+        User.findOne({ ResetPass: sentToken, expirePass: { $gt: Date.now() } })
+            .then(user => {
+                if (!user) {
+                    return res.status(422).send({ error: "try again session expired" })
+                }
+                bcrypt.hash(newPassword, 10).then(hashPassword => {
+                    user.Password = hashPassword
+                    user.ResetPass = undefined
+                    user.ExpirePass = undefined
+                    user.save().then((savedUser) => {
+                        res.json({ message: "Mot de passe modifié" })
+                    })
                 })
+            }).catch(err => {
+                res.status(400).send({ Erreur: err })
             })
-        }).catch(err => {
-            res.status(400).send({Erreur:err})
-        })
     }
 }

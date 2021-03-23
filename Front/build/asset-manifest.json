@@ -1,22 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.0bc35d33.chunk.css",
-    "main.js": "/static/js/main.d8376eaa.chunk.js",
-    "main.js.map": "/static/js/main.d8376eaa.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.dfad8435.js",
-    "runtime-main.js.map": "/static/js/runtime-main.dfad8435.js.map",
-    "static/css/2.494909d2.chunk.css": "/static/css/2.494909d2.chunk.css",
-    "static/js/2.28581384.chunk.js": "/static/js/2.28581384.chunk.js",
-    "static/js/2.28581384.chunk.js.map": "/static/js/2.28581384.chunk.js.map",
+    "main.css": "/static/css/main.66c510cb.chunk.css",
+    "main.js": "/static/js/main.42f342cd.chunk.js",
+    "main.js.map": "/static/js/main.42f342cd.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.8c9601b1.js",
+    "runtime-main.js.map": "/static/js/runtime-main.8c9601b1.js.map",
+    "static/js/2.f05bf08f.chunk.js": "/static/js/2.f05bf08f.chunk.js",
+    "static/js/2.f05bf08f.chunk.js.map": "/static/js/2.f05bf08f.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/2.494909d2.chunk.css.map": "/static/css/2.494909d2.chunk.css.map",
-    "static/css/main.0bc35d33.chunk.css.map": "/static/css/main.0bc35d33.chunk.css.map",
-    "static/js/2.28581384.chunk.js.LICENSE.txt": "/static/js/2.28581384.chunk.js.LICENSE.txt",
-    "static/media/avatar-s-10.jpg": "/static/media/avatar-s-10.79a4ca26.jpg",
-    "static/media/avatar-s-11.jpg": "/static/media/avatar-s-11.1d46cc62.jpg",
-    "static/media/avatar-s-20.jpg": "/static/media/avatar-s-20.40d668f5.jpg",
-    "static/media/avatar-s-5.jpg": "/static/media/avatar-s-5.301316d5.jpg",
-    "static/media/avatar-s-7.jpg": "/static/media/avatar-s-7.ba3f6823.jpg",
+    "static/css/main.66c510cb.chunk.css.map": "/static/css/main.66c510cb.chunk.css.map",
+    "static/js/2.f05bf08f.chunk.js.LICENSE.txt": "/static/js/2.f05bf08f.chunk.js.LICENSE.txt",
     "static/media/illu-acceuil.4722bdea.png": "/static/media/illu-acceuil.4722bdea.png",
     "static/media/illu-forgot.6edbe577.png": "/static/media/illu-forgot.6edbe577.png",
     "static/media/illu-forum.7792bdb7.png": "/static/media/illu-forum.7792bdb7.png",
@@ -28,6 +21,10 @@
     "static/css/2.494909d2.chunk.css",
     "static/js/2.28581384.chunk.js",
     "static/css/main.0bc35d33.chunk.css",
-    "static/js/main.d8376eaa.chunk.js"
+    "static/js/main.d8376eaa.chunk.js",
+    "static/js/runtime-main.8c9601b1.js",
+    "static/js/2.f05bf08f.chunk.js",
+    "static/css/main.66c510cb.chunk.css",
+    "static/js/main.42f342cd.chunk.js"
   ]
 }

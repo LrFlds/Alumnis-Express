@@ -38,7 +38,7 @@ const handleCancel = () => {
     <div className="row">
         <div className="container">
         <div className="col l7 m12 container-bienvenue">
-            <h1>BIENVENUE SUR <br /> <span>SIMPLONPLON</span></h1>
+            <h1>BIENVENUE SUR <br /> <span>ALUMNIS</span></h1>
             <div className="container-illu">
                 <img src={img} alt="" />
             </div>

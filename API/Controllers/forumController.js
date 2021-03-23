@@ -1,97 +1,327 @@
 const User = require('../Domain/Domain_services/Models/userModel');
 const Sujet = require('../Domain/Domain_services/Models/sujetModel');
 const Category = require('../Domain/Domain_services/Models/categoryModel');
+const Post = require('../Domain/Domain_services/Models/postModel');
+const { internalError, okResponse, loginError, adminError } = require('../Config/variables');
+
 
 module.exports = {
 
-    getAllCategories(req, res){
-        Category.find().then(result => {
-            res.send(result)
-        })
-    },
-    async getAllSujetByCategory(req,res){
-        let tableSujets = []
-        const category = await Category.findById(req.params.id)
-        for(const sujetId of category.Sujet){
-            const sujet = Sujet.findById(sujetId)
-            tableSujets.push(sujet)
+
+    // Categories
+    async getAllCategories(req, res) {
+        const categories = await Category.find();
+        const categoriesWithLastSubjectAndNumberOfPosts = [];
+        for (let categorie of categories) {
+            const subjects = await Sujet.find({ _id: { $in: categorie.Sujet } });
+            if (subjects.length != 0) {
+                const lastSubject = await subjects.reverse()[0].populate({ path: "Author", model: User, select: '-Password' }).execPopulate()
+                let numberOfPost = 0;
+                subjects.forEach(subject => { numberOfPost += subject.Post.length })
+                const finalCategorie = {
+                    categorie: categorie,
+                    lastSubject: lastSubject,
+                    numberOfPost: numberOfPost
+                }
+                categoriesWithLastSubjectAndNumberOfPosts.push(finalCategorie)
+            } else {
+                const finalCategorie = {
+                    categorie: categorie,
+                    lastSubject: {
+                        Title: "Aucun sujet dans cette catégorie",
+                        Date: "",
+                        Author: {
+                            Name: "",
+                            FirstName: "",
+                            Picture: ""
+                        },
+                    },
+                    numberOfPost: 0
+                }
+                categoriesWithLastSubjectAndNumberOfPosts.push(finalCategorie);
+            }
+
         }
-        res.send(tableSujets)
-        
+        res.send(categoriesWithLastSubjectAndNumberOfPosts)
     },
-    createCategory(req,res){
-        if(req.user.IsAdmin == true) {
-            const NewCategorie = new Category({
-                Title: req.body.Title, 
-                Sujet: req.body.Sujet,
-                Description: req.body.Description
-            })
-            NewCategorie.save((err, cate)=>{
-                if(err){
-                    res.send(err)
+
+    async getCategoryById(req, res) {
+        const category = await Category.findById(req.params.id);
+        if (category != null) {
+            const categoryWithSubject = await category.populate({ path: "Sujet", model: Sujet }).execPopulate();
+            for (let subject of categoryWithSubject.Sujet) {
+                await subject.populate({ path: "Author", model: User, select: "-Password" }).execPopulate();
+                const subjectWithPosts = await subject.populate({ path: "Post", model: Post }).execPopulate();
+                for (let post of subjectWithPosts.Post) {
+                    await post.populate({ path: "Author", model: User, select: "-Password" }).execPopulate();
+                }
+            }
+            res.status(200).send({ message: category })
+
+        } else {
+            res.status(400).send({ message: "Aucune catégorie trouvée" })
+        }
+    },
+    async getAllSujetByCategory(req, res) {
+        const category = await Category.findById(req.params.id);
+        const sujets = await Sujet.find({ _id: { $in: category.Sujet } });
+        if (sujets.length != 0) {
+            res.status(200).send({ message: sujets })
+        } else {
+            res.status(400).send({ message: "Pas de sujet" })
+        }
+    },
+    createCategory(req, res) {
+        if(req.user && req.user.IsAdmin){
+            const newCategory = new Category({
+            Title: req.body.Title,
+            Description: req.body.Description
+        })
+        newCategory.save((err, cate) => {
+            if (err) {
+                res.status(500).send({message:internalError});
+            } else {
+                res.status(201).send({message:okResponse});
+            }
+        })
+        }else{
+            res.status(403).send({message:adminError})
+        }
+
+
+    },
+    deleteCategory(req, res) {
+        if (req.user && req.user.IsAdmin) {
+            Category.findOne({ _id: req.params.id }).remove((err, cate) => {
+                if (err) {
+                    res.status(500).send({message:internalError});
                 } else {
-                    res.sendStatus(201)
+                    res.status(200).send({message:okResponse});
                 }
             })
         } else {
-            res.send("Vous n'avez pas les droits ! ah ah ah ")
+            res.status(403).send({ message: adminError });
         }
     },
-    deleteCategory(req,res){
-        if(req.user.IsAdmin != true) {
-            res.send("Vous n'avez pas les droits")
-        }else {
-            Category.findOne({_id: req.params.id}).remove((err, cate)=>{
-                if(err){
-                    res.send(err)
-                }else{
-                    res.sendStatus(200)
+    updtateCategory(req,res){
+        if(req.user && req.user.IsAdmin){
+            const entries = Object.keys(req.body);
+            let updates = {};
+            for(let i = 0;i<entries.length;i++){
+                const totalCaracter = Object.values(req.body)[i].replace(/\s/g, "").length;
+                if(totalCaracter>0){
+                    updates[entries[i]] = Object.values(req.body)[i]
                 }
-            })
+            }
+            if(Object.keys(updates).length != 0){
+                Category.updateOne({_id:req.params.id},{$set:updates},(err,ok)=>{
+                    if(err){
+                        res.status(500).send({message:internalError});
+                    }else{
+                        res.status(200).send({message:okResponse});
+                    }
+                })
+            }else{
+                res.status(400).send({message:"Aucune mise à jour à effectuer"})
+            }
+        }else{
+            res.status(403).send({message:adminError});
         }
     },
-    createSujet(req,res){
-        if(req.user != undefined){
+
+    //Sujets
+
+    async createSujet(req, res) {
+        if (req.user != undefined) {
+            const today = new Date().toLocaleString();
             const NewSujet = new Sujet({
-                TitleSujet: req.body.TitleSujet, 
-                Date: req.body.Date,
-                Author: req.body.user,
-                Post: req.body.Post
+                TitleSujet: req.body.TitleSujet,
+                Date: today,
+                Author: req.user
             })
-            NewSujet.save((err, sujet)=> {
-                if(err){
-                    res.send(err)
+            NewSujet.save(async (err, sujet) => {
+                if (err) {
+                    res.status(500).send({message:internalError});
                 } else {
-                    res.sendStatus(201)
+                    const category = await Category.findById(req.params.id);
+                    category.Sujet.push(NewSujet._id);
+                    category.save((err, category) => {
+                        if (err) {
+                            res.status(500).send({message:internalError});
+                        } else {
+                            res.status(201).send({message:"Sujet créé"});
+                        }
+                    })
                 }
             })
+        } else {
+            res.status(401).send({message:loginError});
         }
     },
-    deleteSujet(req,res){
-        if(req.user.IsAdmin != true) {
-            res.send("Vous n'avez pas les droits")
-        }else {
-            Sujet.findOne({_id: req.params.id}).remove((err, sujet)=>{
-                if(err){
-                    res.send(err)
-                }else{
-                    res.sendStatus(200)
+    async getSujetById(req, res) {
+        const sujet = await Sujet.findById(req.params.id);
+        if (sujet != null) {
+            sujet.populate({ path: "Post", model: Post }, (err, doc) => {
+                if (err) {
+                    res.status(500).send({ message: "Une erreur est survenue" })
+                } else {
+                    console.log(doc.Post)
+                    doc.populate({ path: "Author", model: User, select: '-Password' }, (err, doc2) => {
+                        if (err) {
+                            res.status(500).send({ message: "Une erreur est survenue" })
+                        } else {
+                            res.status(200).send({ message: doc2 })
+                        }
+                    })
+                }
+            });
+
+        } else {
+            res.status(400).send({ message: "Aucune catégorie trouvée" })
+        }
+    },
+
+    async deleteSujet(req, res) {
+        if (req.user) {
+            const sujet = await Sujet.findById(req.params.id);
+            if (sujet) {
+                sujet.remove((err, doc) => {
+                    if (err) {
+                        res.status(500).send({ message: "[removeSujet]" + internalError })
+                    } else {
+                        res.status(200).send({ message: okResponse })
+                    }
+                })
+
+            } else {
+                res.status(400).send({ message: "Aucun sujet trouvé" })
+            }
+        } else {
+            res.status(401).send({ message: loginError });
+        }
+
+    },
+    updtateSujet(req, res) {
+       Sujet.findById({ _id: req.params.id }).then(result => {
+            if (!result) {
+                res.send('Houston, we have a problem')
+            } else {
+                if (result.Author.toString() != req.user._id) {
+                    res.sendStatus(403)
+                } else {
+                    result.Content = req.body.Content;
+                    result.save((err, okPost) => {
+                        if (err) {
+                            res.status(500).send({ message: "Une erreur est survenue" });
+                        } else {
+                            res.status(200).send({message:okResponse})
+                        }
+                    })
+                }
+            }
+        })
+    },
+
+    //Post
+    async addPost(req, res) {
+        if (req.user) {
+            const today = new Date().toLocaleString();
+            const newPost = new Post({
+                SujetTitle: req.params.id,
+                Date: today,
+                Author: req.user, //utilisateur connecté
+                Content: req.body.Content
+            })
+            newPost.save(async (err, newPost) => {
+                if (err) {
+                    res.status(500).send({ message: "Une erreur est survenue" })
+                } else {
+                    const sujet = await Sujet.findById(req.params.id);
+                    sujet.Post.push(newPost._id);
+                    sujet.save((err, doc) => {
+                        if (err) {
+                            res.status(500).send({ message: "Une erreur est survenue" })
+                        } else {
+                            res.status(201).send({ message: "Post créé" })
+                        }
+                    })
                 }
             })
+        } else {
+            res.status(401).send({ message: "Vous devez être connecté" })
+        }
+
+    },
+    updtatePost(req, res) {
+        Post.findById({ _Id: req.body.Id }).then(result => {
+            if (!result) {
+                res.send('Houston, we have a problem')
+            } else {
+                if (result.Author.toString() != req.body.user._id) {
+                    res.status(403).send({ message: adminError })
+                } else {
+                    result.Content = req.body.Content;
+                    result.save((err, okPost) => {
+                        if (err) {
+                            res.status(500).send({ message: "Une erreur est survenue" })
+                        } else {
+                            res.status(200).send({ message: okResponse })
+                        }
+                    })
+                }
+            }
+        })
+    },
+
+    async deletePost(req, res) {
+        if (req.user) {
+            const post = await Post.findById(req.params.id);
+            if (req.user._id == post.Author.toString() || req.user.IsAdmin) {
+                    post.remove((err, doc) => {
+                        if (err) {
+                            res.status(500).send({ message: "Une erreur est survenue lors de la supression du post" })
+                        } else {
+                            res.status(200).send({ message: "Post supprimé avec succès." })
+                        }
+                    })
+            } else {
+                res.status(403).send({ message: "Seul l'auteur du post peut le supprimer" });
+            }
+        } else {
+            res.status(401).send({ message: "Vous devez être connecté" });
+        }
+    },
+
+    async getAllPost(req, res) {
+        if (req.user) {
+            const posts = await Post.find({});
+            if (posts.length != 0) {
+                res.status(200).send({ message: posts })
+            } else {
+                res.status(204).send({ message: "Aucun post à afficher" })
+            }
+        } else {
+            res.status(401).send({ message: "Vous devez être connecté" })
+        }
+    },
+    async getPostById(req, res) {
+        if (req.user) {
+            const post = await Post.findById(req.params.id);
+            if (post != null) {
+                post.populate({ path: "Author", model: User, select: '-Password' }, (err, doc) => {
+                    if (err) {
+                        res.status(500).send({ message: "Une erreur est survenue" })
+                    } else {
+                        res.status(200).send({ message: doc })
+                    }
+                })
+
+            } else {
+                res.status(400).send({ message: 'Aucun post trouvé' })
+            }
+        } else {
+            res.status(401).send({ message: "Vous devez être connecté" })
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

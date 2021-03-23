@@ -4,6 +4,7 @@ import UserProfil from '../components/profil';
 import Nav from '../js/props/navFunction';
 import filtres from '../js/modals/filtres';
 import { Link } from 'react-router-dom';
+import burger from '../js/modals/burger';
 import getAllUsers from '../js/fetchs/getAllUsers';
 import search from '../js/functions/search';
 import searchFilter from '../js/functions/searchFilters';
@@ -18,10 +19,11 @@ const UserList: FunctionComponent = () => {
   useEffect(() => {
     async function getUsers() {
       const users = await getAllUsers()
-      setUsers(users)
-      setTempsUsers(users)
       filtres();
-      searchFilter(setUsers, users);
+      searchFilter(setUsers, users.message);
+      setUsers(users.message)
+      setTempsUsers(users.message)
+      burger();
     }
 
     getUsers();

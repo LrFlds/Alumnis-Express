@@ -1,33 +1,38 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import User from '../models/user';
 import Categorie from '../models/categorie';
-import { Link } from 'react-router-dom';
-import img from '../imgs/illu-forum.png';
-import imgProf from '../imgs/laura.png';
-import Nav from '../js/props/navFunction';
+import Sujet from '../models/sujet';
+import { RouteComponentProps,Link } from 'react-router-dom';
 import burger from '../js/modals/burger';
-import UserProfil from '../components/profil';
-import CategoryCard from '../components/categorie'
+import close from '../js/modals/close';
+import Nav from '../js/props/navFunction';
 import getConnectedUser from '../js/fetchs/getConnectedUser';
-import getAllCategories from '../js/fetchs/getAllCategories';
+import getCategoryByID from '../js/fetchs/getCategorieByID';
+import SujetCard from '../components/sujet';
 
+type Params = { _id: string };
 
-const UserList: FunctionComponent = () => {
+const SujetsForum: FunctionComponent<RouteComponentProps<Params>> = ({ match }) => {
     const [users, setUser] = useState<User[]>([]);
-    const [categories, setCategories] = useState<Categorie[]>([]);
+    const [sujets,setSujets] = useState<Sujet[]>([]);
+    const [category,setCategory] = useState<Categorie|undefined>();
     useEffect(() => {
-
         async function getUser() {
             const user = await getConnectedUser()
-            setUser(user);
+            setUser(user)
+        }
+        async function getSujetByCategoryId(){
+            const thePath = window.location.href;
+            const lastItem = thePath.substring(thePath.lastIndexOf('/') + 1)
+            const categorie = await getCategoryByID(lastItem);
+            setCategory(categorie.message);
+            setSujets(categorie.message.Sujet);
         }
         getUser();
-        async function getCategories() {
-            const categories = await getAllCategories()
-            console.log(categories)
-            setCategories(categories);
-        };
-        getCategories();
+        // close();
+        // burger();
+
+        getSujetByCategoryId();
     }, []);
 
     return (
@@ -35,7 +40,7 @@ const UserList: FunctionComponent = () => {
             <Nav />
 
             <div id="test2" className="contener-global">
-                <div className="contener-main forum">
+                <div className="contener-main">
                     <div className="row contener-nav">
                         <div className="col  end">
                             <Link to="/profil" className="panneau">Panneau d'aministration</Link>
@@ -47,7 +52,7 @@ const UserList: FunctionComponent = () => {
                     <div className="contener-carte">
                         <div className="row">
                             <h4>Bienvenue sur le <b>forum</b></h4>
-                            <img className="illuForum" src={img} alt="" />
+                            <img className="illuForum" src="imgs/illu-forum.png" alt="" />
                             <div className="carou">
                                 <h1>News</h1>
                                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quaerat suscipit aperiam </p>
@@ -63,13 +68,22 @@ const UserList: FunctionComponent = () => {
                                 <a href="">voir mes messages</a>
                             </div>
                         </div>
+                        <div className="row">
+                            <div className="ariane">
+                                <Link to="/forum" > <p>Accueil du forum</p> </Link>
+                                <h1>{category? category.Title : "Le titre du topic"}</h1>
+                            </div>
+                            <div className="contener-post">
+                            {sujets.length >0 ? sujets.map((sujet,index) =>(
+                                   <SujetCard sujet={sujet} index={index}/>
+                               )):<h1>Pas de sujet dans cette catégorie</h1>}
+                            </div>
 
-                        {categories.map((categorie, index) => (
+                        </div>
 
-                            <CategoryCard key={categorie._id} categorie={categorie} index={index} />
-                        ))
 
-                        }
+
+
 
                     </div>
                 </div>
@@ -78,4 +92,4 @@ const UserList: FunctionComponent = () => {
     );
 }
 
-export default UserList;
+export default SujetsForum;
