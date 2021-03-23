@@ -7,12 +7,12 @@ import burger from '../js/modals/burger';
 import close from '../js/modals/close';
 import Nav from '../js/props/navFunction';
 import getConnectedUser from '../js/fetchs/getConnectedUser';
-import getCategoryByID from '../js/fetchs/getCategorieSubject';
+import getCategoryByID from '../js/fetchs/getCategorieByID';
 import SujetCard from '../components/sujet';
 
 type Params = { _id: string };
 
-const UserList: FunctionComponent<RouteComponentProps<Params>> = ({ match }) => {
+const SujetsForum: FunctionComponent<RouteComponentProps<Params>> = ({ match }) => {
     const [users, setUser] = useState<User[]>([]);
     const [sujets,setSujets] = useState<Sujet[]>([]);
     const [category,setCategory] = useState<Categorie|undefined>();
@@ -92,4 +92,4 @@ const UserList: FunctionComponent<RouteComponentProps<Params>> = ({ match }) => 
     );
 }
 
-export default UserList;
+export default SujetsForum;

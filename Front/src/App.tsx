@@ -9,7 +9,7 @@ import forum from './pages/forum';
 import Login from './pages/Login';
 import forgot from './pages/forgot';
 import redirect from './pages/redirect';
-import postForum from './pages/postForum';
+import SujetsForum from './pages/sujetsForum';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import './css/styles.css';
 import './css/reset.css';
@@ -30,7 +30,7 @@ return (
       <Route exact path="/techno" component={techno} />
       <Route exact path="/formation" component={formation} />
       <Route exact path="/forum" component={forum} />
-      <Route exact path="/postForum/:id" component={postForum} />
+      <Route exact path="/sujetForum/:id" component={SujetsForum} />
       <Route exact path="/forgot" component={forgot} />
       <Route exact path="/redirect" component={redirect} />
     </Switch>
