@@ -981,7 +981,7 @@ footer {
             border: solid 1px #ce0033;
             padding: 10px 20px;
             font-weight: 500;
-            font-size:16px;    
+            font-size:16px;
             left: 5%;
             }
 .forum{
@@ -1090,7 +1090,7 @@ footer {
             padding-bottom: 10px;
             padding-right: 20px;
             .tech {
-                   
+
     border: solid 1px #c8c8c8;
     padding: 0px;
     width: 80%;
@@ -1441,7 +1441,7 @@ footer {
                 h2 {
                     padding-left: 20px;
                 }
-               
+
                 .contener-picture {
 
                     position: relative;
@@ -1985,9 +1985,9 @@ justify-content: space-between;
         transform: translate(-50%,-50%);
         left: 50%;
         top: 50%;
-       
+
     }
-   
+
 }
 
 .contener-textes{
@@ -2009,7 +2009,7 @@ justify-content: space-between;
 .contener-ecriture{
     width: 80%;
     p{
-     
+
     }
     h5{
         text-align: right;
@@ -2020,7 +2020,7 @@ justify-content: space-between;
     height: 200px;
     position: relative;
     height: auto !important;
-   
+
    #text{
         height: 150px !important;
         padding: 0px !important;
@@ -2040,7 +2040,7 @@ justify-content: space-between;
         bottom: 50%;
         background-color:#ce0033;
     }
-    
+
 }
 .chips .input{width: 100% !important;}
 .ant-avatar > img{
@@ -2155,13 +2155,13 @@ justify-content: space-between;
     padding: 1rem 2rem;
     background: white;
     transition: all .75s cubic-bezier(.19,1,.22,1);
-    
+
     &.hide {
       opacity: 0;
       bottom: -100%;
     }
   }
-  
+
   .cookie-button {
     display: inline-block;
     cursor: pointer;
@@ -2172,7 +2172,7 @@ justify-content: space-between;
     letter-spacing: 1px;
     background-color: #ce0033;
   }
-  
+
 @media screen and (max-width: 1020px) {
     .acceuil .row .container .container-bienvenue h1{
         font-size: 40px !important;
