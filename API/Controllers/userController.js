@@ -85,7 +85,7 @@ module.exports = {
                             <p>Nous comptons sur vous pour faire vivre ce site, mais aussi pour être cordiaux.</p>
                             <p>Des modérateurs seront à votre disposition en cas de problèmes.</p>
                             <p> à bientôt sur Alumnis</p>
-                            <p> L'équipe d'ALUMNIS, Matieu, Quentin et Laura.</p>`
+                            <p> L'équipe d'ALUMNIS, Mathieu, Quentin et Laura.</p>`
                     })
                         res.status(200).send({message: "L'utilisateur a été créé "})
                     }
