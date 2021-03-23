@@ -53,7 +53,7 @@ body {
     width: 100%;
     display: block;
     font-family: 'Roboto', sans-serif;
-    
+
 }
 
 img,
@@ -105,7 +105,7 @@ a {
     margin: 16px;
     background: rgba(255, 255, 255, 0.3);
   }
-  
+
   .site-layout .site-layout-background {
     background: #fff;
   }
@@ -486,7 +486,7 @@ li {
     display: block;
     position: absolute;
     right: 30px !important;
-    height: 630px;
+    height: 400px;
     top: -1000px;
     z-index: 999;
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .30), inset 0 -1px 0 0 #dadce0;
@@ -560,6 +560,22 @@ li {
                     padding-bottom: 10px;
                 }
             }
+        }
+    }
+    button{
+        margin: 0 auto;
+        color: white !important;
+        background-color: rgb(194, 1, 49) ;
+        transform: translate(43%, 50%);
+        width: 200px;
+        height: 50px;
+        text-align: center;
+        border-radius: 100px;
+        border: solid 1px white;
+        transition: all 0.5s;
+        cursor: pointer;
+        &:hover{
+            background-color:rgb(238, 2, 61);
         }
     }
 }
@@ -1427,7 +1443,7 @@ footer {
                 }
                
                 .contener-picture {
-                  
+
                     position: relative;
                     display: flex;
 
@@ -1613,7 +1629,7 @@ footer {
                     overflow: hidden;
                     position: relative;
                     padding-right: 10px;
-                    
+
                     }
                 }
             }
@@ -1673,7 +1689,7 @@ input.valid[type=text]:not(.browser-default){
 	justify-content: center;
 	align-items: center;
     position: absolute;
-    
+
 
 
 	.searchbox {
@@ -1684,7 +1700,7 @@ input.valid[type=text]:not(.browser-default){
 		max-width: 30px;
 		transition: 0.4s linear;
         left: -100px;
-	
+
 
 		.searchbox__input {
 			display: block;
@@ -1725,8 +1741,8 @@ input.valid[type=text]:not(.browser-default){
 		&:focus-within {
 			max-width: 300px;
             transition: all 0.5s;
-          
-           
+
+
 			.searchbox__input {
 				background-color: #FFF;
 				padding-right: 50px;
@@ -1734,8 +1750,8 @@ input.valid[type=text]:not(.browser-default){
                 box-shadow:none;
                 border-radius: 0px;
                 transform: translate(25%);
-            
-               
+
+
 			}
 
 			.searchbox__icon {
@@ -1939,7 +1955,7 @@ justify-content: space-between;
         left: 80px;
         color:white;
     }
-   
+
 }
 
 

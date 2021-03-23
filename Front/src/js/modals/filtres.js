@@ -1,6 +1,6 @@
 const filtres = () => {
-  
-        
+
+
     const M = window.M;
     const filtre = document.querySelector('.filtres');
     filtre.addEventListener('click', open);
@@ -17,11 +17,14 @@ const filtres = () => {
 
     const tags = document.querySelectorAll(".chips-autocomplete");
 M.Chips.init(tags,{
- placeholder:"Votre région ...",
+ placeholder:"Votre Fabrique ...",
  autocompleteOptions:{
      data:{
      'Calais': null,
      'Roubaix': null,
+     'Boulogne-sur-Mer': null,
+     'Béthune':null,
+     'Grenoble':null
     },
     limit:Infinity,
     minlength: 2
@@ -33,7 +36,13 @@ M.Chips.init(tagAuto,{
  autocompleteOptions:{
      data:{
      'Node': null,
-     'React': null
+     'React': null,
+     'Css': null,
+     'Java': null,
+     'Html': null,
+     'JavaScript': null,
+     'PHP':null,
+     'C#':null
     },
     limit:Infinity,
     minlength: 2
