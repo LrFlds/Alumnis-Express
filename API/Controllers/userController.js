@@ -24,10 +24,18 @@ const transporter = require('../Config/resetPassword');
 
 
 module.exports = {
-    getAllUsers(req, res) {
-        User.find().then(result => {
-            res.send(result)
-        })
+    async getAllUsers(req, res) {
+        if(req.user){
+            const user = await User.find({});
+            if(user){
+                const randomUsers  = user.sort((a,b)=>0.5 - Math.random());
+                res.status(200).send({message:randomUsers});
+            }else{
+                res.status(400).send({message:"Aucun utilisateur trouvé"});
+            }
+        }else{
+            res.status(401).send({message:loginError});
+        }
     },
     getUser(req, res) {
 
@@ -67,7 +75,7 @@ module.exports = {
                     IsAdmin: req.body.IsAdmin,
                     ResetPass: reset,
                     ExpirePass: Date.now() + 3600000
-                }) 
+                })
                 newUser.save((err, user) => {
                     if (err) {
                         res.status(400).send({ Erreur: err })

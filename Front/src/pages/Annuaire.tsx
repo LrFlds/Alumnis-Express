@@ -17,8 +17,8 @@ const UserList: FunctionComponent = () => {
   useEffect(() => {
     async function getUsers() {
       const users = await getAllUsers()
-      setUsers(users)
-      setTempsUsers(users)
+      setUsers(users.message)
+      setTempsUsers(users.message)
       burger();
       close();
     }
