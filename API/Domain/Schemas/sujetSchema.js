@@ -5,10 +5,10 @@ const postModel = require('../Domain_services/Models/postModel')
 
 
 const SujetSchema = new Schema ({
-    TitleSujet: { type: String, required: true }, 
-    Date: { type: Date, required: true},
+    TitleSujet: { type: String, required: true },
+    Date: { type: String, required: true},
     Author: { type: Schema.Types.ObjectId,ref: 'UserModel', required: true},
-    Post: [{ type: Schema.Types.ObjectId,ref: 'PostModel', required: true}]
-}); 
+    Post: [{ type: Schema.Types.ObjectId,ref: 'PostModel'}]
+});
 
 module.exports = SujetSchema;

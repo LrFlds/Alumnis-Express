@@ -1,6 +1,4 @@
 import React, { FunctionComponent } from 'react';
-import img from '../imgs/laura.png';
-import User from '../models/user';
 import {Link} from 'react-router-dom';
 
 type Props = {

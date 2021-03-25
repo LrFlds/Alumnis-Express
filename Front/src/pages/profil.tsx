@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState, useEffect } from 'react';
 import User from '../models/user';
 import { Link } from 'react-router-dom';
 import UserProfil from '../components/profil';
-import NavProf from '../js/props/navProfFunction';
+import Nav from '../js/props/navFunction';
 import back from '../js/functions/back'
 import getConnectedUser from '../js/fetchs/getConnectedUser';
 const UserList: FunctionComponent = () => {
@@ -18,7 +18,7 @@ const UserList: FunctionComponent = () => {
 
   return (
     <div>
-      <NavProf />
+      <Nav />
       { user ? (
 
         <div id="test2" className="contener-global">
@@ -100,6 +100,35 @@ const UserList: FunctionComponent = () => {
                 </form>
 
 
+              </div>
+              <div className="row">
+              <div className="col s5">
+              <h2 className="form">Formation suivies</h2>
+                    <div className="contener-picture">
+                      {user.TypeFormation.map(formation=>(
+                          <div className='formation'>
+                        <p>{formation}</p>
+                      </div>
+                      )
+
+                      )}
+                        </div>
+                    </div>
+            
+                <div className="col s6">
+              <h2>Technologies</h2>
+                                <div className="contener-picture">
+                                    <div className="row">
+                                      {user.Techno.map(techno=>(
+                                         <div className="col">
+                                    <div className='tech'>
+                                        <p>{techno}</p>
+                                    </div>
+                                    </div>
+                                       ) )}
+                                    </div>
+                                </div>
+                                </div>
               </div>
               <div className="row">
                 <h2>Description</h2>

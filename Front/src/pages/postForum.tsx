@@ -2,7 +2,6 @@ import React, { FunctionComponent, useState, useEffect } from 'react';
 import User from '../models/user';
 import { Link } from 'react-router-dom';
 import burger from '../js/modals/burger';
-import close from '../js/modals/close';
 import Nav from '../js/props/navFunction';
 import UserProfil from '../components/profil';
 import getConnectedUser from '../js/fetchs/getConnectedUser';
@@ -15,9 +14,6 @@ const UserList: FunctionComponent = () => {
             const user = await getConnectedUser()
             setUser(user)
         }
-        getUser();
-        close();
-        burger();
 
     }, []);
 
@@ -60,9 +56,34 @@ const UserList: FunctionComponent = () => {
                                 <h1>Titre du topic</h1>
                             </div>
                             <div className="contener-post">
+                                <Link to="/post"><div className="contenue-post">
+                                    <div className="contener-titre">
+                                        <h1>Martine à glissé sur une banane</h1>
+                                    </div>
+                                    <div className="contener-stats">
+                                        <div className="chiffre">
+                                            <p> <b>10</b> Réponses</p>
+                                            <p><b>100</b> Vues</p>
+                                        </div>
+                                        <div className="createur">
+                                            <p>Crée par <b>Speudo</b> </p>
+                                        </div>
+                                    </div>
+                                    <div className="contener-stats">
+                                        <div className="datePost">
+                                            <p>Aujourd'hui à 10h15</p>
+
+                                        </div>
+                                        <div className="lastRep">
+                                            <p>Posté par <b>Speudo</b> </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                </Link>
                                 <div className="contenue-post">
                                     <div className="contener-titre">
-                                        <h1>Martine à glisser sur une banane</h1>
+                                        <h1>Martine à glissé sur une banane</h1>
                                     </div>
                                     <div className="contener-stats">
                                         <div className="chiffre">
@@ -86,7 +107,7 @@ const UserList: FunctionComponent = () => {
                                 </div>
                                 <div className="contenue-post">
                                     <div className="contener-titre">
-                                        <h1>Martine à glisser sur une banane</h1>
+                                        <h1>Martine à glissé sur une banane</h1>
                                     </div>
                                     <div className="contener-stats">
                                         <div className="chiffre">
@@ -110,7 +131,7 @@ const UserList: FunctionComponent = () => {
                                 </div>
                                 <div className="contenue-post">
                                     <div className="contener-titre">
-                                        <h1>Martine à glisser sur une banane</h1>
+                                        <h1>Martine à glissé sur une banane</h1>
                                     </div>
                                     <div className="contener-stats">
                                         <div className="chiffre">
@@ -134,7 +155,7 @@ const UserList: FunctionComponent = () => {
                                 </div>
                                 <div className="contenue-post">
                                     <div className="contener-titre">
-                                        <h1>Martine à glisser sur une banane</h1>
+                                        <h1>Martine à glissé sur une banane</h1>
                                     </div>
                                     <div className="contener-stats">
                                         <div className="chiffre">
@@ -158,7 +179,7 @@ const UserList: FunctionComponent = () => {
                                 </div>
                                 <div className="contenue-post">
                                     <div className="contener-titre">
-                                        <h1>Martine à glisser sur une banane</h1>
+                                        <h1>Martine à glissé sur une banane</h1>
                                     </div>
                                     <div className="contener-stats">
                                         <div className="chiffre">
@@ -182,7 +203,7 @@ const UserList: FunctionComponent = () => {
                                 </div>
                                 <div className="contenue-post">
                                     <div className="contener-titre">
-                                        <h1>Martine à glisser sur une banane</h1>
+                                        <h1>Martine à glissé sur une banane</h1>
                                     </div>
                                     <div className="contener-stats">
                                         <div className="chiffre">
@@ -206,31 +227,7 @@ const UserList: FunctionComponent = () => {
                                 </div>
                                 <div className="contenue-post">
                                     <div className="contener-titre">
-                                        <h1>Martine à glisser sur une banane</h1>
-                                    </div>
-                                    <div className="contener-stats">
-                                        <div className="chiffre">
-                                            <p> <b>10</b> Réponses</p>
-                                            <p><b>100</b> Vues</p>
-                                        </div>
-                                        <div className="createur">
-                                            <p>Crée par <b>Speudo</b> </p>
-                                        </div>
-                                    </div>
-                                    <div className="contener-stats">
-                                        <div className="datePost">
-                                            <p>Aujourd'hui à 10h15</p>
-
-                                        </div>
-                                        <div className="lastRep">
-                                            <p>Posté par <b>Speudo</b> </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div className="contenue-post">
-                                    <div className="contener-titre">
-                                        <h1>Martine à glisser sur une banane</h1>
+                                        <h1>Martine à glissé sur une banane</h1>
                                     </div>
                                     <div className="contener-stats">
                                         <div className="chiffre">

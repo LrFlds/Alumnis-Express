@@ -1,27 +1,33 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import User from '../models/user';
+import Categorie from '../models/categorie';
 import { Link } from 'react-router-dom';
 import img from '../imgs/illu-forum.png';
 import imgProf from '../imgs/laura.png';
 import Nav from '../js/props/navFunction';
 import burger from '../js/modals/burger';
-import close from '../js/modals/close';
 import UserProfil from '../components/profil';
+import CategoryCard from '../components/categorie'
 import getConnectedUser from '../js/fetchs/getConnectedUser';
+import getAllCategories from '../js/fetchs/getAllCategories';
+
 
 const UserList: FunctionComponent = () => {
     const [users, setUser] = useState<User[]>([]);
-
+    const [categories, setCategories] = useState<Categorie[]>([]);
     useEffect(() => {
 
         async function getUser() {
             const user = await getConnectedUser()
             setUser(user);
-            close();
-            burger();
         }
         getUser();
-
+        async function getCategories() {
+            const categories = await getAllCategories()
+            console.log(categories)
+            setCategories(categories);
+        };
+        getCategories();
     }, []);
 
     return (
@@ -29,7 +35,7 @@ const UserList: FunctionComponent = () => {
             <Nav />
 
             <div id="test2" className="contener-global">
-                <div className="contener-main">
+                <div className="contener-main forum">
                     <div className="row contener-nav">
                         <div className="col  end">
                             <Link to="/profil" className="panneau">Panneau d'aministration</Link>
@@ -57,117 +63,13 @@ const UserList: FunctionComponent = () => {
                                 <a href="">voir mes messages</a>
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="ennoncer">
-                                <h1>01</h1>
-                                <p>Annonces &amp; infos</p>
-                            </div>
-                            <Link to="/postForum" className="contenue-annonce">
-                                <div className="contener-titre">
-                                    <h1>TITRE</h1>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid quisquam maiores sint, quasi facilis exercitationem voluptatibus, assumenda quis culpa, dignissimos necessitatibus accusantium earum debitis tempora ex officiis minima voluptatum? Iste!</p>
-                                    <div className="contener-lien">
-                                        <a href="">sous forum</a>
-                                        <a href="">sous forum</a>
-                                    </div>
-                                </div>
-                                <div className="contener-number">
-                                    <div className="sujet">
-                                        <p>4</p>
-                                        <span>sujets</span>
-                                    </div>
-                                    <div className="post">
-                                        <p>4</p>
-                                        <span>post</span>
-                                    </div>
-                                </div>
-                                <div className="contener-info-post">
-                                    <h1>titre du sujet</h1>
-                                    <p>01/12/2020 8h30</p>
-                                    <div className="contener-image-info">
-                                        <img src={imgProf} alt="" />
-                                    </div>
-                                    <p>par <b>Pseudo</b></p>
-                                </div>
-                            </Link>
 
-                        </div>
-                        <div className="row">
-                            <div className="ennoncer">
-                                <h1>02</h1>
-                                <p>Technologies</p>
-                            </div>
-                            <div className="contenue-annonce">
-                                <div className="contener-titre">
-                                    <h1>TITRE</h1>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid quisquam maiores sint, quasi facilis exercitationem voluptatibus, assumenda quis culpa, dignissimos necessitatibus accusantium earum debitis tempora ex officiis minima voluptatum? Iste!</p>
-                                    <div className="contener-lien">
-                                        <a href="">sous forum</a>
-                                        <a href="">sous forum</a>
-                                    </div>
-                                </div>
-                                <div className="contener-number">
-                                    <div className="sujet">
-                                        <p>4</p>
-                                        <span>sujets</span>
-                                    </div>
-                                    <div className="post">
-                                        <p>4</p>
-                                        <span>post</span>
-                                    </div>
-                                </div>
-                                <div className="contener-info-post">
-                                    <h1>titre du sujet</h1>
-                                    <p>01/12/2020 8h30</p>
-                                    <div className="contener-image-info">
-                                        <img src={imgProf} alt="" />
-                                    </div>
-                                    <p>par <b>Pseudo</b></p>
-                                </div>
-                            </div>
+                        {categories.map((categorie, index) => (
 
-                        </div>
-                        <div className="row">
-                            <div className="ennoncer">
-                                <h1>03</h1>
-                                <p>Recherche d'emploi</p>
-                            </div>
-                            <div className="contenue-annonce">
-                                <div className="contener-titre">
-                                    <h1>TITRE</h1>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid quisquam maiores sint, quasi facilis exercitationem voluptatibus, assumenda quis culpa, dignissimos necessitatibus accusantium earum debitis tempora ex officiis minima voluptatum? Iste!</p>
-                                    <div className="contener-lien">
-                                        <a href="">sous forum</a>
-                                        <a href="">sous forum</a>
-                                    </div>
-                                </div>
-                                <div className="contener-number">
-                                    <div className="sujet">
-                                        <p>4</p>
-                                        <span>sujets</span>
-                                    </div>
-                                    <div className="post">
-                                        <p>4</p>
-                                        <span>post</span>
-                                    </div>
-                                </div>
-                                <div className="contener-info-post">
-                                    <h1>titre du sujet</h1>
-                                    <p>01/12/2020 8h30</p>
-                                    <div className="contener-image-info">
-                                        <img src={imgProf} alt="" />
-                                    </div>
-                                    <p>par <b>Pseudo</b></p>
-                                </div>
-                            </div>
+                            <CategoryCard key={categorie._id} categorie={categorie} index={index} />
+                        ))
 
-                        </div>
-
-
-
-
-
-
+                        }
 
                     </div>
                 </div>
