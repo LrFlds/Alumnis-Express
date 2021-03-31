@@ -4,7 +4,8 @@ import { Dbconnexion } from './../Data/dbConnexion';
 
 
 export class CRUD{
-    private Dbconnexion = new Dbconnexion();
+    protected instance = Dbconnexion.getInstance();
+    protected connection = this.instance.getConnexion();
     protected interFace;
     protected model;
 

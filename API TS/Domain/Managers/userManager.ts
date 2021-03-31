@@ -1,5 +1,5 @@
 import { extendedRequest } from './../../Interfaces/extendedRequest';
-import { UserRepository } from './../Repositories/user';
+import { UserRepository } from '../Repositories/userRepository';
 import {Response} from 'express';
 
 

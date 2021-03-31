@@ -7,18 +7,21 @@ export class Dbconnexion {
 
     private dotenvConfig = dotenv.config();
     private expandDotenv = dotenvExpand(this.dotenvConfig);
+    private static connectionInstance: Dbconnexion;
 
-    constructor(){
+    private constructor() {
         this.getConnexion();
     }
 
-    public getConnexion = () => {
-        mongoose.connect(`${process.env.CONNECTION_STRING}`, { useNewUrlParser: true, useUnifiedTopology: true });
-        mongoose.connection.once('open', () => {
-            console.log('Connection Database okay');
-        })
-            .on('error', (error) => {
-                console.log('Connection Failed' + error);
-            });
+    public static getInstance(): Dbconnexion {
+        if (!Dbconnexion.connectionInstance) {
+            Dbconnexion.connectionInstance = new Dbconnexion();
+            console.log("Je suis unique")
+        }
+        return Dbconnexion.connectionInstance;
+    }
+    public getConnexion = async () => {
+        let promise = await mongoose.connect(`${process.env.CONNECTION_STRING}`, { useNewUrlParser: true, useUnifiedTopology: true });
+        return promise;
     }
 }
